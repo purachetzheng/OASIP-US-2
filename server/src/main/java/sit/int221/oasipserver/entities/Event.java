@@ -31,7 +31,7 @@ public class Event {
     @Column(name = "eventStartTime", nullable = false)
     private Instant eventStartTime;
 
-    @Column(name = "eventNotes", nullable = false, length = 500)
+    @Column(name = "eventNotes",  length = 500)
     private String eventNotes;
 
 }

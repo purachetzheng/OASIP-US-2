@@ -9,6 +9,7 @@ import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.repo.EventRepository;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -31,5 +32,8 @@ public class EventService {
         return modelMapper.map(event, EventDto.class);
     }
 
-
+    public Event create(EventDto newEvent){
+        Event event = modelMapper.map(newEvent, Event.class);
+        return repository.saveAndFlush(event);
+    }
 }

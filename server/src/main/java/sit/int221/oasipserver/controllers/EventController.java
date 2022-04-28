@@ -1,13 +1,13 @@
 package sit.int221.oasipserver.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.repo.EventRepository;
+import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.services.EventService;
 
 import java.util.List;
@@ -26,5 +26,10 @@ public class EventController {
     public EventDto getEventById(@PathVariable Integer id){
         return eventService.getById(id);
     }
+    @PostMapping("")
+    public Event createEvent(@RequestBody EventDto newEvnet){
+        return eventService.create(newEvnet);
+    }
+
 
 }
