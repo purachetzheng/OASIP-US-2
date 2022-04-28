@@ -1,95 +1,32 @@
-<script setup>
-import { ref, onBeforeMount } from 'vue'
-import { zFetch } from './zFetch'
-import dayjs from 'dayjs'
-let now = dayjs();
-const events = ref([{
-    "id": 1,
-    "bookingName": "Somchai Jaidee (OR-7)",
-    "bookingEmail": "somchai.jai@mail.kmutt.ac.th",
-    "eventCategoryId": "DevOps/Infra Clinic",
-    "eventDuration": 30,
-    "eventStartTime": "2022-05-23T13:30:00Z",
-    "eventNotes": null
-},
-{
-    "id": 2,
-    "bookingName": "Somsri Rakdee (SJ-3)",
-    "bookingEmail": "somsri.rak@mail.kmutt.ac.th",
-    "eventCategoryId": "Project Management Clinic",
-    "eventDuration": 30,
-    "eventStartTime": "2022-04-27T09:30:00Z",
-    "eventNotes": "``"
-},
-{
-    "id": 3,
-    "bookingName": "   TT-4",
-    "bookingEmail": "Test3@3",
-    "eventCategoryId": "Database Clinic",
-    "eventDuration": 15,
-    "eventStartTime": "2022-01-01T16:30:00Z",
-    "eventNotes": null
-}])
-onBeforeMount(async () => {
-    events.value = await zFetch.get('/api/events')
-})
-const test = () => {
-    console.log('test');
-}
-let colorSet = '2'
-</script>
+<script setup></script>
 
 <template>
-    <!-- <div>{{events}}</div> -->
-    <!-- dark:bg-gray-900 -->
     <div class="flex h-screen bg-gray-50">
         <div class="flex flex-col flex-1 w-full">
-            <!-- Title -->
-            <header class="bg-teal-300 px-6 py-2">This is Nav</header>
-            <main class="h-full overflow-y-auto px-6 pb-4">
-                <h2 class="my-4 text-2xl font-semibold text-gray-700">OPSIP</h2>
-                <div class="w-full overflow-hidden rounded-lg shadow-lg">
-                    <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                                <!-- dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800 -->
-                                <tr class="text-tr-head border-b bg-teal-300">
-                                    <th class="px-4 py-3">Booking Name</th>
-                                    <th class="px-4 py-3">Category Name</th>
-                                    <th class="px-4 py-3">Date</th>
-                                    <th class="px-4 py-3">Start Time</th>
-                                    <th class="px-4 py-3">Duration</th>
-                                </tr>
-                            </thead>
-                            <!-- dark:divide-gray-700 dark:bg-gray-800 -->
-                            <tbody class="bg-white divide-y">
-                                <!-- dark:text-gray-400 -->
-                                <tr class="text-gray-700 hover:bg-gray-100 cursor-pointer" v-for="event in events"
-                                    v-show="events.length > 0" @click="test">
-                                    <td class="px-4 py-3 text-sm">{{ event.bookingName }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ event.eventCategoryId }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ dayjs(event.eventStartTime).format("D MMM YYYY") }}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <div class="flex flex-col">
-                                            <span>{{ dayjs(event.eventStartTime).format("HH:mm:ss") }}</span>
-                                            <!-- <span>{{event.eventStartTime}}</span> -->
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">{{ event.eventDuration }}</td>
-                                </tr>
-                                <tr v-show="events.length === 0">
-                                    <td colspan="5" class="px-4 py-3 text-center">No Scheduled Events</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
+            <header class="bg-teal-300 px-6 py-2">
+                <router-link :to="{ name: 'Home' }">Home</router-link>
+            </header>
+            <router-view></router-view>
         </div>
+        
     </div>
-
+    <!-- <div class="flex flex-col flex-wrap min-h-screen">
+        <nav
+            class="min-w-full bg-gray-800 flex flex-col md:flex-row items-center md:justify-between px-6 py-4 border-b border-b-gray-60 shadow-sm max-w-screen-2xl mx-auto">
+            <div class="rounded-lg px-3 py-2 text-gray-400 font-medium hover:text-white">
+                <router-link :to="{ name: 'Home' }">Home</router-link>
+            </div>
+        </nav>
+        <div class="flex flex-1 flex-col flex-wrap min-w-full">
+            <div class="flex flex-1 bg-white">
+                <router-view></router-view>
+            </div>
+        </div>
+    </div> -->
 </template>
 
 <style>
+.router-link-active {
+    color: white;
+}
 </style>
