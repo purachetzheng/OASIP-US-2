@@ -1,10 +1,15 @@
-<script setup></script>
+<script setup>
+
+</script>
 
 <template>
     <div class="flex h-screen bg-gray-50">
         <div class="flex flex-col flex-1 w-full">
-            <header class="bg-teal-300 px-6 py-2">
-                <router-link :to="{ name: 'Home' }">Home</router-link>
+            <header class="bg-teal-300 px-6 py-2 flex space-x-6">
+                <div>
+                    <router-link :to="{ name: 'Home' }">Home</router-link>
+                </div>
+                
             </header>
             <router-view></router-view>
         </div>
