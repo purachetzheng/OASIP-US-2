@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 @Setter @Getter
 @Entity
-@Table(name = "EventCategories")
+@Table(name = "eventcategories")
 public class Eventcategory {
     @Id
     @Column(name = "eventCategoryName", nullable = false, length = 100)
