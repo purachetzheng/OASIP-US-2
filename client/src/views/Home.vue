@@ -113,7 +113,7 @@ const getTime =(dateTime)=> dayjs(dateTime).format('HH:mm:ss')
         </div> -->
 
         <!-- show detail when mouse over -->
-        <!-- <div id="cursor" class="m-6 p-4 bg-teal-50 rounded-xl max-w-4xl absolute pointer-events-none" v-if="mouseOnRow !== null"
+        <div id="cursor" class="m-6 p-4 bg-teal-50 rounded-xl max-w-4xl absolute pointer-events-none" v-if="mouseOnRow !== null"
             :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
             <span><b>Booking Name:</b> {{ events[mouseOnRow].bookingName }}</span><br>
             <span><b>Booking Email:</b> {{ events[mouseOnRow].bookingEmail}}</span><br>
@@ -122,7 +122,7 @@ const getTime =(dateTime)=> dayjs(dateTime).format('HH:mm:ss')
             <span><b>Start Time:</b> {{ getTime(events[mouseOnRow].eventStartTime)}}</span><br>
             <span><b>Duration:</b> {{ events[mouseOnRow].eventDuration }} minutes</span><br>
             <span v-show="events[mouseOnRow].eventNotes"><b>Note:</b> {{ events[mouseOnRow].eventNotes }}</span>
-        </div> -->
+        </div>
         <div class="w-full overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
