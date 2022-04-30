@@ -9,6 +9,7 @@ import {
 } from 'vue'
 //date-time lib
 import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 //fetch
 import { zFetch } from '../js/zFetch'
 //mouse
@@ -16,6 +17,7 @@ import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
 
+dayjs.extend(localizedFormat)
 //use router
 const { params } = useRoute()
 const router = useRouter()
@@ -71,8 +73,8 @@ let mouseOnRow = ref(null)
 const mouseMoveOverRow = () => {
     // mousePos.value.x
 }
-const getDate = (dateTime) => dayjs(dateTime).format('D MMM YYYY')
-const getTime = (dateTime) => dayjs(dateTime).format('HH:mm:ss')
+const getDate = (dateTime) => dayjs(dateTime).format('LL')
+const getTime = (dateTime) => dayjs(dateTime).format('LT')
 const modal = ref({ visible: false })
 const selectedEvent = ref({})
 const viewDetail = (index) => {
