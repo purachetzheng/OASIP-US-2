@@ -49,6 +49,6 @@ const closeModal = () => myRouter.push({name: 'Home'})
 }
 .modal-button {
   display: flex;
-  justify-content: end;
+  /* justify-content: end; */
 }
 </style>
