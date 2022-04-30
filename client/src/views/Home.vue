@@ -85,15 +85,12 @@ const viewDetail = (index) => {
 </script>
 
 <template>
-    <!-- <div>{{events}}</div> -->
-    <!-- dark:bg-gray-900 -->
-    <main class="h-full overflow-y-auto px-6 pb-4">
-        <h2 class="my-4 text-2xl font-semibold text-gray-700">OPSIP</h2>
+    <div >
+        <h2 class="my-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Schedules</h2>
         <!-- <div>
             <div>Mouse position is at: {{ mousePos.x }}, {{ mousePos.y }}</div>
             <div>Mouse on: {{ mouseOnRow }}</div>
         </div> -->
-
         <!-- show detail when mouse over -->
         <!-- <div id="cursor" class="m-6 p-4 bg-teal-50 rounded-xl max-w-4xl absolute pointer-events-none"
             v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
@@ -110,7 +107,7 @@ const viewDetail = (index) => {
                 <table class="w-full whitespace-no-wrap">
                     <thead>
                         <!-- dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800 -->
-                        <tr class="text-tr-head border-b bg-teal-300">
+                        <tr class="text-tr-head border-b dark:border-gray-700 bg-cyan-600">
                             <th class="px-4 py-3">Booking Name</th>
                             <th class="px-4 py-3">Category Name</th>
                             <th class="px-4 py-3">Date</th>
@@ -119,9 +116,10 @@ const viewDetail = (index) => {
                         </tr>
                     </thead>
                     <!-- dark:divide-gray-700 dark:bg-gray-800 -->
-                    <tbody class="bg-white divide-y">
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <!-- dark:text-gray-400 -->
-                        <tr class="text-gray-700 hover:bg-gray-100 cursor-pointer" v-for="(event, index) in events"
+                        <tr class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 cursor-pointer" 
+                            v-for="(event, index) in events"
                             @click="viewDetail(index)" @mouseenter="mouseOnRow = index" @mousemove="mouseMoveOverRow()"
                             @mouseleave="mouseOnRow = null">
                             <td class="px-4 py-3 text-sm">{{ event.bookingName }}</td>
@@ -148,7 +146,7 @@ const viewDetail = (index) => {
                 </table>
             </div>
         </div>
-    </main>
+    </div>
     <!-- modal -->
     <div v-show="modal.visible"
         class="absolute min-h-screen top-0 left-0 w-full h-full flex justify-center items-center z-99">
@@ -180,7 +178,6 @@ const viewDetail = (index) => {
                 <div><span class="font-bold">Note:</span> {{ selectedEvent.eventNotes }}</div>
             </div>
 
-
             <!-- Footer-->
             <!-- <div class="flex justify-end pt-2">
                 <button
@@ -191,7 +188,6 @@ const viewDetail = (index) => {
 
         </div>
     </div>
-
 </template>
 
 <style>
