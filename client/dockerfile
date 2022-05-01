@@ -1,0 +1,9 @@
+FROM node:lts-alpine AS step1
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:stable-alpine AS step2
+COPY --from=step1 /app/dist /usr/share/nginx/html
