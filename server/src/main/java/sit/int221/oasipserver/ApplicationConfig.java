@@ -7,7 +7,10 @@ import sit.int221.oasipserver.services.ListMapper;
 
 @Configuration
 public class ApplicationConfig {
-    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 
     @Bean
     public ModelMapper modelMapper(){
