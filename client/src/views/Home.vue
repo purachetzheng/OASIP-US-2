@@ -29,46 +29,9 @@ const router = useRouter()
 //use mouse
 const mousePos = useMouse()
 
-const events = ref([
-    {
-        id: 1,
-        bookingName: 'Somchai Jaidee (OR-7)',
-        bookingEmail: 'somchai.jai@mail.kmutt.ac.th',
-        eventCategoryId: 'DevOps/Infra Clinic',
-        eventDuration: 30,
-        eventStartTime: '2022-05-23T13:30:00Z',
-        eventNotes: null,
-    },
-    {
-        id: 2,
-        bookingName: 'Somsri Rakdee (SJ-3)',
-        bookingEmail: 'somsri.rak@mail.kmutt.ac.th',
-        eventCategoryId: 'Project Management Clinic',
-        eventDuration: 30,
-        eventStartTime: '2022-04-27T09:30:00Z',
-        eventNotes: 'ขอปรึกษาปัญหา เพื่อนไม่ช่วยงาน',
-    },
-    {
-        id: 3,
-        bookingName: '   TT-4',
-        bookingEmail: 'Test3@3',
-        eventCategoryId: 'Database Clinic',
-        eventDuration: 15,
-        eventStartTime: '2022-01-01T16:30:00Z',
-        eventNotes: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum molestiae quidem esse praesentium explicabo. Odit vel unde, nesciunt eum quod molestiae aliquid, veniam in suscipit at dolore saepe, ipsam ipsum repellat mollitia aspernatur quibusdam vitae nostrum corporis reprehenderit dolorem hic deleniti! Explicabo nesciunt ab cupiditate tenetur nam possimus veniam quo unde eligendi nihil assumenda sequi accusantium corporis debitis dicta blanditiis numquam ea, iste nostrum perferendis! Repell',
-    },
-    {
-        id: 4,
-        bookingName: 'Somchai Jaidee (OR-7)',
-        bookingEmail: 'somchai.jai@mail.kmutt.ac.th',
-        eventCategoryId: 'DevOps/Infra Clinic',
-        eventDuration: 30,
-        eventStartTime: '2022-05-23T13:30:00Z',
-        eventNotes: null,
-    },
-])
+const events = ref([])
 onBeforeMount(async () => {
-    events.value = await zFetch.get('/api/events')
+    events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events')
 })
 const test = () => {
     console.log('test')
