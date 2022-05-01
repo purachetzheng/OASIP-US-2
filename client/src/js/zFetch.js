@@ -1,6 +1,6 @@
 export const zFetch = {
     settings:{
-        baseUrl: 'http://localhost:5000/'
+        baseUrl: 'http://ip21us2.sit.kmutt.ac.th:8080'
     },
     async get(urlQuery) {
         const res = await fetch(urlQuery)
