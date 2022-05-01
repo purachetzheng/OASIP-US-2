@@ -70,10 +70,7 @@ const events = ref([
 onBeforeMount(async () => {
     events.value = await zFetch.get('/api/events')
 })
-const test = () => {
-    console.log('test')
-}
-let colorSet = '2'
+
 let mouseOnRow = ref(null)
 const mouseMoveOverRow = () => {
     // mousePos.value.x
@@ -93,10 +90,7 @@ const viewDetail = (index) => {
 <template>
     <div >
         <h2 class="my-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Schedules</h2>
-        <!-- <div>
-            <div>Mouse position is at: {{ mousePos.x }}, {{ mousePos.y }}</div>
-            <div>Mouse on: {{ mouseOnRow }}</div>
-        </div> -->
+        
         <!-- show detail when mouse over -->
         <!-- <div id="cursor" class="m-6 p-4 bg-teal-50 rounded-xl max-w-4xl absolute pointer-events-none"
             v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
@@ -108,6 +102,12 @@ const viewDetail = (index) => {
             <span><b>Duration:</b> {{ events[mouseOnRow].eventDuration }} minutes</span><br>
             <span v-show="events[mouseOnRow].eventNotes"><b>Note:</b> {{ events[mouseOnRow].eventNotes }}</span>
         </div> -->
+        
+        <!-- show detail cursor -->
+        <div id="cursor" class="m-6 py-1 px-3 bg-gray-50 dark:bg-cyan-600 dark:text-gray-300 rounded-xl absolute pointer-events-none"
+            v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
+            click to show details of: {{events[mouseOnRow].bookingName}}
+        </div>
         <div class="w-full overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
