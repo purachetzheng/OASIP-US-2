@@ -3,7 +3,7 @@ export const zFetch = {
         baseUrl: 'http://ip21us2.sit.kmutt.ac.th:8080'
     },
     async get(urlQuery) {
-        const res = await fetch(urlQuery)
+        const res = await fetch(this.settings.baseUrl + urlQuery)
         if (res.status === 200) {
             console.log(`get successfully`)
             return await res.json()

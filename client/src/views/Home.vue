@@ -31,7 +31,8 @@ const mousePos = useMouse()
 
 const events = ref([])
 onBeforeMount(async () => {
-    events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events')
+    zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
+    events.value = await zFetch.get('/api/events')
 })
 
 let mouseOnRow = ref(null)
