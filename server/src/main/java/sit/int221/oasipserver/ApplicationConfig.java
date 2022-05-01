@@ -7,6 +7,8 @@ import sit.int221.oasipserver.services.ListMapper;
 
 @Configuration
 public class ApplicationConfig {
+    
+
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
