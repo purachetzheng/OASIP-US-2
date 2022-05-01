@@ -10,6 +10,8 @@ import {
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
+// import utc from 'dayjs/plugin/utc'
+// import timezone from 'dayjs/plugin/timezone'
 //fetch
 import { zFetch } from '../js/zFetch'
 //mouse
@@ -17,7 +19,10 @@ import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
 
+// dayjs.extend(utc)
+// dayjs.extend(timezone)
 dayjs.extend(localizedFormat)
+
 //use router
 const { params } = useRoute()
 const router = useRouter()
@@ -74,7 +79,8 @@ const mouseMoveOverRow = () => {
     // mousePos.value.x
 }
 const getDate = (dateTime) => dayjs(dateTime).format('LL')
-const getTime = (dateTime) => dayjs(dateTime).format('LT')
+const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
+// const getTime = (dateTime) => dayjs(dateTime).format('LT')
 const modal = ref({ visible: false })
 const selectedEvent = ref({})
 const viewDetail = (index) => {
@@ -116,9 +122,9 @@ const viewDetail = (index) => {
                         </tr>
                     </thead>
                     <!-- dark:divide-gray-700 dark:bg-gray-800 -->
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-neutral-700">
                         <!-- dark:text-gray-400 -->
-                        <tr class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 cursor-pointer" 
+                        <tr class="text-gray-700 dark:text-gray-300 hover:bg-gray-500 cursor-pointer" 
                             v-for="(event, index) in events"
                             @click="viewDetail(index)" @mouseenter="mouseOnRow = index" @mousemove="mouseMoveOverRow()"
                             @mouseleave="mouseOnRow = null">
@@ -152,13 +158,13 @@ const viewDetail = (index) => {
         class="absolute min-h-screen top-0 left-0 w-full h-full flex justify-center items-center z-99">
         <div @click.self="modal.visible = false"
             class="absolute w-full h-full bg-gray-500 transition ease-in-out opacity-60"></div>
-        <div class="bg-white absolute rounded-md shadow-xl max-w-4xl py-4 text-left px-8">
+        <div class="bg-white dark:bg-gray-800 absolute rounded-md shadow-xl max-w-4xl py-4 text-left px-6">
 
             <!--Title-->
-            <div class="flex justify-between items-center pb-3">
-                <p class="text-2xl font-bold">Event Detail!</p>
+            <div class="flex justify-end items-center">
+                <!-- <p class="text-2xl font-bold dark:text-gray-200">Event Detail!</p> -->
                 <div class="modal-close cursor-pointer z-50" @click="modal.visible = false">
-                    <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                    <svg class="fill-current text-black dark:text-gray-200" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                         viewBox="0 0 18 18">
                         <path
                             d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
@@ -168,7 +174,7 @@ const viewDetail = (index) => {
             </div>
 
             <!--Body-->
-            <div class="flex flex-col space-y-2 mr-8">
+            <div class="flex flex-col space-y-2 mr-8 dark:text-gray-400">
                 <div><span class="font-bold">Booking Name:</span> {{ selectedEvent.bookingName }}</div>
                 <div><span class="font-bold">Booking Email:</span> {{ selectedEvent.bookingEmail }}</div>
                 <div><span class="font-bold">Category Name:</span> {{ selectedEvent.eventCategoryId }}</div>
@@ -188,6 +194,8 @@ const viewDetail = (index) => {
 
         </div>
     </div>
+
+    
 </template>
 
 <style>
