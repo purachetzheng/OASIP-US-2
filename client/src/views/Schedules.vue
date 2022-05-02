@@ -10,8 +10,8 @@ import {
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-// import utc from 'dayjs/plugin/utc'
-// import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 //fetch
 import { zFetch } from '../js/zFetch'
 //mouse
@@ -20,8 +20,8 @@ import { useMouse } from '../js/mouse'
 import { useRoute, useRouter } from 'vue-router'
 
 
-// dayjs.extend(utc)
-// dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.extend(localizedFormat)
 
 //use router
@@ -40,8 +40,8 @@ let mouseOnRow = ref(null)
 const mouseMoveOverRow = () => {
     // mousePos.value.x
 }
-const getDate = (dateTime) => dayjs(dateTime).format('LL')
-const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
+const getDate = (dateTime) => dayjs(dateTime).tz('GMT').format('LL')
+const getTime = (dateTime) => dayjs(dateTime).tz('GMT').format('HH:mm')
 // const getTime = (dateTime) => dayjs(dateTime).format('LT')
 const modal = ref({ visible: false })
 const selectedEvent = ref({})
@@ -98,6 +98,7 @@ const viewDetail = (index) => {
                             <td class="px-4 py-3 text-sm">{{ event.eventCategoryId }}</td>
                             <td class="px-4 py-3 text-sm">
                                 {{ getDate(event.eventStartTime) }}
+                                <!-- {{ dayjs(event.eventStartTime) }}  -->
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <div class="flex flex-col">
