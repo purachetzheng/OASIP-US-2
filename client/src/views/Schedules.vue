@@ -37,7 +37,8 @@ onBeforeMount(async () => {
 })
 
 let mouseOnRow = ref(null)
-const mouseMoveOverRow = () => {
+const mouseMoveOverRow = (index) => {
+    console.log(index);
     // mousePos.value.x
 }
 const getDate = (dateTime) => dayjs(dateTime).tz('GMT').format('LL')
@@ -45,9 +46,11 @@ const getTime = (dateTime) => dayjs(dateTime).tz('GMT').format('HH:mm')
 // const getTime = (dateTime) => dayjs(dateTime).format('LT')
 const modal = ref({ visible: false })
 const selectedEvent = ref({})
-const viewDetail = (index) => {
-    selectedEvent.value = events.value[index]
-    modal.value.visible = true
+const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
+const viewDetail = (id) => {
+    // selectedEvent.value = events.value[index]
+    // modal.value.visible = true
+    goTo('EventDetail', {eventId:id})
 }
 
 </script>
@@ -92,8 +95,8 @@ const viewDetail = (index) => {
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-neutral-700">
                         <!-- dark:text-gray-400 -->
                         <tr class="text-gray-700 dark:text-gray-300 hover:bg-gray-500 cursor-pointer"
-                            v-for="(event, index) in events" @click="viewDetail(index)" @mouseenter="mouseOnRow = index"
-                            @mousemove="mouseMoveOverRow()" @mouseleave="mouseOnRow = null">
+                            v-for="(event, index) in events" @click="viewDetail(event.id)" @mouseenter="mouseOnRow = index"
+                            @mousemove="mouseMoveOverRow(index)" @mouseleave="mouseOnRow = null">
                             <td class="px-4 py-3 text-sm">{{ event.bookingName }}</td>
                             <td class="px-4 py-3 text-sm">{{ event.eventCategoryId }}</td>
                             <td class="px-4 py-3 text-sm">

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import NotFound from '../views/NotFound.vue';
 import Schedules from '../views/Schedules.vue';
+import EventDetail from '../views/EventDetail.vue';
 
 
 const history = createWebHistory();
@@ -15,6 +16,11 @@ const routes = [
       path: '/schedules',
         name: 'Schedules',
         component: Schedules,
+    },
+    {
+      path: '/schedules/:eventId',
+      name: 'EventDetail',
+      component: EventDetail
     }
     ,
       {
