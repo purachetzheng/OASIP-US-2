@@ -10,7 +10,7 @@ import Navbar from './components/Navbar.vue';
         <!-- <Sidebar class="hidden w-64 overflow-y-auto bg-white dark:bg-neutral-800 md:block flex-shrink-0" /> -->
         <div class="flex flex-col flex-1 w-full">
             <Navbar />
-            <main class="h-full overflow-y-auto px-12 pb-4 ">
+            <main class="h-full overflow-y-auto px-6 pb-4">
                 <router-view></router-view>
             </main>
         </div>

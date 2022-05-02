@@ -19,7 +19,7 @@ import { useRoute, useRouter } from 'vue-router';
 import IcOutlineArrowBackIos from '../components/icons/IcOutlineArrowBackIos.vue';
 const { params } = useRoute()
 const id = params.eventId
-console.log(id);
+
 const myRouter = useRouter()
 const goBack = () => myRouter.go(-1)
 

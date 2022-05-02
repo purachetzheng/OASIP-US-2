@@ -38,7 +38,7 @@ onBeforeMount(async () => {
 
 let mouseOnRow = ref(null)
 const mouseMoveOverRow = (index) => {
-    console.log(index);
+    // console.log(index);
     // mousePos.value.x
 }
 const getDate = (dateTime) => dayjs(dateTime).tz('GMT').format('LL')
