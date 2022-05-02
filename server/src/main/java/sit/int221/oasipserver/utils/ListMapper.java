@@ -1,4 +1,4 @@
-package sit.int221.oasipserver.services;
+package sit.int221.oasipserver.utils;
 
 import org.modelmapper.ModelMapper;
 
