@@ -1,9 +1,10 @@
-FROM node:lts-alpine AS step1
-WORKDIR /app
+FROM node:18-alpine AS step1
+WORKDIR /myfront
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine AS step2
-COPY --from=step1 /app/dist /usr/share/nginx/html
+FROM nginx:1.21.6-alpine
+WORKDIR /usr/share/nginx/html
+COPY --from=step1 /myfront/dist .
