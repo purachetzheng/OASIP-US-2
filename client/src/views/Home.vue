@@ -28,7 +28,7 @@ const mouseNow = ref(null)
                         Team Member
                     </span>
                     <div class="flex flex-col gap-2 font-thin text-xl mt-3">
-                        <div class="flex items-center gap-2 hover:scale-125 duration-300" v-for="mem in teamMem" :key="mem.id">
+                        <div class="flex items-center gap-2 hover:scale-110 duration-300" v-for="mem in teamMem" :key="mem.id">
                             <CarbonUserAvatarFilled class="h-10 w-10" />
                             <div class="flex flex-col">
                                 <span>
