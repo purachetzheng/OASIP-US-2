@@ -12,8 +12,6 @@ import { zFetch } from '../js/zFetch'
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
 
 import { useRoute, useRouter } from 'vue-router';
 import IcOutlineArrowBackIos from '../components/icons/IcOutlineArrowBackIos.vue';
@@ -24,8 +22,6 @@ const myRouter = useRouter()
 const goBack = () => myRouter.go(-1)
 
 
-dayjs.extend(utc)
-dayjs.extend(timezone)
 dayjs.extend(localizedFormat)
 const event = ref({})
 
@@ -33,8 +29,8 @@ onBeforeMount(async () => {
     zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
     event.value = await zFetch.get('/api/events/' + id)
 })
-const getDate = (dateTime) => dayjs(dateTime).tz('UTC').format('LL')
-const getTime = (dateTime) => dayjs(dateTime).tz('UTC').format('HH:mm')
+const getDate = (dateTime) => dayjs(dateTime).format('LL')
+const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 
 </script>
  

@@ -23,13 +23,13 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
             <div class="">
                 <div class="flex space-x-6 text-sm font-medium">
                     <button @click="goTo('Home')"
-                        :class="[$route.name==='Home'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-125 duration-300','inline-flex font-semibold']">
+                        :class="[$route.name==='Home'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-110 duration-300','inline-flex font-semibold']">
                         <!-- <div class="rounded-full p-2 bg-gradient-to-r from-green-400 to-blue-700"></div> -->
                         <CarbonHome class="w-5 h-5 mr-2" />
                         <span>Home</span>
                     </button>
                     <button @click="goTo('Schedules')"
-                        :class="[$route.name==='Schedules'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-125 duration-300','inline-flex font-semibold']">
+                        :class="[$route.name==='Schedules'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-110 duration-300','inline-flex font-semibold']">
                         <!-- <div class="rounded-full p-2 bg-gradient-to-r from-green-400 to-blue-700"></div> -->
                         <CarbonEventSchedule class="w-5 h-5 mr-2" />
                         <span :class="[]">Schedules</span>
