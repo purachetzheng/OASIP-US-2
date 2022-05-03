@@ -14,7 +14,7 @@ const mouseNow = ref(null)
     <div class="flex h-full justify-center items-center ">
         <div class="flex h-full w-full cursor-default">
             <div class="flex h-full w-full justify-center items-center">
-                <div class="flex flex-col text-3xl hover:scale-125 duration-300" 
+                <div class="flex flex-col text-3xl zoom-125-500" 
                     @mouseenter="mouseNow = 'logo'" @mouseleave="mouseNow = null">
                     <h2 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">OASIP-US2</h2>
                     <div class="font-thin dark:text-gray-200">
@@ -28,7 +28,7 @@ const mouseNow = ref(null)
                         Team Member
                     </span>
                     <div class="flex flex-col gap-2 font-thin text-xl mt-3">
-                        <div class="flex items-center gap-2 hover:scale-110 duration-300" v-for="mem in teamMem" :key="mem.id">
+                        <div class="flex items-center gap-2 zoom-125-300 duration-300" v-for="mem in teamMem" :key="mem.id">
                             <CarbonUserAvatarFilled class="h-10 w-10" />
                             <div class="flex flex-col">
                                 <span>

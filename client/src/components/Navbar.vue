@@ -9,31 +9,46 @@ const router = useRouter()
 
 const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
 
+
+const naviList = [
+    {
+        name: 'Home',
+        text: 'Home',
+        icon: CarbonHome
+    },
+    {
+        name: 'Schedules',
+        text: 'Schedules',
+        icon: CarbonEventSchedule
+    },
+]
 </script>
  
 <template>
-    <header class="py-4 px-8 bg-white shadow-md bg-neutral-800 ">
-        <div
-            class="flex items-center justify-between h-full text-purple-600 dark:text-purple-300 w-full">
+    <header class="py-4 px-8 bg-white shadow-md bg-neutral-800">
+        <div class="flex items-center justify-between h-full text-purple-600 dark:text-purple-300 w-full">
             <!-- Logo -->
-            <button @click="goTo('Home')" class="text-lg font-bold text-gray-200">
+            <button @click="goTo('Home')" class="text-lg font-bold text-gray-200 zoom-125-300">
                 OASIP
             </button>
             <!-- Navi -->
             <div class="">
                 <div class="flex space-x-6 text-sm font-medium">
-                    <button @click="goTo('Home')"
-                        :class="[$route.name==='Home'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-110 duration-300','inline-flex font-semibold']">
-                        <!-- <div class="rounded-full p-2 bg-gradient-to-r from-green-400 to-blue-700"></div> -->
+                    <button v-for="navi in naviList" :key="navi.name" @click="goTo(navi.name)"
+                        :class="[$route.name === navi.name ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 zoom-125-300', 'inline-flex font-semibold']">
+                        <!-- <CarbonHome class="w-5 h-5 mr-2" /> -->
+                        <span>{{navi.text}}</span>
+                    </button>
+                    <!-- <button @click="goTo('Home')"
+                        :class="[$route.name === 'Home' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:zoom-110', 'inline-flex font-semibold']">
                         <CarbonHome class="w-5 h-5 mr-2" />
                         <span>Home</span>
                     </button>
                     <button @click="goTo('Schedules')"
-                        :class="[$route.name==='Schedules'?'text-cyan-600':'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:scale-110 duration-300','inline-flex font-semibold']">
-                        <!-- <div class="rounded-full p-2 bg-gradient-to-r from-green-400 to-blue-700"></div> -->
+                        :class="[$route.name === 'Schedules' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:zoom-110', 'inline-flex font-semibold']">
                         <CarbonEventSchedule class="w-5 h-5 mr-2" />
-                        <span :class="[]">Schedules</span>
-                    </button>
+                        <span>Schedules</span>
+                    </button> -->
                 </div>
             </div>
         </div>

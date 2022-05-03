@@ -1,34 +1,38 @@
 <script setup>
-import {
-    ref,
-    computed,
-    reactive,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-} from 'vue'
-//fetch
-import { zFetch } from '../js/zFetch'
+import { ref, computed, onBeforeMount, onMounted, } from 'vue'
+
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-
+//router
 import { useRoute, useRouter } from 'vue-router';
+//js
+import { zFetch } from '../js/zLib'
+import { events, eventCategories } from '../js/variable'
+//icon
 import IcOutlineArrowBackIos from '../components/icons/IcOutlineArrowBackIos.vue';
+
+//use router
 const { params } = useRoute()
 const id = params.eventId
-
 const myRouter = useRouter()
 const goBack = () => myRouter.go(-1)
 
 
-dayjs.extend(localizedFormat)
 const event = ref({})
-
 onBeforeMount(async () => {
-    zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
-    event.value = await zFetch.get('/api/events/' + id)
+    events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
+    event.value = events.value.find(e => e.id == id)
 })
+
+dayjs.extend(localizedFormat)
+
+// const event = events.find(e => e.id === id)
+
+// onBeforeMount(async () => {
+//     zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
+//     event.value = await zFetch.get('/api/events/' + id)
+// })
 const getDate = (dateTime) => dayjs(dateTime).format('LL')
 const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 
@@ -36,7 +40,7 @@ const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
  
 <template>
     <div class="h-full w-full">
-        <h2 class="my-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Event Details</h2>
+        <h2 class="my-4 text-h-1">Event Details</h2>
         <button class="bg-cyan-500 hover:bg-blue-700 text-gray-100 py-1 px-3 rounded" @click="goBack">
             Back
         </button>

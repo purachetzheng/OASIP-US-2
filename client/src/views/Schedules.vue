@@ -1,59 +1,47 @@
 <script setup>
-import {
-    ref,
-    computed,
-    reactive,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-} from 'vue'
+import { ref, computed, onBeforeMount, onMounted, } from 'vue'
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-//fetch
-import { zFetch } from '../js/zFetch'
+//js
+import { zFetch } from '../js/zLib'
 //mouse
 import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
 
+import { events, eventCategories } from '../js/variable'
 dayjs.extend(localizedFormat)
 
 //use router
-const { params } = useRoute()
+// const { params } = useRoute()
 const router = useRouter()
 //use mouse
 const mousePos = useMouse()
 
-const events = ref([])
+// const events = ref([])
 onBeforeMount(async () => {
-    zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
-    events.value = await zFetch.get('/api/events')
+    events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
+    eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/eventcategories') : ''
 })
 
+const rId = ref(0)
 let mouseOnRow = ref(null)
-const mouseMoveOverRow = (index) => {
-    // console.log(index);
-    // mousePos.value.x
-}
 const getDate = (dateTime) => dayjs(dateTime).format('LL')
 const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 // const getTime = (dateTime) => dayjs(dateTime).format('LT')
-const modal = ref({ visible: false })
-const selectedEvent = ref({})
+
 const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
 const viewDetail = (id) => {
-    // selectedEvent.value = events.value[index]
-    // modal.value.visible = true
-    goTo('EventDetail', {eventId:id})
+    goTo('EventDetail', { eventId: id })
 }
 
 </script>
 
 <template>
     <div class="">
-        <h2 class="my-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Schedules</h2>
-
+        <!-- Header -->
+        <h2 class="my-4 text-h-1">Schedules</h2>
         <!-- show detail cursor -->
         <div id="cursor"
             class="absolute truncate m-4 py-1 px-3 bg-cyan-600 dark:bg-cyan-600 text-gray-100 rounded-xl pointer-events-none"
@@ -76,31 +64,21 @@ const viewDetail = (id) => {
                         </tr>
                     </thead>
                     <!-- dark:divide-gray-700 dark:bg-gray-800 -->
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-neutral-700">
-                        <!-- dark:text-gray-400 -->
-                        <tr class="text-gray-700 dark:text-gray-300 dark:hover:bg-gray-500 hover:bg-gray-200 cursor-pointer"
-                            v-for="(event, index) in events" @click="viewDetail(event.id)" @mouseenter="mouseOnRow = index"
-                            @mousemove="mouseMoveOverRow(index)" @mouseleave="mouseOnRow = null">
-                            <td class="px-4 py-3 text-sm">{{ event.bookingName }}</td>
-                            <td class="px-4 py-3 text-sm">{{ event.eventCategoryId }}</td>
-                            <td class="px-4 py-3 text-sm">
-                                {{ getDate(event.eventStartTime) }}
-                                <!-- {{ dayjs(event.eventStartTime) }}  -->
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                <div class="flex flex-col">
-                                    <span>{{
-                                            getTime(event.eventStartTime)
-                                    }}</span>
-                                    <!-- <span>{{event.eventStartTime}}</span> -->
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 text-sm">{{ event.eventDuration }} minutes</td>
-                        </tr>
+                    <tbody class="bg-white divide-y divide-gray-700 dark:divide-gray-400 dark:bg-neutral-700">
                         <tr v-show="events.length === 0">
                             <td colspan="5" class="px-4 py-3 text-center">
                                 No Scheduled Events
                             </td>
+                        </tr>
+                        <!-- dark:text-gray-400 -->
+                        <tr class="text-sm text-gray-700 dark:text-gray-300 dark:hover:bg-gray-500 hover:bg-gray-200 cursor-pointer"
+                            v-for="(event, index) in events" @click="viewDetail(event.id)"
+                            @mouseenter="mouseOnRow = index" @mouseleave="mouseOnRow = null">
+                            <td class="px-4 py-3">{{ event.bookingName }}</td>
+                            <td class="px-4 py-3">{{ event.eventCategoryId }}</td>
+                            <td class="px-4 py-3">{{ getDate(event.eventStartTime) }}</td>
+                            <td class="px-4 py-3">{{ getTime(event.eventStartTime) }}</td>
+                            <td class="px-4 py-3">{{ event.eventDuration }} minutes</td>
                         </tr>
                     </tbody>
                 </table>
