@@ -25,7 +25,7 @@ const naviList = [
 </script>
  
 <template>
-    <header class="py-4 px-8 bg-white shadow-md bg-neutral-800">
+    <header class="py-4 px-20 bg-white shadow-md bg-neutral-800">
         <div class="flex items-center justify-between h-full text-purple-600 dark:text-purple-300 w-full">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-lg font-bold text-gray-200 zoom-125-300">
@@ -33,7 +33,7 @@ const naviList = [
             </button>
             <!-- Navi -->
             <div class="">
-                <div class="flex space-x-6 text-sm font-medium">
+                <div class="flex space-x-8 text-sm font-medium">
                     <button v-for="navi in naviList" :key="navi.name" @click="goTo(navi.name)"
                         :class="[$route.name === navi.name ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 zoom-125-300', 'inline-flex font-semibold']">
                         <!-- <CarbonHome class="w-5 h-5 mr-2" /> -->

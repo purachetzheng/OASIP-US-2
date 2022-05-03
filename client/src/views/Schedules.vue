@@ -41,49 +41,38 @@ const viewDetail = (id) => {
 <template>
     <div class="">
         <!-- Header -->
-        <h2 class="my-4 text-h-1">Schedules</h2>
-        <!-- show detail cursor -->
-        <div id="cursor"
-            class="absolute truncate m-4 py-1 px-3 bg-cyan-600 dark:bg-cyan-600 text-gray-100 rounded-xl pointer-events-none"
-            v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
-            click to show details of: <b>{{ events[mouseOnRow].bookingName }}</b>
+        <div class="mb-4">
+            <span class="text-h-1">Schedules</span>
+            <span class="ml-4 text-lg dark:text-gray-200"> total: {{ events.length }}</span>
         </div>
 
-        <div class="w-full overflow-hidden rounded-lg shadow-lg">
-            <div class="w-full overflow-x-auto">
-                <table class="w-full whitespace-no-wrap">
-                    <thead>
-                        <!-- dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800 -->
-                        <tr class="text-xs font-semibold tracking-wider text-left text-gray-100 
-                        dark:text-cyan-50 uppercase border-b dark:border-gray-700 bg-cyan-600">
-                            <th class="px-4 py-3">Booking Name</th>
-                            <th class="px-4 py-3">Category Name</th>
-                            <th class="px-4 py-3">Date</th>
-                            <th class="px-4 py-3">Start Time</th>
-                            <th class="px-4 py-3">Duration</th>
-                        </tr>
-                    </thead>
-                    <!-- dark:divide-gray-700 dark:bg-gray-800 -->
-                    <tbody class="bg-white divide-y divide-gray-700 dark:divide-gray-400 dark:bg-neutral-700">
-                        <tr v-show="events.length === 0">
-                            <td colspan="5" class="px-4 py-3 text-center">
-                                No Scheduled Events
-                            </td>
-                        </tr>
-                        <!-- dark:text-gray-400 -->
-                        <tr class="text-sm text-gray-700 dark:text-gray-300 dark:hover:bg-gray-500 hover:bg-gray-200 cursor-pointer"
-                            v-for="(event, index) in events" @click="viewDetail(event.id)"
-                            @mouseenter="mouseOnRow = index" @mouseleave="mouseOnRow = null">
-                            <td class="px-4 py-3">{{ event.bookingName }}</td>
-                            <td class="px-4 py-3">{{ event.eventCategoryId }}</td>
-                            <td class="px-4 py-3">{{ getDate(event.eventStartTime) }}</td>
-                            <td class="px-4 py-3">{{ getTime(event.eventStartTime) }}</td>
-                            <td class="px-4 py-3">{{ event.eventDuration }} minutes</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-2">
+            <div class="flex bg-neutral-800 text-gray-100 hover:bg-neutral-700 cursor-pointer" 
+                v-for="(event, index) in events" @click="viewDetail(event.id)" @mouseenter="mouseOnRow = index" @mouseleave="mouseOnRow = null">
+                <div class="relative p-2 pl-4 w-3/12">
+                    <span class="absolute inset-y-0 left-0 w-1 bg-green-600 " aria-hidden="true"></span>
+                    <div class="font-bold text-4xl">{{ dayjs(event.eventStartTime).format('D') }}</div>
+                    <div class="font-semibold text-lg">{{ dayjs(event.eventStartTime).format('MMM YY') }}</div>
+                </div>
+                <div class="w-full py-2 px-4 flex flex-col">
+                    <div class="font-bold text-xl">{{ event.bookingName }}</div>
+                    <div class="font-semibold ">{{ event.eventCategoryId }}</div>
+                    <div class="">{{ dayjs(event.eventStartTime).format('LT') }} - Duration: {{ event.eventDuration }} minutes
+                    </div>
+                </div>
+                <!-- <div class="w-2/12 p-2">Footer</div> -->
             </div>
+
         </div>
+
+
+        <!-- show detail cursor -->
+        <div id="cursor"
+            class="absolute truncate m-4 py-1 px-3 bg-cyan-600 dark:bg-cyan-700 text-gray-100 rounded-xl pointer-events-none"
+            v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
+            show detail
+        </div>
+
     </div>
 </template>
 

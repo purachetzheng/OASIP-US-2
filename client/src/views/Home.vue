@@ -8,6 +8,7 @@ const teamMem = [
     {id:'63130500097', name:'Yuttasart Prajaksuwan'},
 ]
 const mouseNow = ref(null)
+
 </script>
  
 <template>
