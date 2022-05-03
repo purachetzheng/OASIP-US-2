@@ -33,8 +33,8 @@ onBeforeMount(async () => {
     zFetch.settings.baseUrl = 'http://ip21us2.sit.kmutt.ac.th:8080'
     event.value = await zFetch.get('/api/events/' + id)
 })
-const getDate = (dateTime) => dayjs(dateTime).tz('GMT').format('LL')
-const getTime = (dateTime) => dayjs(dateTime).tz('GMT').format('HH:mm')
+const getDate = (dateTime) => dayjs(dateTime).tz('UTC').format('LL')
+const getTime = (dateTime) => dayjs(dateTime).tz('UTC').format('HH:mm')
 
 </script>
  
@@ -45,7 +45,7 @@ const getTime = (dateTime) => dayjs(dateTime).tz('GMT').format('HH:mm')
             Back
         </button>
         <div class="flex justify-center">
-            <div class="p-8 overflow-hidden rounded-xl shadow-lg bg-zinc-700 h-8/12 flex">
+            <div class="p-8 overflow-hidden rounded-xl shadow-lg dark:bg-zinc-700 bg-zinc-300 h-8/12 flex">
                 <!-- <div class="w-2/6 flex flex-col dark:text-gray-100 font-bold space-y-4">
                     <span>Booking Name</span>
                     <span>Booking Email</span>

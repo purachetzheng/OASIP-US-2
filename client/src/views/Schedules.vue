@@ -41,8 +41,8 @@ const mouseMoveOverRow = (index) => {
     // console.log(index);
     // mousePos.value.x
 }
-const getDate = (dateTime) => dayjs(dateTime).tz('GMT').format('LL')
-const getTime = (dateTime) => dayjs(dateTime).tz('GMT').format('HH:mm')
+const getDate = (dateTime) => dayjs(dateTime).format('LL')
+const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 // const getTime = (dateTime) => dayjs(dateTime).format('LT')
 const modal = ref({ visible: false })
 const selectedEvent = ref({})
@@ -73,7 +73,7 @@ const viewDetail = (id) => {
 
         <!-- show detail cursor -->
         <div id="cursor"
-            class="absolute truncate m-4 py-1 px-3 bg-gray-50 dark:bg-cyan-600 dark:text-gray-300 rounded-xl pointer-events-none"
+            class="absolute truncate m-4 py-1 px-3 bg-cyan-600 dark:bg-cyan-600 text-gray-100 rounded-xl pointer-events-none"
             v-if="mouseOnRow !== null" :style="[`left: ${mousePos.x}px`, `top: ${mousePos.y}px`]">
             click to show details of: <b>{{ events[mouseOnRow].bookingName }}</b>
         </div>
@@ -83,7 +83,8 @@ const viewDetail = (id) => {
                 <table class="w-full whitespace-no-wrap">
                     <thead>
                         <!-- dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800 -->
-                        <tr class="text-tr-head border-b dark:border-gray-700 bg-cyan-600">
+                        <tr class="text-xs font-semibold tracking-wider text-left text-gray-100 
+                        dark:text-cyan-50 uppercase border-b dark:border-gray-700 bg-cyan-600">
                             <th class="px-4 py-3">Booking Name</th>
                             <th class="px-4 py-3">Category Name</th>
                             <th class="px-4 py-3">Date</th>
@@ -94,7 +95,7 @@ const viewDetail = (id) => {
                     <!-- dark:divide-gray-700 dark:bg-gray-800 -->
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-neutral-700">
                         <!-- dark:text-gray-400 -->
-                        <tr class="text-gray-700 dark:text-gray-300 hover:bg-gray-500 cursor-pointer"
+                        <tr class="text-gray-700 dark:text-gray-300 dark:hover:bg-gray-500 hover:bg-gray-200 cursor-pointer"
                             v-for="(event, index) in events" @click="viewDetail(event.id)" @mouseenter="mouseOnRow = index"
                             @mousemove="mouseMoveOverRow(index)" @mouseleave="mouseOnRow = null">
                             <td class="px-4 py-3 text-sm">{{ event.bookingName }}</td>
