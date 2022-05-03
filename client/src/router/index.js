@@ -1,10 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+} from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
 import Schedules from '../views/Schedules.vue'
 import EventDetail from '../views/EventDetail.vue'
 
-const history = createWebHistory()
+const history = createWebHashHistory()
 const routes = [
   {
     path: '/',
