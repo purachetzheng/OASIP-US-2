@@ -17,7 +17,7 @@ public class EventcategoryController {
         return eventcategoryService.getAll();
     }
     @GetMapping("{id}")
-    public EventcategoryDto getEventcategoryById(@PathVariable String id){
+    public EventcategoryDto getEventcategoryById(@PathVariable Integer id){
         return eventcategoryService.getById(id);
     }
     @PostMapping("")
@@ -25,7 +25,7 @@ public class EventcategoryController {
         return eventcategoryService.create(newEventcategory);
     }
     @DeleteMapping("/{id}")
-    public void deleteEvent(@PathVariable String id) {
+    public void deleteEvent(@PathVariable Integer id) {
         eventcategoryService.delete(id);
     }
 

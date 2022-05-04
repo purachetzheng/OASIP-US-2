@@ -21,8 +21,8 @@ public class Event {
     @Column(name = "bookingEmail", nullable = false, length = 45)
     private String bookingEmail;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "eventCategory", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "eventCategoryId", nullable = false)
     private Eventcategory eventCategory;
 
     @Column(name = "eventDuration", nullable = false)
@@ -31,7 +31,7 @@ public class Event {
     @Column(name = "eventStartTime", nullable = false)
     private Instant eventStartTime;
 
-    @Column(name = "eventNotes",  length = 500)
+    @Column(name = "eventNotes", length = 500)
     private String eventNotes;
 
 }
