@@ -19,11 +19,13 @@ import java.time.Instant;
 @AllArgsConstructor
 public class NewEventDto {
 
+    private Integer id;
     private String bookingName;
     private String bookingEmail;
     private Integer eventDuration;
     private Instant eventStartTime;
     private String eventNotes;
     private Integer eventCategoryId;
+    private String eventCategoryEventCategoryName;
 
 }
