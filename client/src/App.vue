@@ -22,4 +22,20 @@ import Navbar from './components/Navbar.vue';
 /* .router-link-active {
     color: white;
 } */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray; 
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #515151; 
+}
 </style>

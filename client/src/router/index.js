@@ -5,6 +5,7 @@ import {
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
 import Schedules from '../views/Schedules.vue'
+import SchedulesBeta from '../views/SchedulesBeta.vue'
 import EventDetail from '../views/EventDetail.vue'
 
 const history = createWebHashHistory()
@@ -23,6 +24,11 @@ const routes = [
     path: '/schedules/:eventId',
     name: 'EventDetail',
     component: EventDetail,
+  },
+  {
+    path: '/schedulesBeta',
+    name: 'SchedulesBeta',
+    component: SchedulesBeta,
   },
   {
     path: '/:catchNotMatchPath(.*)',

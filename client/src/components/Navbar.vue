@@ -21,11 +21,16 @@ const naviList = [
         text: 'Schedules',
         icon: CarbonEventSchedule
     },
+    {
+        name: 'SchedulesBeta',
+        text: 'SchedulesBeta',
+        icon: CarbonEventSchedule
+    },
 ]
 </script>
  
 <template>
-    <header class="py-4 px-20 bg-white shadow-md bg-neutral-800">
+    <header class="py-4 px-20 shadow-md bg-neutral-800">
         <div class="flex items-center justify-between h-full text-purple-600 dark:text-purple-300 w-full">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-lg font-bold text-gray-200 zoom-125-300">
