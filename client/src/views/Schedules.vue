@@ -39,7 +39,7 @@ const viewDetail = (id) => {
 </script>
 
 <template>
-    <div class="">
+    <main class="h-full overflow-y-auto screen-p-1">
         <!-- Header -->
         <div class="mb-4">
             <span class="text-h-1">Schedules</span>
@@ -86,7 +86,7 @@ const viewDetail = (id) => {
             show detail
         </div>
 
-    </div>
+    </main>
 </template>
 
 <style>

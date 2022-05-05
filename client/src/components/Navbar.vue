@@ -11,11 +11,11 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
 
 
 const naviList = [
-    {
-        name: 'Home',
-        text: 'Home',
-        icon: CarbonHome
-    },
+    // {
+    //     name: 'Home',
+    //     text: 'Home',
+    //     icon: CarbonHome
+    // },
     {
         name: 'Schedules',
         text: 'Schedules',
@@ -24,6 +24,11 @@ const naviList = [
     {
         name: 'SchedulesBeta',
         text: 'SchedulesBeta',
+        icon: CarbonEventSchedule
+    },
+    {
+        name: 'Reserve',
+        text: 'Reserve',
         icon: CarbonEventSchedule
     },
 ]
@@ -56,6 +61,7 @@ const naviList = [
                     </button> -->
                 </div>
             </div>
+            <div class="w-1/12"></div>
         </div>
     </header>
 </template>
