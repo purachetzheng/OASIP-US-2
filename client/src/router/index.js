@@ -1,6 +1,7 @@
 import {
   createRouter,
   createWebHashHistory,
+  createWebHistory
 } from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
@@ -9,7 +10,7 @@ import SchedulesBeta from '../views/SchedulesBeta.vue'
 import EventDetail from '../views/EventDetail.vue'
 import Reserve from '../views/Reserve.vue'
 
-const history = createWebHashHistory()
+const history = createWebHistory('/us2/')
 const routes = [
   {
     path: '/',

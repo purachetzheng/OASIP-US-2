@@ -9,16 +9,15 @@ services:
                 ports:
                         - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
                 volumes:
-                        - ./DB:/var/lib/mysql
-                        - ./Script/:/docker-entrypoint-initdb.d
-        app:
+                        - ./db:/var/lib/mysql
+                        - ./script/:/docker-entrypoint-initdb.d
+        backapp:
+                container_name: backapp
                 depends_on:
                         - dbsql
                 build: ./server
                 restart: on-failure
                 env_file: ./.env
-                ports:
-                        - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
                 environment:
                         SPRING_APPLICATION_JSON: '{
                                 "spring.datasource.url" : "jdbc:mysql://dbsql:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
@@ -35,8 +34,8 @@ services:
                 container_name: frontapp
                 image: vuefs
                 depends_on:
-                        - app
+                        - backapp
                 ports:
                         - 80:80
 volumes:
-  DB:
+  db:

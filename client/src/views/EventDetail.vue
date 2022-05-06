@@ -21,7 +21,7 @@ const goBack = () => myRouter.go(-1)
 
 const event = ref({})
 onBeforeMount(async () => {
-    events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
+    events.value.length === 0 ? events.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
     event.value = events.value.find(e => e.id == id)
 })
 

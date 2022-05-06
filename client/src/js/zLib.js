@@ -3,7 +3,7 @@ import { ref } from "vue"
 
 export const zFetch = {
   settings: {
-    baseUrl: 'http://ip21us2.sit.kmutt.ac.th:8080',
+	  baseUrl: 'intproj21.sit.kmutt.ac.th/us2',
   },
   async get(urlQuery) {
     const res = await fetch(urlQuery)
