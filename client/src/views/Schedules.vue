@@ -10,7 +10,7 @@ import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
 
-import { events, eventCategories } from '../js/variable'
+import { events, eventCategories, middleFetch } from '../js/variable'
 dayjs.extend(localizedFormat)
 
 //use router
@@ -21,8 +21,8 @@ const mousePos = useMouse()
 
 // const events = ref([])
 onBeforeMount(async () => {
-    events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
-    eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/eventcategories') : ''
+    await middleFetch.getEventsNull()
+    await middleFetch.getEventCategoriesNull()
 })
 
 const rId = ref(0)

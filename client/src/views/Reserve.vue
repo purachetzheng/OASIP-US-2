@@ -1,15 +1,13 @@
 <script setup>
 import dayjs from 'dayjs';
 import { ref, onBeforeMount } from 'vue';
-import { events, eventCategories } from '../js/variable'
+import { events, eventCategories, middleFetch } from '../js/variable'
 import { zFetch } from '../js/zLib'
 import { useRoute, useRouter } from 'vue-router'
 const step = ref(0)
 const router = useRouter()
 onBeforeMount(async () => {
-    events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
-    eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/eventcategories') : ''
-
+    await middleFetch.getEventCategoriesNull()
 })
 const createEvent = ref({
     bookingName: null,
@@ -23,10 +21,7 @@ const createEvent = ref({
 let startDate = ref(null)
 let startTime = ref(null)
 const submit = async () => {
-    // console.log(events.value);
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
-    // console.log(createEvent.value);
-    // console.log(dayjs(createEvent.value.eventStartDate +createEvent.value.eventStartTime));
     const addedEvent = await zFetch.post('http://ip21us2.sit.kmutt.ac.th:8080/api/events', createEvent.value)
     addedEvent ? events.value.push(addedEvent) : '';
 }
