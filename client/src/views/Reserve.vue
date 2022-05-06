@@ -1,15 +1,47 @@
 <script setup>
+import dayjs from 'dayjs';
 import { ref, onBeforeMount } from 'vue';
 import { events, eventCategories } from '../js/variable'
 import { zFetch } from '../js/zLib'
+import { useRoute, useRouter } from 'vue-router'
 const step = ref(0)
+const router = useRouter()
 onBeforeMount(async () => {
     events.value.length === 0 ? events.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/events') : ''
     eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://ip21us2.sit.kmutt.ac.th:8080/api/eventcategories') : ''
+
 })
+const createEvent = ref({
+    bookingName: null,
+    bookingEmail: null,
+    // eventStartDate: null,
+    // eventStartTime: null,
+    evnetNotes: null,
+    eventCategoryId: null,
+    eventDuration: 50
+})
+let startDate = ref(null)
+let startTime = ref(null)
+const submit = async () => {
+    // console.log(events.value);
+    createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
+    // console.log(createEvent.value);
+    // console.log(dayjs(createEvent.value.eventStartDate +createEvent.value.eventStartTime));
+    const addedEvent = await zFetch.post('http://ip21us2.sit.kmutt.ac.th:8080/api/events', createEvent.value)
+    addedEvent ? events.value.push(addedEvent) : '';
+}
+
+const goBack = () => router.go(-1)
+
+const selectedCatagory = ref({
+    eventCategoryDescription: null,
+    eventDuration: 0
+})
+const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.find(eC => eC.id == e.target.value)
 </script>
  
 <template>
+    {{ createEvent }}
     <!-- <div class="text-h-1 mb-8 text-center">Reserve</div>
     <div class="text-white w-full h-full flex flex-col items-center gap-4">
 
@@ -35,50 +67,55 @@ onBeforeMount(async () => {
 
     </div> -->
     <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <div class="h-full p-8 bg-slate-50 w-1/2 rounded-xl flex flex-col gap-2 overflow-y-scroll">
+        <form class="h-full p-8 bg-slate-50 w-1/2 rounded-xl flex flex-col gap-2 overflow-y-scroll">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <div class="flex gap-4">
                 <div class="w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Catagory</div>
-                    <select class="form-1">
-                        <option v-for="eventC in eventCategories">{{ eventC.id }}</option>
+                    <select class="form-1 font-medium" v-model="createEvent.eventCategoryId" required @change="selectCatagory">
+                        <option v-for="eventC in eventCategories" :value="eventC.id">{{ eventC.id }}</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-0.5">
                     <div class="text-xs">Dutation</div>
-                    <div class="form-1 text-center">150</div>
+                    <div class="form-1 font-medium text-center">{{ selectedCatagory.eventDuration }}</div>
                 </div>
             </div>
             <div class="flex sm:gap-0.5 sm:flex-col lg:flex-row lg:gap-4">
                 <div class="lg:w-1/2 sm:w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Date</div>
-                    <input type="date" class="form-1 font-medium">
+                    <input type="date" required class="form-1 font-medium" v-model="startDate">
                 </div>
                 <div class="lg:w-1/2 sm:w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Time</div>
-                    <input type="time" class="form-1 font-medium">
+                    <input type="time" required class="form-1 font-medium" v-model="startTime">
                 </div>
             </div>
             <div class=" flex flex-col gap-0.5">
                 <div class="text-xs">Name</div>
-                <input type="text" class="form-1 font-medium" placeholder="Name" name="test">
+                <input type="text" required class="form-1 font-medium" placeholder="Name" name="test"
+                    v-model="createEvent.bookingName">
             </div>
             <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Email</div>
-                <input type="text" class="form-1 font-medium" placeholder="Email">
+                <input type="email" required class="form-1 font-medium" placeholder="Email"
+                    v-model="createEvent.bookingEmail">
             </div>
             <div class="flex gap-5">
                 <div class="w-full flex flex-col gap-1">
                     <div class="text-xs">Note:</div>
-                    <textarea class=" form-1 font-medium" rows="5" placeholder="Note"></textarea>
+                    <textarea class=" form-1 font-medium" rows="5" placeholder="Note"
+                        v-model="createEvent.evnetNotes"></textarea>
                 </div>
             </div>
-            <p class="text-xs text-red-500 text-right my-1">Required fields </p>
-            <div class="flex gap-6 justify-end">
-                <button class="mb-2 md:mb-0 bg-white px-4 py-2 text-sm shadow-sm font-medium tracking-wide border text-gray-600 rounded-3xl hover:shadow-md hover:bg-gray-100">Cancel</button>
-                <button class="mb-2 md:mb-0 bg-green-400 px-4 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-3xl hover:shadow-md hover:bg-green-500">Submit</button>
+            <!-- <p class="text-xs text-red-500 text-right my-1">Required fields </p> -->
+            <div class="flex gap-6 justify-end mt-4">
+                <button @click="goBack"
+                    class="mb-2 md:mb-0 bg-white px-4 py-2 text-sm shadow-sm font-medium tracking-wide border text-gray-600 rounded-3xl hover:shadow-md hover:bg-gray-100">Cancel</button>
+                <button @click="submit"
+                    class="mb-2 md:mb-0 bg-cyan-600 px-4 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-3xl hover:shadow-md hover:bg-cyan-700">Submit</button>
             </div>
-        </div>
+        </form>
     </main>
 
 </template>
