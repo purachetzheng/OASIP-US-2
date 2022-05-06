@@ -11,21 +11,31 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
 
 
 const naviList = [
-    {
-        name: 'Home',
-        text: 'Home',
-        icon: CarbonHome
-    },
+    // {
+    //     name: 'Home',
+    //     text: 'Home',
+    //     icon: CarbonHome
+    // },
     {
         name: 'Schedules',
         text: 'Schedules',
+        icon: CarbonEventSchedule
+    },
+    {
+        name: 'SchedulesBeta',
+        text: 'SchedulesBeta',
+        icon: CarbonEventSchedule
+    },
+    {
+        name: 'Reserve',
+        text: 'Reserve',
         icon: CarbonEventSchedule
     },
 ]
 </script>
  
 <template>
-    <header class="py-4 px-20 bg-white shadow-md bg-neutral-800">
+    <header class="py-4 px-20 shadow-md bg-neutral-800">
         <div class="flex items-center justify-between h-full text-purple-600 dark:text-purple-300 w-full">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-lg font-bold text-gray-200 zoom-125-300">
@@ -51,6 +61,7 @@ const naviList = [
                     </button> -->
                 </div>
             </div>
+            <div class="w-1/12"></div>
         </div>
     </header>
 </template>

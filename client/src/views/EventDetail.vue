@@ -39,7 +39,7 @@ const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 </script>
  
 <template>
-    <div class="h-full w-full">
+    <main class="h-full w-full overflow-y-auto screen-p-1">
         <h2 class="mb-4 text-h-1">Event Details</h2>
         <button class="bg-cyan-500 hover:bg-blue-700 text-gray-100 py-1 px-3 rounded" @click="goBack">
             Back
@@ -79,7 +79,7 @@ const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
 
 
 
-    </div>
+    </main>
 </template>
  
 <style>

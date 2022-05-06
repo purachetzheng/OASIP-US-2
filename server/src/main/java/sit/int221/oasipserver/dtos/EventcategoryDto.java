@@ -1,17 +1,14 @@
 package sit.int221.oasipserver.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sit.int221.oasipserver.entities.Event;
-
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventcategoryDto {
     private String id;
     private String eventCategoryDescription;

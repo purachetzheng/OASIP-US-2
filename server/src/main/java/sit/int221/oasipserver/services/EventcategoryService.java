@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.server.ResponseStatusException;
-import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.EventcategoryDto;
-import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
@@ -27,7 +25,7 @@ public class EventcategoryService {
         return listMapper.mapList(eventcategoryList, EventcategoryDto.class, modelMapper);
     }
 
-    public EventcategoryDto getById (String id) {
+    public EventcategoryDto getById (Integer id) {
         Eventcategory eventcategory = repository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id "+ id+
@@ -41,7 +39,7 @@ public class EventcategoryService {
         return repository.saveAndFlush(eventcategory);
     }
 
-    public void delete(String id){
+    public void delete(Integer id){
         repository.findById(id).orElseThrow(()->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         id + " does not exist !!!"));

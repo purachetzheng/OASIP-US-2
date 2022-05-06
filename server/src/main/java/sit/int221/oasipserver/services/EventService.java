@@ -4,13 +4,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 import sit.int221.oasipserver.dtos.EventDto;
-import sit.int221.oasipserver.dtos.EventcategoryDto;
+import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.entities.Event;
+import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.repo.EventRepository;
+import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
 
 import java.util.List;
@@ -19,13 +19,17 @@ import java.util.List;
 public class EventService {
     @Autowired
     private EventRepository repository;
+    @Autowired
+    private EventcategoryRepository eventcategoryRepository;
     @Autowired private ModelMapper modelMapper;
     @Autowired private ListMapper listMapper;
     public List<EventDto> getAll () {
         List<Event> eventList = repository.findAllByOrderByEventStartTimeDesc();
         return listMapper.mapList(eventList, EventDto.class, modelMapper);
     }
-
+    public List<Event> getAll2 () {
+        return repository.findAll();
+    }
     public EventDto getById (Integer id) {
         Event event = repository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(
@@ -35,9 +39,15 @@ public class EventService {
         return modelMapper.map(event, EventDto.class);
     }
 
-    public Event create(EventDto newEvent){
-        Event event = modelMapper.map(newEvent, Event.class);
-        return repository.saveAndFlush(event);
+    public EventDto create(NewEventDto newEvent){
+        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
+                .orElseThrow(()->new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Event id "+newEvent.getEventCategoryId()+ " Does Not Exist !!!"
+                ));
+        newEvent.setEventDuration(eventcategory.getEventDuration());
+        newEvent.setEventCategoryEventCategoryName(eventcategory.getEventCategoryName());
+        Event e = modelMapper.map(newEvent, Event.class);
+        return modelMapper.map(repository.saveAndFlush(e),EventDto.class);
     }
 
     public void delete(Integer id){
