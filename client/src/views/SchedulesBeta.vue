@@ -47,13 +47,11 @@ const goBack = () => router.go(-1)
 
             <div class="flex flex-col w-2/5 gap-y-4">
 
-
-
                 <div class="p-4 h-1/3 bg-red-200 rounded-lg flex flex-col">
                     <span class="text-h-1 text-gray-800">Filter</span>
                     <input class="rounded-md py-0.5 pl-2 w-5/12" type="text" placeholder="Search">
-                    <div>Category:</div>
-                    <div>Category</div>
+                    <!-- <div>Category:</div>
+                    <div>Category</div> -->
                 </div>
                 <div class="p-4 h-2/3 bg-green-200 rounded-lg">
                     div
