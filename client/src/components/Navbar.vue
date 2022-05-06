@@ -39,19 +39,22 @@ const naviList = [
 </script>
  
 <template>
-    <header class="py-4 px-20 shadow-md bg-neutral-800">
-        <div class="flex items-center justify-between h-full  w-full">
+    <header class="py-4 px-20 shadow-md bg-white dark:bg-gray-800">
+        <div class="flex items-center justify-between h-full w-full">
             <!-- Logo -->
-            <button @click="goTo('Home')" class="text-lg font-bold text-gray-200 zoom-125-300">
+            <button @click="goTo('Home')" class="text-xl font-bold zoom-125-300 transition  text-gray-800 dark:text-gray-200">
                 OASIP
             </button>
             <!-- Navi -->
             <div class="">
                 <div class="flex space-x-8 text-sm font-medium">
                     <button v-for="navi in naviList" :key="navi.name" @click="goTo(navi.name)"
-                        :class="[$route.name === navi.name ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 zoom-125-300', 'inline-flex font-semibold']">
+                        :class="[$route.name === navi.name 
+                        ? 'text-blue-600 dark:text-blue-300' 
+                        : 'text-gray-500 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-300 zoom-110-300 transition ', 
+                        'inline-flex font-semibold']">
                         <!-- <CarbonHome class="w-5 h-5 mr-2" /> -->
-                        <span>{{ navi.text }}</span>
+                        {{ navi.text }}
                     </button>
                     <!-- <button @click="goTo('Home')"
                         :class="[$route.name === 'Home' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:zoom-110', 'inline-flex font-semibold']">
@@ -65,8 +68,10 @@ const naviList = [
                     </button> -->
                 </div>
             </div>
+            <!-- Menu -->
             <div class="w-1/12 flex justify-end">
-                <button class="text-white">
+                <!-- Dark Mode Toggle -->
+                <button class="text-gray-500 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-300 zoom-125-300 transition">
                     <CarbonSun class="w-5 h-5" @click="darkMode.on()" v-show="darkMode.mode.value === 'light'" />
                     <CarbonMoon class="w-5 h-5" @click="darkMode.off()" v-show="darkMode.mode.value === 'dark'" />
                 </button>

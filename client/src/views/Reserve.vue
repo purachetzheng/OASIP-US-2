@@ -37,10 +37,10 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
  
 <template>
     <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-slate-50 rounded-xl">
+        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <div class="flex gap-4">
-                <div class="w-full flex flex-col gap-0.5">
+                <div class="w-full flex flex-col gap-0.5 ">
                     <div class="text-xs">Select Catagory</div>
                     <select class="form-1 font-medium" v-model="createEvent.eventCategoryId" required @change="selectCatagory">
                         <option v-for="eventC in eventCategories" :value="eventC.id">{{ eventC.id }}</option>
@@ -61,7 +61,7 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
                     <input type="time" required class="form-1 font-medium" v-model="startTime">
                 </div>
             </div>
-            <div class=" flex flex-col gap-0.5">
+            <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Name</div>
                 <input type="text" required class="form-1 font-medium" placeholder="Name" name="test"
                     v-model="createEvent.bookingName">
@@ -83,7 +83,7 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
                 <button @click="goBack"
                     class="btn-1 bg-white hover:bg-gray-100 text-gray-600">Cancel</button>
                 <button @click="submit"
-                    class="btn-1 bg-cyan-600 hover:bg-cyan-700 text-white">Submit</button>
+                    class="btn-1 bg-blue-600 hover:bg-blue-700 text-white">Submit</button>
             </div>
         </form>
     </main>
