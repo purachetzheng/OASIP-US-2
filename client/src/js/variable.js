@@ -18,3 +18,19 @@ export const middleFetch = {
         eventCategories.value.length === 0 ? this.getEventCategories(): ''
     }
 }
+
+export const darkMode = {
+    mode: ref(localStorage.getItem('theme')),
+    on(){
+        // localStorage.setItem('theme', 'dark')
+        localStorage.theme = 'dark'
+        this.mode.value = 'dark'
+        console.log('Set theme to dark mode')
+    },
+    off(){
+        // localStorage.setItem('theme', 'light')
+        localStorage.theme = 'light'
+        this.mode.value = 'light'
+        console.log('Set theme to light mode')
+    }
+}

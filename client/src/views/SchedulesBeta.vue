@@ -75,14 +75,14 @@ const goBack = () => router.go(-1)
                 </select>
                 <span class="text-gray-100">with:</span> -->
                 </div>
-                <div class="overflow-y-auto grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-x-4 gap-y-2">
+                <div class="overflow-y-auto grid 2xl:grid-cols-2 xl:grid-cols-1 lg:grid-cols-1 sm:grid-cols-1 gap-x-4 gap-y-2">
                     <div class="flex bg-neutral-800 hover:bg-neutral-600 cursor-pointer rounded-lg"
                         v-for="(event, index) in events">
                         <span class="bg-cyan-600 w-2 rounded-l-lg"></span>
                         <!-- <div class=" inset-y-0 left-0 p-0.5 rounded-l-lg bg-red-600" aria-hidden="true"></div> -->
-                        <div class="pl-4 py-4 rounded-l-lg block h-full shadow-inner min-w-[20%]">
+                        <div class="pl-4 py-4 rounded-l-lg block h-full shadow-inner min-w-[25%]">
                             <div class="text-base text-gray-300 tracking-wide ">
-                                {{ dayjs(event.eventStartTime).format('MMMYY') }}</div>
+                                {{ dayjs(event.eventStartTime).format('MMM YY') }}</div>
                             <div class="font-semibold text-4xl text-gray-100">{{ dayjs(event.eventStartTime).format('D')
                             }}
                             </div>
