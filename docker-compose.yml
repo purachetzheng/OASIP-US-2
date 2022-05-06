@@ -9,8 +9,8 @@ services:
                 ports:
                         - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
                 volumes:
-                        - ./db:/var/lib/mysql
-                        - ./script/:/docker-entrypoint-initdb.d
+                        - ./DB:/var/lib/mysql
+                        - ./Script/:/docker-entrypoint-initdb.d
         app:
                 depends_on:
                         - dbsql
@@ -39,4 +39,4 @@ services:
                 ports:
                         - 80:80
 volumes:
-  db:
+  DB:
