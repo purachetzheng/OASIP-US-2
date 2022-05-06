@@ -41,33 +41,8 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
 </script>
  
 <template>
-    {{ createEvent }}
-    <!-- <div class="text-h-1 mb-8 text-center">Reserve</div>
-    <div class="text-white w-full h-full flex flex-col items-center gap-4">
-
-        <div class="flex flex-col gap-3 w-1/2">
-            <span>Select Catagory</span>
-
-            <select class="bg-white border border-gray-300 text-gray-900 
-            text-sm rounded-lg  w-full p-2">
-                <option>Project Management Clinic</option>
-                <option>DevOps/Infra Clinic</option>
-                <option>Database Clinic</option>
-                <option>Client-side Clinic</option>
-                <option>Server-side Clinic</option>
-            </select>
-        </div>
-        <div class="flex flex-col gap-3 w-1/2">
-            <span>Select Date</span>
-
-            <input type="date"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required="">
-        </div>
-
-    </div> -->
     <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <form class="h-full p-8 bg-slate-50 w-1/2 rounded-xl flex flex-col gap-2 overflow-y-scroll">
+        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-slate-50 rounded-xl">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <div class="flex gap-4">
                 <div class="w-full flex flex-col gap-0.5">
@@ -111,9 +86,9 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
             <!-- <p class="text-xs text-red-500 text-right my-1">Required fields </p> -->
             <div class="flex gap-6 justify-end mt-4">
                 <button @click="goBack"
-                    class="mb-2 md:mb-0 bg-white px-4 py-2 text-sm shadow-sm font-medium tracking-wide border text-gray-600 rounded-3xl hover:shadow-md hover:bg-gray-100">Cancel</button>
+                    class="btn-1 bg-white hover:bg-gray-100 text-gray-600">Cancel</button>
                 <button @click="submit"
-                    class="mb-2 md:mb-0 bg-cyan-600 px-4 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-3xl hover:shadow-md hover:bg-cyan-700">Submit</button>
+                    class="btn-1 bg-cyan-600 hover:bg-cyan-700 text-white">Submit</button>
             </div>
         </form>
     </main>
