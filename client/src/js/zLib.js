@@ -34,7 +34,7 @@ export const zFetch = {
       return await res.json()
     } else console.log('error, cannot edit')
   },
-  async remove(urlQuery, id) {
+  async remove(urlQuery) {
     const res = await fetch(urlQuery, {
       method: 'DELETE',
     })
