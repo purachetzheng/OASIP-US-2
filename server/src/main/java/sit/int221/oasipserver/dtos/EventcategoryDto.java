@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EventcategoryDto {
     private String id;
+    private String eventCategoryName;
     private String eventCategoryDescription;
     private Integer eventDuration;
 //    private Set<Event> events = new LinkedHashSet<>();
