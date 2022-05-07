@@ -27,13 +27,28 @@
     }
 
     .text-h-1{
-        @apply text-2xl font-semibold text-gray-700 dark:text-gray-200
+        @apply text-2xl font-semibold 
     }
+
+
+
     .screen-p-1{
         @apply sm:px-6 sm:py-4 md:px-12 md:py-8 lg:px-20 lg:py-12 
     }
 
+    .bg-nav-2{ 
+        @apply bg-cyan-600
+    }
+    .bg-nav{ 
+        @apply bg-neutral-800
+    }
+
     .form-1{
         @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-lg p-2
+    }
+
+
+    .flex-col-g0.5{
+        @apply flex flex-col gap-0.5
     }
 }

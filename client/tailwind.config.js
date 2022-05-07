@@ -1,18 +1,25 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  // darkMode: 'class',
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
         'palette1': {
+          1: '#E6FAFC',
+          2: '#9cfc97',
+          3: '#6BA368',
+          4: '#515b3a',
+          5: '#353D2F',
+        },
+        'palette2': {
           1: '#F8ECD1',
           2: '#DEB6AB',
           3: '#AC7D88',
           4: '#85586F',
         },
-        'palette2': {
+        'palette3': {
           1: '#EFFFFD',
           2: '#B8FFF9',
           3: '#85F4FF',
