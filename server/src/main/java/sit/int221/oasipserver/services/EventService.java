@@ -45,7 +45,7 @@ public class EventService {
                         HttpStatus.NOT_FOUND, "Event id "+newEvent.getEventCategoryId()+ " Does Not Exist !!!"
                 ));
         newEvent.setEventDuration(eventcategory.getEventDuration());
-        newEvent.setEventCategoryEventCategoryName(eventcategory.getEventCategoryName());
+//        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
         Event e = modelMapper.map(newEvent, Event.class);
         return modelMapper.map(repository.saveAndFlush(e),EventDto.class);
     }

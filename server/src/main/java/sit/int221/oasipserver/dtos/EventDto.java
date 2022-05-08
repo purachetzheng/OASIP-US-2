@@ -19,7 +19,7 @@ public class EventDto {
     private Instant eventStartTime;
     private String eventNotes;
     private Integer eventCategoryId;
-    private String eventCategoryEventCategoryName;
+    private String eventCategoryName;
 //    private String eventCategoryEventCategoryDescription;
 //    private List<Event> eventCategoryEvents;
 //    private Eventcategory eventCategory;

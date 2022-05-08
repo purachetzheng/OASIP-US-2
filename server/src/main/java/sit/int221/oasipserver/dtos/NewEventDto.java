@@ -26,6 +26,6 @@ public class NewEventDto {
     private Instant eventStartTime;
     private String eventNotes;
     private Integer eventCategoryId;
-    private String eventCategoryEventCategoryName;
+    private String eventCategoryName;
 
 }
