@@ -8,7 +8,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useRoute, useRouter } from 'vue-router';
 //js
 import { zFetch } from '../js/zLib'
-import { events, eventCategories } from '../js/variable'
+import { events, eventCategories, middleFetch } from '../js/variable'
 //icon
 import IcOutlineArrowBackIos from '../components/icons/IcOutlineArrowBackIos.vue';
 
@@ -21,8 +21,9 @@ const goBack = () => myRouter.go(-1)
 
 const event = ref({})
 onBeforeMount(async () => {
-    events.value.length === 0 ? events.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
-    event.value = events.value.find(e => e.id == id)
+    // events.value.length === 0 ? events.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
+    // event.value = events.value.find(e => e.id == id)
+    event.value = await middleFetch.getEventsById(id)
 })
 
 dayjs.extend(localizedFormat)

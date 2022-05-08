@@ -2,19 +2,16 @@
 import dayjs from 'dayjs';
 import { ref, onBeforeMount } from 'vue';
 import { events, eventCategories, middleFetch } from '../js/variable'
-import { zFetch } from '../js/zLib'
 import { useRoute, useRouter } from 'vue-router'
 const step = ref(0)
 const router = useRouter()
 onBeforeMount(async () => {
-    await middleFetch.getEventCategoriesNull()
+    await middleFetch.getEventCategories()
 })
 const createEvent = ref({
     bookingName: null,
     bookingEmail: null,
-    // eventStartDate: null,
-    // eventStartTime: null,
-    evnetNotes: null,
+    eventNotes: null,
     eventCategoryId: null,
     eventDuration: 50
 })
@@ -22,10 +19,7 @@ let startDate = ref(null)
 let startTime = ref(null)
 const submit = async () => {
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
-    // console.log(createEvent.value);
-    // console.log(dayjs(createEvent.value.eventStartDate +createEvent.value.eventStartTime));
-    const addedEvent = await zFetch.post('http://intproj21.sit.kmutt.ac.th/us2/api/events', createEvent.value)
-    addedEvent ? events.value.push(addedEvent) : '';
+    middleFetch.event.post(createEvent.value)
 }
 
 const goBack = () => router.go(-1)
@@ -78,8 +72,8 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
             <div class="flex gap-5">
                 <div class="w-full flex flex-col gap-1">
                     <div class="text-xs">Note:</div>
-                    <textarea class=" form-1 font-medium" rows="5" placeholder="Note" name="evnetNotes"
-                        v-model="createEvent.evnetNotes"></textarea>
+                    <textarea class=" form-1 font-medium" rows="5" placeholder="Note" name="eventNotes"
+                        v-model="createEvent.eventNotes"></textarea>
                 </div>
             </div>
             <!-- <p class="text-xs text-red-500 text-right my-1">Required fields </p> -->

@@ -5,14 +5,13 @@ import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
 import { zFetch } from '../js/zLib'
-//mouse
+import { events, eventCategories, middleFetch } from '../js/variable'
 import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
 
-import { events, eventCategories, middleFetch } from '../js/variable'
 import CarbonTrashCan from '../components/icons/CarbonTrashCan.vue'
-// dayjs.extend(localizedFormat)
+dayjs.extend(localizedFormat)
 
 //use router
 // const { params } = useRoute()
@@ -34,7 +33,8 @@ const viewDetail = (id) => {
 }
 
 const removeEvent = async (id) => {
-    events.value = await zFetch.remove('http://intproj21.sit.kmutt.ac.th/us2/api/events/'+ id) ? events.value.filter((event) => event.id !== id) : events.value
+    // events.value = await zFetch.remove('http://intproj21.sit.kmutt.ac.th/us2/api/events/'+ id) ? events.value.filter((event) => event.id !== id) : events.value
+    await middleFetch.removeEvent(id)
 }
 </script>
 
@@ -62,13 +62,13 @@ const removeEvent = async (id) => {
                         <div class="text-center">
                             <div class="text-white font-bold text-4xl">{{ dayjs(event.eventStartTime).format('D') }}</div>
                             <div class="text-white font-normal text-2xl tracking-wider">{{ dayjs(event.eventStartTime).format('MMM') }} </div>
-                            <div class="text-white font-normal text-xl tracking-wider">2022</div>
+                            <div class="text-white font-normal text-xl tracking-wider">{{dayjs(event.eventStartTime).format('YYYY')}}</div>
                         </div>
                     </div>
                     <div class="bg-slate-200 w-0.5 my-5"></div>
                     <div class="w-full py-4 px-4 flex flex-col justify-center ">
                         <div class="font-bold text-xl text-gray-200">{{ event.bookingName }}</div>
-                        <div class="font-semibold text-gray-300">{{ event.eventCategoryId }}</div>
+                        <div class="font-semibold text-gray-300">{{ event.eventCategoryName }}</div>
                         <div class="text-gray-400">{{ dayjs(event.eventStartTime).format('LT') }} ({{
                                 event.eventDuration
                         }} minutes )

@@ -10,7 +10,10 @@ export const zFetch = {
     if (res.status === 200) {
       console.log(`get successfully`)
       return await res.json()
-    } else console.log('error, cannot get')
+    } else {
+      console.log('error, cannot get')
+      return []
+    }
   },
   async post(urlQuery, newObj) {
     const res = await fetch(urlQuery, {

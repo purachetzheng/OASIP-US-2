@@ -4,8 +4,6 @@ import { ref, computed, onBeforeMount, onMounted, } from 'vue'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
-import { zFetch } from '../js/zLib'
-//mouse
 import { useMouse } from '../js/mouse'
 //router
 import { useRoute, useRouter } from 'vue-router'
@@ -21,8 +19,8 @@ const mousePos = useMouse()
 
 // const events = ref([])
 onBeforeMount(async () => {
-    await middleFetch.getEventsNull()
-    await middleFetch.getEventCategoriesNull()
+    await middleFetch.getEvents()
+    // await middleFetch.getEventCategoriesNull()
 })
 
 const rId = ref(0)
@@ -90,7 +88,7 @@ const goBack = () => router.go(-1)
 
                         <div class="bg-gray-500 dark:bg-gray-200 w-0.5 my-4"></div>
                         <div class="w-full py-2 px-4 flex flex-col justify-center">
-                            <div class="font-bold text-lg dark:text-gray-200">{{ event.eventCategoryId }}</div>
+                            <div class="font-bold text-lg dark:text-gray-200">{{ event.eventCategoryName }}</div>
                             <div class="font-semibold dark:text-gray-300">{{ event.bookingName }}</div>
                             <div class="text-sm dark:text-gray-400">{{ dayjs(event.eventStartTime).format('LT') }} -
                                 {{ dayjs(event.eventStartTime).add(event.eventDuration, 'm').format('LT') }} ({{
