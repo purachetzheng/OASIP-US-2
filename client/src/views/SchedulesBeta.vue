@@ -21,13 +21,8 @@ const mousePos = useMouse()
 
 // const events = ref([])
 onBeforeMount(async () => {
-<<<<<<< HEAD
-    events.value.length === 0 ? events.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
-    eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/eventcategories') : ''
-=======
     await middleFetch.getEventsNull()
     await middleFetch.getEventCategoriesNull()
->>>>>>> dev
 })
 
 const rId = ref(0)

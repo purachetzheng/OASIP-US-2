@@ -7,13 +7,7 @@ import { useRoute, useRouter } from 'vue-router'
 const step = ref(0)
 const router = useRouter()
 onBeforeMount(async () => {
-<<<<<<< HEAD
-    events.value.length === 0 ? events.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
-    eventCategories.value.length === 0 ? eventCategories.value = await zFetch.get('http://intproj21.sit.kmutt.ac.th/us2/api/events') : ''
-
-=======
     await middleFetch.getEventCategoriesNull()
->>>>>>> dev
 })
 const createEvent = ref({
     bookingName: null,
@@ -28,15 +22,10 @@ let startDate = ref(null)
 let startTime = ref(null)
 const submit = async () => {
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
-<<<<<<< HEAD
     // console.log(createEvent.value);
     // console.log(dayjs(createEvent.value.eventStartDate +createEvent.value.eventStartTime));
     const addedEvent = await zFetch.post('http://intproj21.sit.kmutt.ac.th/us2/api/events', createEvent.value)
     addedEvent ? events.value.push(addedEvent) : '';
-=======
-    const addedEvent = await zFetch.post('http://ip21us2.sit.kmutt.ac.th:8080/api/events', createEvent.value)
-    addedEvent ? events.value.push(addedEvent) : ''
->>>>>>> dev
 }
 
 const goBack = () => router.go(-1)
