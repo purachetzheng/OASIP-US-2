@@ -34,7 +34,7 @@ const viewDetail = (id) => {
 }
 
 const removeEvent = async (id) => {
-    events.value = await zFetch.remove('http://intproj21.sit.kmutt.ac.th/us2/api/events/'+ id) ? events.value.filter((event) => event.id !== id) : ''
+    events.value = await zFetch.remove('http://intproj21.sit.kmutt.ac.th/us2/api/events/'+ id) ? events.value.filter((event) => event.id !== id) : events.value
 }
 </script>
 
