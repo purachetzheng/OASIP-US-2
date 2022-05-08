@@ -33,7 +33,7 @@ export const middleFetch = {
 }
 
 export const darkMode = {
-    mode: ref(localStorage.getItem('theme')),
+    mode: ref(localStorage.getItem('theme') !== null? localStorage.getItem('theme'): 'light'),
     on(){
         // localStorage.setItem('theme', 'dark')
         localStorage.theme = 'dark'
