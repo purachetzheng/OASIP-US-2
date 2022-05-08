@@ -13,7 +13,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**").allowedMethods("POST", "GET",  "PUT", "OPTIONS", "DELETE");
     }
     @Bean
     public ModelMapper modelMapper(){
