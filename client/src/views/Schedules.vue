@@ -13,6 +13,7 @@ import { events, eventCategories, middleFetch } from '../js/variable'
 import RiTimeFill from '../components/icons/RiTimeFill.vue'
 import RiMapPin2Fill from '../components/icons/RiMapPin2Fill.vue'
 import RiInformationFill from '../components/icons/RiInformationFill.vue'
+import CursorTooltip from '../components/CursorTooltip.vue'
 dayjs.extend(localizedFormat)
 
 //use router
@@ -86,38 +87,53 @@ const removeEvent = async (id) => {
                         <div class="flex text-base font-semibold bg-red-200 px-1 rounded-md">2</div>
                     </div>
                 </div>
-
-                <div class="overflow-y-auto grid grid-cols-1 gap-x-4 gap-y-0.5">
-
-                    <div class="relative flex p-2 bg-gray-50"
+                <!-- events list -->
+                <div class="h-full overflow-y-auto grid grid-cols-1 auto-rows-min gap-x-4 gap-y-0.5 p-1">
+                    <!-- loop events -->
+                    <div class="relative flex "
                         v-for="(event, index) in events">
-                        <span class="absolute inset-y-0 left-0 w-1 bg-green-300"
-                    aria-hidden="true"></span>
-                        <div class="flex flex-col w-2/12 pl-1">
+                        <span class="bg-green-300 w-1.5 rounded-l-lg"></span>
+                        <div class="flex flex-col w-20 p-2 pr-1 bg-gray-50 ">
+                            <!-- Month Year -->
                             <div class="whitespace-nowrap text-sm font-medium text-gray-600 ">{{ dayjs(event.eventStartTime).format('MMM YY') }}</div>
+                            <!-- Day -->
                             <div class="text-xl font-semibold">{{ dayjs(event.eventStartTime).format('D') }}</div>
                         </div>
-                        <div class="flex flex-col h-full w-9/12 ">
-                            <div class="flex items-center gap-2">
-                                <div class="text-base font-medium text-gray-700">{{ event.bookingName }}</div>
+                        <div class="flex flex-col h-full w-full py-2 pl-1 bg-gray-50 ">
+                            <!-- Name -->
+                            <div class="flex items-center gap-2 w-full">
+                                <div class="text-base font-medium break-all text-gray-700">{{ event.bookingName }}</div>
                             </div>
                             <div class="flex items-center gap-2">
                                 
                             </div>
-                            <div class="flex items-center gap-2 text-sm font-medium text-gray-600">
-                                <RiTimeFill />
-                                <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LT') }}</div>
-                                <div class="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
-                                <div class="whitespace-nowrap">{{ event.eventDuration }} min</div>
-                                <RiMapPin2Fill />
-                                <div class="">{{ event.eventCategoryEventCategoryName }}</div>
+                            <div class="flex flex-wrap gap-x-2 text-sm font-medium text-gray-600">
+                                <!-- Time -->
+                                <div class="flex items-center gap-2">
+                                    <RiTimeFill />
+                                    <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LT') }}</div> 
+                                </div>
+                                <!-- Duration -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                                    <div class="whitespace-nowrap">{{ event.eventDuration }} min</div>
+                                </div>
+                                <!-- EventCategoryName -->
+                                <div class="flex items-center gap-2">
+                                    <RiMapPin2Fill />
+                                    <div class="">{{ event.eventCategoryEventCategoryName }}</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-2 flex justify-center items-center gap-1 w-1/12">
-                            <button class="" @click="viewDetail(event.id)">
+                        <div class="flex justify-end items-center gap-1 p-2 bg-gray-50 rounded-r-lg">
+                            <button class="" @click="viewDetail(event.id)" 
+                                @mouseenter="mouseOnRow = 'Show Detail'"
+                                @mouseleave="mouseOnRow = null">
                                 <RiInformationFill class="text-xl text-gray-500 text-center"/>
                             </button>
-                            <button class="" @click="removeEvent(event.id)">
+                            <button class="" @click="removeEvent(event.id)"
+                                @mouseenter="mouseOnRow = 'Delete Event'"
+                                @mouseleave="mouseOnRow = null">
                                 <CarbonTrashCan class="text-xl text-red-500 text-center"/>
                             </button>
                         </div>
@@ -125,6 +141,7 @@ const removeEvent = async (id) => {
                 </div>
             </div>
         </div>
+        <CursorTooltip :mouseOn="mouseOnRow" />
     </main>
 </template>
 

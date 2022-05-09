@@ -56,7 +56,7 @@ const removeEvent = async (id) => {
                         <div class="font-semibold text-4xl text-gray-100">{{ dayjs(event.eventStartTime).format('D') }}</div>
                     </div> -->
                 <div class="h-full w-full flex" @click="viewDetail(event.id)">
-                        <span class="bg-cyan-600 w-2 rounded-l-lg"></span>
+                    <span class="bg-cyan-600 w-2 rounded-l-lg"></span>
                     <div class="rounded-lg lg:w-3/12 py-2 sm:px-4 block h-full shadow-inner">
                         <div class="text-center">
                             <div class="text-white font-bold text-4xl">{{ dayjs(event.eventStartTime).format('D') }}</div>

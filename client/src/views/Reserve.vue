@@ -62,7 +62,7 @@ const selectCatagory = (e) => selectedCatagory.value = eventCategories.value.fin
             <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Name</div>
                 <input type="text" required class="form-1 font-medium" placeholder="Name" name="bookingName"
-                    v-model="createEvent.bookingName">
+                    maxlength="100" v-model="createEvent.bookingName">
             </div>
             <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Email</div>
