@@ -40,11 +40,11 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent){
-        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
-                .orElseThrow(()->new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Event id "+newEvent.getEventCategoryId()+ " Does Not Exist !!!"
-                ));
-        newEvent.setEventDuration(eventcategory.getEventDuration());
+//        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
+//                .orElseThrow(()->new ResponseStatusException(
+//                        HttpStatus.NOT_FOUND, "Event id "+newEvent.getEventCategoryId()+ " Does Not Exist !!!"
+//                ));
+//        newEvent.setEventDuration(eventcategory.getEventDuration());
 //        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
         Event e = modelMapper.map(newEvent, Event.class);
         return modelMapper.map(repository.saveAndFlush(e),EventDto.class);
