@@ -13,6 +13,9 @@
     .btn-2{
         @apply mb-2 md:mb-0 px-2.5 py-1.5 text-sm shadow-sm font-medium  rounded-md hover:shadow-md
     }
+    .btn-modal{
+        @apply px-4 py-2 text-base font-medium rounded-md w-full  focus:outline-none focus:ring-2
+    }
 
     
 

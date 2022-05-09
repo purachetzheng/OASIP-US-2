@@ -10,6 +10,7 @@ import SchedulesBeta from '../views/SchedulesBeta.vue'
 import SchedulesOld from '../views/SchedulesOld.vue'
 import EventDetail from '../views/EventDetail.vue'
 import Reserve from '../views/Reserve.vue'
+import TestModal from '../views/TestModal.vue'
 
 const history = createWebHistory('/us2/')
 const routes = [
@@ -42,6 +43,11 @@ const routes = [
     path: '/reserve',
     name: 'Reserve',
     component: Reserve,
+  },
+  {
+    path: '/test',
+    name: 'TestModal',
+    component: TestModal,
   },
   {
     path: '/:catchNotMatchPath(.*)',

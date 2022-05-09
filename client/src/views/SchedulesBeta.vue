@@ -18,6 +18,7 @@ import CursorTooltip from '../components/CursorTooltip.vue'
 import IconGrid from '../components/icons/IconGrid.vue'
 import IconList from '../components/icons/IconList.vue'
 
+
 //use router
 // const { params } = useRoute()
 const router = useRouter()
@@ -101,7 +102,11 @@ const removeEvent = async (id) => {
                     </div>
                 </div>
                 <!-- events list -->
-                <div class="h-full overflow-y-auto grid grid-cols-3 auto-rows-min gap-x-2 gap-y-2 p-1">
+                <div v-show="events.length === 0">
+                    No Scheduled Events
+                </div>
+
+                <div v-show="events.length !== 0" class="h-full overflow-y-auto grid grid-cols-3 auto-rows-min gap-x-2 gap-y-2 p-1">
                     <!-- loop events -->
                     <div class="flex flex-col shadow-lg p-4 bg-white rounded-md" v-for="(event, index) in events">
 
@@ -138,12 +143,10 @@ const removeEvent = async (id) => {
                             </button>
                         </div>
                     </div>
+                    
                 </div>
             </div>
-
-
         </div>
-
     </main>
 </template>
 
