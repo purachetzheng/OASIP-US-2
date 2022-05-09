@@ -24,11 +24,11 @@ const naviList = [
         text: 'Schedules',
         icon: CarbonEventSchedule
     },
-    // {
-    //     name: 'SchedulesBeta',
-    //     text: 'SchedulesBeta',
-    //     icon: CarbonEventSchedule
-    // },
+    {
+        name: 'SchedulesBeta',
+        text: 'SchedulesBeta',
+        icon: CarbonEventSchedule
+    },
     {
         name: 'Reserve',
         text: 'Reserve',

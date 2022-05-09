@@ -49,19 +49,6 @@ const removeEvent = async (id) => {
     </div> -->
         <div class="flex h-full justify-between gap-10">
 
-            <div class="flex flex-col w-4/12 gap-y-4">
-
-                <div class="p-4 h-1/3 bg-red-200 rounded-lg flex flex-col">
-                    <span class="text-h-1 text-gray-800">Filter</span>
-                    <input class="rounded-md py-0.5 pl-2 w-5/12" type="text" placeholder="Search">
-                    <!-- <div>Category:</div>
-                    <div>Category</div> -->
-                </div>
-                <div class="p-4 h-2/3 bg-green-200 rounded-lg">
-                    div
-                </div>
-            </div>
-
             <div class="p-4 flex flex-col w-8/12 gap-2 bg-white rounded-xl shadow-lg">
                 <div class="flex items-baseline justify-center">
                     <!-- header -->
@@ -136,6 +123,19 @@ const removeEvent = async (id) => {
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col w-4/12 gap-y-4">
+
+                <div class="p-4 h-1/3 bg-red-200 rounded-lg flex flex-col">
+                    <span class="text-h-1 text-gray-800">Filter</span>
+                    <input class="rounded-md py-0.5 pl-2 w-5/12" type="text" placeholder="Search">
+                    <!-- <div>Category:</div>
+                    <div>Category</div> -->
+                </div>
+                <div class="p-4 h-2/3 bg-green-200 rounded-lg">
+                    div
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import {
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
 import Schedules from '../views/Schedules.vue'
+import SchedulesBeta from '../views/SchedulesBeta.vue'
 import SchedulesOld from '../views/SchedulesOld.vue'
 import EventDetail from '../views/EventDetail.vue'
 import Reserve from '../views/Reserve.vue'
@@ -31,6 +32,11 @@ const routes = [
     path: '/SchedulesOld',
     name: 'SchedulesOld',
     component: SchedulesOld,
+  },
+  {
+    path: '/SchedulesBeta',
+    name: 'SchedulesBeta',
+    component: SchedulesBeta,
   },
   {
     path: '/reserve',
