@@ -4,43 +4,40 @@ import { ref, computed, onBeforeMount, onMounted, } from 'vue'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
-import { useMouse } from '../js/mouse'
+
 //router
 import { useRoute, useRouter } from 'vue-router'
 import CarbonTrashCan from '../components/icons/CarbonTrashCan.vue'
 import { events, eventCategories, middleFetch } from '../js/variable'
-
+//icons
 import RiTimeFill from '../components/icons/RiTimeFill.vue'
 import RiMapPin2Fill from '../components/icons/RiMapPin2Fill.vue'
 import RiInformationFill from '../components/icons/RiInformationFill.vue'
+//components
 import CursorTooltip from '../components/CursorTooltip.vue'
-dayjs.extend(localizedFormat)
 
 //use router
 // const { params } = useRoute()
 const router = useRouter()
-//use mouse
-const mousePos = useMouse()
+const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
+const goBack = () => router.go(-1)
 
-// const events = ref([])
+//dayjs
+dayjs.extend(localizedFormat)
+
+//set up
 onBeforeMount(async () => {
     await middleFetch.getEvents()
-    // await middleFetch.getEventCategoriesNull()
 })
 
-const rId = ref(0)
-let mouseOnRow = ref(null)
-const getDate = (dateTime) => dayjs(dateTime).format('LL')
-const getTime = (dateTime) => dayjs(dateTime).format('HH:mm')
-// const getTime = (dateTime) => dayjs(dateTime).format('LT')
+let mouseOn = ref(null)
 
-const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
 const viewDetail = (id) => {
     goTo('EventDetail', { eventId: id })
 }
-const goBack = () => router.go(-1)
+
 const removeEvent = async (id) => {
-    await middleFetch.removeEvent(id)
+    confirm('Are you sure you want to cancel this event?')?await middleFetch.removeEvent(id):''
 }
 </script>
 
@@ -127,13 +124,13 @@ const removeEvent = async (id) => {
                         </div>
                         <div class="flex justify-end items-center gap-1 p-2 bg-gray-50 rounded-r-lg">
                             <button class="" @click="viewDetail(event.id)" 
-                                @mouseenter="mouseOnRow = 'Show Detail'"
-                                @mouseleave="mouseOnRow = null">
+                                @mouseenter="mouseOn = 'Show Detail'"
+                                @mouseleave="mouseOn = null">
                                 <RiInformationFill class="text-xl text-gray-500 text-center"/>
                             </button>
                             <button class="" @click="removeEvent(event.id)"
-                                @mouseenter="mouseOnRow = 'Delete Event'"
-                                @mouseleave="mouseOnRow = null">
+                                @mouseenter="mouseOn = 'Delete Event'"
+                                @mouseleave="mouseOn = null">
                                 <CarbonTrashCan class="text-xl text-red-500 text-center"/>
                             </button>
                         </div>
@@ -141,7 +138,7 @@ const removeEvent = async (id) => {
                 </div>
             </div>
         </div>
-        <CursorTooltip :mouseOn="mouseOnRow" />
+        <CursorTooltip :mouseOn="mouseOn" />
     </main>
 </template>
 
