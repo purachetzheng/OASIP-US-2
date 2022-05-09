@@ -9,6 +9,8 @@ export const middleFetch = {
     event:{
         async post(newEvent){
             const addedEvent = await fetchData.post('events', newEvent)
+            const categoryId = addedEvent.eventCategoryId
+            addedEvent.EventCategoryName = eventCategories.find(e => e.id === categoryId).eventDuration
             addedEvent ? events.value.push(addedEvent) : '';
         },
     },

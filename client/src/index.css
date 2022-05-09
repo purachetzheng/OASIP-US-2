@@ -49,6 +49,9 @@
     .form-1{
         @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-lg p-2
     }
+    .form-1-off{
+        @apply bg-gray-100 text-gray-700 text-sm border border-gray-200 rounded-lg p-2
+    }
 
 
     .flex-col-g0.5{
