@@ -119,7 +119,7 @@ const removeEvent = async (id) => {
                                 <!-- EventCategoryName -->
                                 <div class="flex items-center gap-2">
                                     <RiMapPin2Fill />
-                                    <div class="">{{ event.eventCategoryEventCategoryName }}</div>
+                                    <div class="">{{ event.eventCategoryName }}</div>
                                 </div>
                             </div>
                         </div>
