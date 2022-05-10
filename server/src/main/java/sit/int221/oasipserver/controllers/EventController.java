@@ -13,6 +13,9 @@ import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.services.EventService;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,10 +30,7 @@ public class EventController {
     public List<EventDto> getAllEvent(){
         return eventService.getAll();
     }
-    @GetMapping("/test")
-    public List<Event> getAllEvent2(){
-        return eventService.getAll2();
-    }
+
     @GetMapping("{id}")
     public EventDto getEventById(@PathVariable Integer id){
         return eventService.getById(id);
@@ -49,5 +49,32 @@ public class EventController {
     @PutMapping("{id}")
     public Event updateEvent(@RequestBody EventDto updateEventDto, @PathVariable Integer id){
         return eventService.update(updateEventDto,id);
+    }
+
+    @GetMapping("/all2")
+    public List<Event> getAll2(){
+        return eventService.getAll2();
+    }
+    @GetMapping("/test")
+    public void test(){
+//        Eventcategory eventcategory = new Eventcategory();
+//        eventcategory.setId(2);
+//
+//        List<Event> eventList = eventRepository.findAllByEventCategoryIs(eventcategory);
+//        List arrInt = new ArrayList<>();
+//        eventList.forEach(event -> System.out.println(event.getBookingName()));
+//        System.out.println(arrInt);
+////        System.out.println(eventList);
+//        return eventList;
+
+//        System.out.println(Instant.now().toString());
+//        System.out.println(Instant.parse("2022-05-23T06:30:00Z"));
+
+        System.out.println(Instant.parse("2022-05-23T06:30:00Z").compareTo(Instant.parse("2022-05-24T06:30:00Z")));
+        System.out.println(Instant.parse("2022-05-23T06:30:00Z").compareTo(Instant.parse("2022-05-22T06:30:00Z")));
+        System.out.println(Instant.parse("2022-05-23T06:30:00Z").isBefore(Instant.parse("2022-05-23T06:20:00Z")));
+//        System.out.println(Instant.parse("2022-05-23T06:30:00Z").plus(30, ChronoUnit.MINUTES));
+
+        //        return Instant.now();
     }
 }
