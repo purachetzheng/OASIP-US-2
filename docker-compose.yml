@@ -32,7 +32,7 @@ services:
                 tty: true
         frontapp:
                 container_name: frontapp
-                image: vuefs
+                build: ./client
                 depends_on:
                         - backapp
                 ports:
