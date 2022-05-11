@@ -8,7 +8,8 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 //router
 import { useRoute, useRouter } from 'vue-router'
 import CarbonTrashCan from '../components/icons/CarbonTrashCan.vue'
-import { events, eventCategories, middleFetch } from '../js/variable'
+// import { events, eventCategories, middleFetch } from '../js/variable'
+import { events, eventFetch } from '../js/event'
 //icons
 import RiTimeFill from '../components/icons/RiTimeFill.vue'
 import RiMapPin2Fill from '../components/icons/RiMapPin2Fill.vue'
@@ -30,8 +31,10 @@ dayjs.extend(localizedFormat)
 
 //set up
 onBeforeMount(async () => {
-    await middleFetch.getEventsNull()
+    await eventFetch.get()
+    // await middleFetch.getEventsNull()
     // await middleFetch.getEvents()
+
 })
 
 let mouseOn = ref(null)
@@ -41,7 +44,7 @@ const viewDetail = (id) => {
 }
 
 const removeEvent = async (id) => {
-    confirm('Are you sure you want to cancel this event?') ? await middleFetch.removeEvent(id) : ''
+    confirm('Are you sure you want to cancel this event?') ? await eventFetch.remove(id) : ''
 }
 </script>
 

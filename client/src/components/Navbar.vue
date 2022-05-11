@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
-import { darkMode } from '../js/variable'
+import { darkMode } from '../js/darkMode'
 
 //Icon
 import CarbonEventSchedule from './icons/CarbonEventSchedule.vue'

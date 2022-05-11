@@ -2,7 +2,8 @@
 //Comp
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
-import { darkMode } from './js/variable'
+import { darkMode } from './js/darkMode'
+
 
 </script>
 

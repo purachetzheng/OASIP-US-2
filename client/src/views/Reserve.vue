@@ -1,7 +1,9 @@
 <script setup>
 import dayjs from 'dayjs';
 import { ref, onBeforeMount } from 'vue';
-import { events, eventCategories, middleFetch } from '../js/variable'
+// import { events, eventCategories, middleFetch } from '../js/variable'
+import { eventCategories, eventCategoryFetch } from '../js/eventCategory'
+import { events, eventFetch } from '../js/event'
 import { useRoute, useRouter } from 'vue-router'
 import IconCheckCircleFill from '../components/icons/IconCheckCircleFill.vue'
 import ModalCreate from '../components/modal/ModalCreate.vue';
@@ -9,7 +11,8 @@ import ModalCreate from '../components/modal/ModalCreate.vue';
 const step = ref(0)
 const router = useRouter()
 onBeforeMount(async () => {
-    await middleFetch.getEventCategories()
+    // await middleFetch.getEventCategories()
+    await eventCategoryFetch.get()
 })
 const createEvent = ref({
     bookingName: null,
@@ -28,7 +31,8 @@ const send = ref(false)
 const submit = async () => {
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
     createEvent.value.eventDuration = selectedCatagory.value.eventDuration
-    middleFetch.event.post(createEvent.value)
+    eventFetch.post(createEvent.value)
+    // middleFetch.event.post(createEvent.value)
     // modal.value.visible = true
     send.value = true 
 }
