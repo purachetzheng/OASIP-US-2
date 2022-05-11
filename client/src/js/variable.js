@@ -15,7 +15,9 @@ export const middleFetch = {
         },
     },
     async getEvents(){
-        events.value = await fetchData.get('events')
+        // events.value = await fetchData.get('events')
+
+        events.value = await zFetch.get(import.meta.env.VITE_BASE_URL+ '/api/events')
     },
     async getEventsNull(){
         events.value.length === 0 ? this.getEvents() : ''
@@ -31,6 +33,7 @@ export const middleFetch = {
     },
     async removeEvent(id){
         events.value = await zFetch.remove('http://intproj21.sit.kmutt.ac.th/us2/api/events/'+ id) ? events.value.filter((event) => event.id !== id) : events.value
+        // events.value = await zFetch.remove(import.meta.env.BASE_URL+'api/events/'+ id) ? events.value.filter((event) => event.id !== id) : events.value
     }
 }
 
