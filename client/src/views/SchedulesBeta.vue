@@ -19,6 +19,8 @@ import CursorTooltip from '../components/CursorTooltip.vue'
 import IconGrid from '../components/icons/IconGrid.vue'
 import IconList from '../components/icons/IconList.vue'
 
+import EventDetail from '../components/EventDetail.vue'
+
 
 //use router
 // const { params } = useRoute()
@@ -38,9 +40,14 @@ onBeforeMount(async () => {
 })
 
 let mouseOn = ref(null)
-
-const viewDetail = (id) => {
-    goTo('EventDetail', { eventId: id })
+let detailModal = ref({
+    visible: false
+})
+const selectedEvent = ref({})
+const viewDetail = async(id) => {
+    detailModal.value.visible = true
+    selectedEvent.value = await eventFetch.getById(id)
+    // goTo('EventDetail', { eventId: id })
 }
 
 const removeEvent = async (id) => {
@@ -49,7 +56,7 @@ const removeEvent = async (id) => {
 </script>
 
 <template>
-    <main class="h-full w-screen overflow-y-auto p-2">
+    <main class=" h-full w-screen overflow-y-auto p-2 ">
         <div class="flex h-full justify-between ">
 
             <div class="p-4 flex flex-col w-1/4 gap-y-2 pr-2">
@@ -109,7 +116,9 @@ const removeEvent = async (id) => {
                     No Scheduled Events
                 </div>
 
-                <div v-show="events.length !== 0" class="h-full overflow-y-auto grid grid-cols-3 auto-rows-min gap-x-2 gap-y-2 p-1">
+                <div v-show="events.length !== 0" 
+                    class="h-full overflow-y-auto auto-rows-min gap-x-2 gap-y-2 p-1
+                        grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
                     <!-- loop events -->
                     <div class="flex flex-col shadow-lg p-4 bg-white rounded-md" v-for="(event, index) in events">
 
@@ -141,6 +150,8 @@ const removeEvent = async (id) => {
                             <button
                                 class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400"
                                 @click="removeEvent(event.id)"
+                                @mouseenter="mouseOn = 'Delete Event'"
+                                @mouseleave="mouseOn = null"
                             >
                                 Cancel
                             </button>
@@ -150,6 +161,9 @@ const removeEvent = async (id) => {
                 </div>
             </div>
         </div>
+
+        <EventDetail :event="selectedEvent" :detailModal="detailModal" />
+        <CursorTooltip :mouseOn="mouseOn" :minusY="50" />
     </main>
 </template>
 

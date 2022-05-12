@@ -11,7 +11,7 @@ import { useRoute, useRouter } from 'vue-router';
 // import { events, eventCategories, middleFetch } from '../js/variable'
 import { events, eventFetch } from '../js/event'
 //icon
-import IcOutlineArrowBackIos from '../components/icons/IcOutlineArrowBackIos.vue';
+
 
 //use router
 const { params } = useRoute()

@@ -26,6 +26,13 @@ module.exports = {
           4: '#42C2FF',
         },
       },
+      spacing: {
+        '15': '3.75rem',
+        '128': '32rem',
+        '160': '40rem',
+        '192': '48rem',
+        '256': '64rem',
+      }
     },
     letterSpacing: {
       tightest: '-.075em',
