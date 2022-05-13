@@ -33,9 +33,12 @@ export const fetchData = {
       body: JSON.stringify(obj),
     })
     if (res.status === 200) {
-      console.log('edited successfully')
+      console.log(`edited ${entity} successfully`)
       return await res.json()
-    } else console.log('error, cannot edit')
+    } else {
+      console.log(`error, cannot edit ${entity}`)
+      return false
+    }
   },
   async remove(entity) {
     const res = await fetch(this.settings.baseUrl + entity, { method: 'DELETE',})

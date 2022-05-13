@@ -30,11 +30,28 @@ export const eventFetch = {
 
     //REMOVE
     async remove(id) {
-        const isDeleted = await fetchData.remove('events/' + id)
+        const isDeleted = await fetchData.remove(`events/${id}`)
 
         if(isDeleted){
             events.value = events.value.filter((event) => event.id !== id)
             console.log('deleted event successfully')
         } else console.log('error, cannot delete event')
     },
+
+    //UPDATE
+    async put(id, editObj){
+        const modifyEvent = await fetchData.put(`events/${id}`, editObj)
+        events.value = events.value.map((event) => 
+            event.id === modifyEvent.id 
+            ? { 
+                ...event,
+                bookingName: modifyEvent.bookingName,
+                bookingEmail: modifyEvent.bookingEmail,
+                eventStartTime: modifyEvent.eventStartTime,
+                eventDuration: modifyEvent.eventDuration,
+                eventNotes: modifyEvent.eventNotes,
+                eventCategoryId: modifyEvent.eventCategoryId
+            } 
+            : event )
+    }
 }

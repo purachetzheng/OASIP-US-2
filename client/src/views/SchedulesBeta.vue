@@ -44,7 +44,11 @@ const viewDetail = async(id) => {
 const refreshEvent = () => eventFetch.get()
 const removeEvent = async (id) => 
     confirm('Are you sure you want to cancel this event?') ? await eventFetch.remove(id) : ''
-
+const updateEvent = async (id, event) => {
+    console.log(id);
+    console.log(event);
+    eventFetch.put(id, event)
+}
 </script>
 
 <template>
@@ -102,7 +106,8 @@ const removeEvent = async (id) =>
             </div>
         </div>
 
-        <EventDetail :event="selectedEvent" :detailModal="detailModal" />
+        <EventDetail :event="selectedEvent" :detailModal="detailModal" 
+            @emitUpdateEvent="updateEvent" />
         <CursorTooltip :mouseOn="mouseOn" :minusY="0" />
     </main>
 </template>

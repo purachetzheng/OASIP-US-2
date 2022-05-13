@@ -56,6 +56,7 @@ const alertSuccess = ref(null)
         <form action="#" class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg"
             @submit="submit">
             <span class="text-h-1 text-black mb-2">Reserve</span>
+            <!-- Catagory -->
             <div class="flex gap-4 sm:flex-col lg:flex-row">
                 <div class="w-full flex flex-col gap-0.5 ">
                     <div class="text-xs">Select Catagory</div>
@@ -74,6 +75,7 @@ const alertSuccess = ref(null)
                     }}</div>
                 </div>
             </div>
+            <!-- Start Time -->
             <div class="flex sm:gap-0.5 sm:flex-col lg:flex-row lg:gap-4">
                 <div class="lg:w-1/2 sm:w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Date</div>
@@ -84,23 +86,30 @@ const alertSuccess = ref(null)
                     <input type="time" required class="form-1 font-medium" v-model="startTime">
                 </div>
             </div>
+            <!-- Name -->
             <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Name</div>
                 <input type="text" required class="form-1 font-medium" placeholder="Name" name="bookingName"
                     maxlength="100" v-model="createEvent.bookingName">
             </div>
+            <!-- Email -->
             <div class="flex flex-col gap-0.5">
                 <div class="text-xs">Email</div>
                 <input type="email" required class="form-1 font-medium" placeholder="Email" name="bookingEmail"
                     v-model="createEvent.bookingEmail">
             </div>
+            <!-- Note -->
             <div class="flex gap-5">
                 <div class="w-full flex flex-col gap-1">
                     <div class="text-xs">Note:</div>
-                    <textarea class=" form-1 font-medium" rows="5" placeholder="Note" name="eventNotes"
-                        v-model="createEvent.eventNotes"></textarea>
+                    <textarea
+                        name="eventNotes" rows="5" placeholder="Note" maxlength="500"
+                        class="form-1 font-medium" 
+                        v-model="createEvent.eventNotes">
+                    </textarea>
                 </div>
             </div>
+
             <!-- <p class="text-xs text-red-500 text-right my-1">Required fields </p> -->
             <div v-show="send" ref="alertSuccess"
                 class="flex items-center bg-green-100 rounded-lg text-green-700 text-sm font-medium px-4 py-3"
