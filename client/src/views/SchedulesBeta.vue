@@ -4,58 +4,47 @@ import { ref, computed, onBeforeMount, onMounted, } from 'vue'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
+import { events, eventFetch } from '../js/event'
 
 //router
 import { useRoute, useRouter } from 'vue-router'
-import CarbonTrashCan from '../components/icons/CarbonTrashCan.vue'
-// import { events, eventCategories, middleFetch } from '../js/variable'
-import { events, eventFetch } from '../js/event'
+
 //components
 import CursorTooltip from '../components/CursorTooltip.vue'
 import EventDetail from '../components/EventDetail.vue'
-//icons
-import RiTimeFill from '../components/icons/RiTimeFill.vue'
-import RiMapPin2Fill from '../components/icons/RiMapPin2Fill.vue'
-import IconGrid from '../components/icons/IconGrid.vue'
-import IconList from '../components/icons/IconList.vue'
-import IconRefresh from '../components/icons/IconRefresh.vue'
+import EventList from '../components/SchedulesView/EventList.vue'
+import EventListHeader from '../components/SchedulesView/EventListHeader.vue'
 
+//icons
 
 //use router
 // const { params } = useRoute()
 const router = useRouter()
-const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
+const goTo = (pageName, param = null) => 
+    router.push({ name: pageName, params: param ? param : '' })
 const goBack = () => router.go(-1)
 
 //dayjs
 dayjs.extend(localizedFormat)
 
 //set up
-onBeforeMount(async () => {
-    await eventFetch.get()
-    // await middleFetch.getEventsNull()
-    // await middleFetch.getEvents()
+onBeforeMount(async () => { await eventFetch.get() })
 
-})
-
-const refreshEvent = () => {
-    eventFetch.get()
-}
 
 let mouseOn = ref(null)
-let detailModal = ref({
-    visible: false
-})
+let detailModal = ref({ visible: false })
 const selectedEvent = ref({})
+
 const viewDetail = async(id) => {
     detailModal.value.visible = true
     selectedEvent.value = await eventFetch.getById(id)
     // goTo('EventDetail', { eventId: id })
 }
 
-const removeEvent = async (id) => {
+const refreshEvent = () => eventFetch.get()
+const removeEvent = async (id) => 
     confirm('Are you sure you want to cancel this event?') ? await eventFetch.remove(id) : ''
-}
+
 </script>
 
 <template>
@@ -78,35 +67,10 @@ const removeEvent = async (id) => {
                 </div> -->
             </div>
 
-            <!-- Event List -->
+            <!-- Layout - Event List  -->
             <div class="p-4 flex flex-col w-full gap-2 rounded-xl ">
                 <!-- header -->
-                <div class="flex justify-between">
-                    <div class="flex items-center gap-1">
-                        <!-- Refresh -->
-                        <button class="flex items-end" @click="refreshEvent">
-                            <IconRefresh class="w-6 h-6 text-blue-600 hover:text-blue-700" />
-                        </button>
-                        <!-- Header Text -->
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-lg tracking-wide font-medium">Schedules: </span> 
-                            
-                            <span class="font-medium">
-                                {{events.length}} events.
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 pr-4">
-                        <button class="flex items-center gap-1.5">
-                            <IconGrid class="w-4 h-4" />
-                            <p class="text-sm font-medium">Grid</p>
-                        </button>
-                        <button class="flex items-center gap-1.5">
-                            <IconList class="w-5 h-5" />
-                            <p class="text-sm font-medium">List</p>
-                        </button>
-                    </div>
-                </div>
+                <EventListHeader :eventAmount="events.length" @emitRefreshEvent="refreshEvent" />
                 
 
                 <div v-if="false" class="flex gap-4 bg-gray-100 p-1.5 rounded-lg">
@@ -126,55 +90,15 @@ const removeEvent = async (id) => {
                         <div class="flex text-base font-semibold bg-red-200 px-1 rounded-md">2</div>
                     </div>
                 </div>
+
                 <!-- no event -->
                 <div v-show="events.length === 0">
                     No Scheduled Events
                 </div>
 
                 <!-- events list -->
-                <div v-show="events.length !== 0" 
-                    class="h-full overflow-y-auto auto-rows-min gap-x-2 gap-y-2 p-1
-                        grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
-                    <!-- loop events -->
-                    <div class="flex flex-col shadow-lg p-4 bg-white rounded-md" v-for="(event, index) in events">
-
-                        <div class="flex text-lg font-bold h-14 overflow-hidden">
-                            <!-- <p class="truncate">{{ event.bookingName }}</p> -->
-                            <p class="">{{ event.bookingName }}</p>
-                        </div>
-
-                        <div class="flex flex-wrap items-center gap-x-2 text-sm font-medium text-gray-600 pt-4">
-                            <RiTimeFill />
-                            <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LL') }}</div>
-                            <div class="w-1 h-1 bg-gray-600 rounded-full"></div>
-                            <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LT') }}</div>
-                            <div class="w-1 h-1 bg-gray-600 rounded-full"></div>
-                            <div class="whitespace-nowrap">{{ event.eventDuration }} min</div>
-                        </div>
-                        <div class="flex items-center gap-2 text-sm font-medium text-gray-600 ">
-                            <RiMapPin2Fill />
-                            <!-- <div class="w-3.5 h-3.5 bg-green-400 rounded-full"></div> -->
-                            <span>{{ event.eventCategoryName }}</span>
-                        </div>
-                        <div class="flex pt-4 gap-2">
-                            <button 
-                                class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500"
-                                @click="viewDetail(event.id)"
-                            >
-                                Detail
-                            </button>
-                            <button
-                                class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400"
-                                @click="removeEvent(event.id)"
-                                @mouseenter="mouseOn = 'Delete Event'"
-                                @mouseleave="mouseOn = null"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                    
-                </div>
+                <EventList :events="events"
+                    @emitRemoveEvent="removeEvent" @emitViewDetail="viewDetail" />
             </div>
         </div>
 

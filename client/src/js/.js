@@ -33,4 +33,3 @@
         </div>
     </div> */}
 
-console.log([]==false);

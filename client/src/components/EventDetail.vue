@@ -30,9 +30,7 @@ const props = defineProps({
 // const event = ref({})
 onBeforeMount(async () => {
     // await eventFetch.getById(props.selectedId)
-
 })
-console.log(props.event);
 </script>
  
 <template>

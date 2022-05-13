@@ -1,0 +1,61 @@
+<script setup>
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+//Icon
+import RiTimeFill from '../icons/RiTimeFill.vue'
+import RiMapPin2Fill from '../icons/RiMapPin2Fill.vue'
+//dayjs
+dayjs.extend(localizedFormat)
+
+defineEmits(['emitRemoveEvent', 'emitViewDetail'])
+const props = defineProps({
+    events: {
+        type: Array,
+        default: []
+    },
+})
+
+</script>
+ 
+<template>
+    <div v-show="events.length !== 0" 
+        class="h-full overflow-y-auto auto-rows-min gap-x-2 gap-y-2 p-1
+                grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
+
+        <!-- loop events -->
+        <div class="flex flex-col shadow-lg p-4 bg-white rounded-md" v-for="(event, index) in events">
+        
+            <div class="flex text-lg font-bold h-14 overflow-hidden">
+                <!-- <p class="truncate">{{ event.bookingName }}</p> -->
+                <p class="">{{ event.bookingName }}</p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-x-2 text-sm font-medium text-gray-600 pt-4">
+                <RiTimeFill />
+                <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LL') }}</div>
+                <div class="w-1 h-1 bg-gray-600 rounded-full"></div>
+                <div class="whitespace-nowrap">{{ dayjs(event.eventStartTime).format('LT') }}</div>
+                <div class="w-1 h-1 bg-gray-600 rounded-full"></div>
+                <div class="whitespace-nowrap">{{ event.eventDuration }} min</div>
+            </div>
+            <div class="flex items-center gap-2 text-sm font-medium text-gray-600 ">
+                <RiMapPin2Fill />
+                <!-- <div class="w-3.5 h-3.5 bg-green-400 rounded-full"></div> -->
+                <span>{{ event.eventCategoryName }}</span>
+            </div>
+            <div class="flex pt-4 gap-2">
+                <button class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500" @click="$emit('emitViewDetail',event.id)">
+                    Detail
+                </button>
+                <button class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400"
+                    @click="$emit('emitRemoveEvent',event.id)" @mouseenter="mouseOn = 'Delete Event'" @mouseleave="mouseOn = null">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </div>
+</template>
+ 
+<style>
+</style>
