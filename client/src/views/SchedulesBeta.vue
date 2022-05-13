@@ -10,16 +10,15 @@ import { useRoute, useRouter } from 'vue-router'
 import CarbonTrashCan from '../components/icons/CarbonTrashCan.vue'
 // import { events, eventCategories, middleFetch } from '../js/variable'
 import { events, eventFetch } from '../js/event'
+//components
+import CursorTooltip from '../components/CursorTooltip.vue'
+import EventDetail from '../components/EventDetail.vue'
 //icons
 import RiTimeFill from '../components/icons/RiTimeFill.vue'
 import RiMapPin2Fill from '../components/icons/RiMapPin2Fill.vue'
-import RiInformationFill from '../components/icons/RiInformationFill.vue'
-//components
-import CursorTooltip from '../components/CursorTooltip.vue'
 import IconGrid from '../components/icons/IconGrid.vue'
 import IconList from '../components/icons/IconList.vue'
-
-import EventDetail from '../components/EventDetail.vue'
+import IconRefresh from '../components/icons/IconRefresh.vue'
 
 
 //use router
@@ -38,6 +37,10 @@ onBeforeMount(async () => {
     // await middleFetch.getEvents()
 
 })
+
+const refreshEvent = () => {
+    eventFetch.get()
+}
 
 let mouseOn = ref(null)
 let detailModal = ref({
@@ -59,6 +62,7 @@ const removeEvent = async (id) => {
     <main class=" h-full w-screen overflow-y-auto p-2 ">
         <div class="flex h-full justify-between ">
 
+            <!-- Filter -->
             <div class="p-4 flex flex-col w-1/4 gap-y-2 pr-2">
                 <div class="h-8">
                 </div>
@@ -74,12 +78,23 @@ const removeEvent = async (id) => {
                 </div> -->
             </div>
 
+            <!-- Event List -->
             <div class="p-4 flex flex-col w-full gap-2 rounded-xl ">
                 <!-- header -->
                 <div class="flex justify-between">
-                    <div class="">
-                        <span class="text-lg tracking-wide font-medium">Schedules:</span> {{events.length}}
-                         events.
+                    <div class="flex items-center gap-1">
+                        <!-- Refresh -->
+                        <button class="flex items-end" @click="refreshEvent">
+                            <IconRefresh class="w-6 h-6 text-blue-600 hover:text-blue-700" />
+                        </button>
+                        <!-- Header Text -->
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-lg tracking-wide font-medium">Schedules: </span> 
+                            
+                            <span class="font-medium">
+                                {{events.length}} events.
+                            </span>
+                        </div>
                     </div>
                     <div class="flex gap-4 pr-4">
                         <button class="flex items-center gap-1.5">
