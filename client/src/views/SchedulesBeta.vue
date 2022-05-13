@@ -111,11 +111,12 @@ const removeEvent = async (id) => {
                         <div class="flex text-base font-semibold bg-red-200 px-1 rounded-md">2</div>
                     </div>
                 </div>
-                <!-- events list -->
+                <!-- no event -->
                 <div v-show="events.length === 0">
                     No Scheduled Events
                 </div>
 
+                <!-- events list -->
                 <div v-show="events.length !== 0" 
                     class="h-full overflow-y-auto auto-rows-min gap-x-2 gap-y-2 p-1
                         grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
@@ -163,7 +164,7 @@ const removeEvent = async (id) => {
         </div>
 
         <EventDetail :event="selectedEvent" :detailModal="detailModal" />
-        <CursorTooltip :mouseOn="mouseOn" :minusY="50" />
+        <CursorTooltip :mouseOn="mouseOn" :minusY="0" />
     </main>
 </template>
 

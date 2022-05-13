@@ -10,6 +10,7 @@ import IconCalendarFill from '../components/icons/IconCalendarFill.vue'
 import IconEmailFill from '../components/icons/Fill/IconEmailFill.vue'
 import IconArrowLeft from '../components/icons/IconArrowLeft.vue'
 import IconNoteFill from './icons/Fill/IconNoteFill.vue'
+import IconEditFill from './icons/Fill/IconEditFill.vue'
 defineEmits([])
 const props = defineProps({
     // selectedId: {
@@ -35,13 +36,22 @@ console.log(props.event);
  
 <template>
     <div :class="[
-    detailModal.visible ? 'translate-x-0' : 'translate-x-full'
-    , 'absolute p-8 top-15 right-0 w-160 h-full flex flex-col shadow-lg bg-gray-50 duration-500 ease-in-out'
+    detailModal.visible ? 'slide-event-detail-off' : 'slide-event-detail-on'
+    , 'absolute p-8 top-15 right-0 w-160 h-full flex flex-col shadow-lg bg-gray-50'
     , 'overflow-y-scroll']">
-        <div class="flex absolute top-5 left-1.5 cursor-pointer" @click="detailModal.visible = false">
+        <!-- <div class="flex absolute top-5 left-1.5 cursor-pointer" @click="detailModal.visible = false">
             <IconArrowLeft class="w-6 h-6" />
+        </div> -->
+        <div class="flex mb-2 justify-between" >
+            <button class="p-1" @click="detailModal.visible = false">
+                <IconArrowLeft class="w-6 h-6" />
+            </button>
+            
+            <button class="p-1">
+                <IconEditFill class="w-6 h-6" />
+            </button>
         </div>
-        <div class="h-16 my-6 flex gap-4">
+        <div class="h-16 mb-6 flex gap-4 ">
             <span class="text-xl font-bold ">
                 {{ event.bookingName }}
             </span>

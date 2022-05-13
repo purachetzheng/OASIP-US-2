@@ -32,6 +32,13 @@
         @apply hover:scale-125 duration-500
     }
 
+    .slide-event-detail-on{
+        @apply duration-500 ease-in-out translate-x-full
+    }
+    .slide-event-detail-off{
+        @apply duration-500 ease-in-out translate-x-0
+    }
+
     .text-h-1{
         @apply text-2xl font-semibold 
     }
