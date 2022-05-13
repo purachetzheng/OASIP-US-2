@@ -11,7 +11,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 //components
 import CursorTooltip from '../components/CursorTooltip.vue'
-import EventDetail from '../components/EventDetail.vue'
+import EventDetail from '../components/SchedulesView/EventDetail.vue'
 import EventList from '../components/SchedulesView/EventList.vue'
 import EventListHeader from '../components/SchedulesView/EventListHeader.vue'
 
@@ -67,7 +67,7 @@ const removeEvent = async (id) =>
                 </div> -->
             </div>
 
-            <!-- Layout - Event List  -->
+            <!-- Layout - Event Schedules  -->
             <div class="p-4 flex flex-col w-full gap-2 rounded-xl ">
                 <!-- header -->
                 <EventListHeader :eventAmount="events.length" @emitRefreshEvent="refreshEvent" />

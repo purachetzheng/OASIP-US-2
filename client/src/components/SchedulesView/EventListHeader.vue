@@ -17,8 +17,8 @@ const props = defineProps({
     <div class="flex justify-between">
         <div class="flex items-center gap-1">
             <!-- Refresh -->
-            <button class="flex items-end" @click="$emit('emitRefreshEvent')">
-                <IconRefresh class="w-6 h-6 text-blue-600 hover:text-blue-700" />
+            <button class="flex items-end p-1 rounded-full bg-blue-300 hover:bg-blue-600" @click="$emit('emitRefreshEvent')">
+                <IconRefresh class="w-5 h-5 text-blue-50 " />
             </button>
             <!-- Header Text -->
             <div class="flex items-baseline gap-2">
