@@ -66,18 +66,37 @@ public class EventService {
     public Event update(UpdateEventDto updateEventDto, Integer id) {
 //        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
         validateDatetimeFutureThrow(updateEventDto.getEventStartTime());
-        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
-                .orElseThrow(() -> new ResponseStatusException(
+//        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
+//                .orElseThrow(() -> new ResponseStatusException(
+//                        HttpStatus.NOT_FOUND, "Event id " + id +
+//                        "Does Not Exist !!!"
+//                ));
+        Event event = repository.findById(id).orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id " + id +
                         "Does Not Exist !!!"
                 ));
-        validateOverlap(event);
-        return repository.saveAndFlush(event);
+
+
+        Event event2 = mapEvent2(new Event(), event, updateEventDto);
+        validateOverlap(event2);
+        return repository.saveAndFlush(event2);
     }
 
     private Event mapEvent(Event existingEvent, UpdateEventDto updateEvent) {
         existingEvent.setEventStartTime(updateEvent.getEventStartTime());
         existingEvent.setEventNotes(updateEvent.getEventNotes());
+        return existingEvent;
+    }
+
+    private Event mapEvent2(Event existingEvent, Event updateEvent, UpdateEventDto updateEventDto) {
+        existingEvent.setId(updateEvent.getId());
+        existingEvent.setBookingName(updateEvent.getBookingName());
+        existingEvent.setBookingEmail(updateEvent.getBookingEmail());
+        existingEvent.setEventStartTime(updateEventDto.getEventStartTime());
+        existingEvent.setEventDuration(updateEvent.getEventDuration());
+        existingEvent.setEventNotes(updateEventDto.getEventNotes());
+        existingEvent.setEventCategory(updateEvent.getEventCategory());
+
         return existingEvent;
     }
 
