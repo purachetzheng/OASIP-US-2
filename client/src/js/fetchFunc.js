@@ -1,7 +1,8 @@
 export const fetchData = {
   settings: {
     // baseUrl: import.meta.env.VITE_BASE_URL + 'api/',
-    baseUrl: import.meta.env.BASE_URL + 'api/',
+    // baseUrl: import.meta.env.BASE_URL + 'api/',
+    baseUrl: 'http://intproj21.sit.kmutt.ac.th/us2/api/',
   },
   async get(entity, notFound = []) {
     const res = await fetch(this.settings.baseUrl + entity)
