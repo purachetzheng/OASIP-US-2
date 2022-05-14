@@ -29,7 +29,7 @@ public class EventController {
         return eventService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public EventDto getEventById(@PathVariable Integer id){
         return eventService.getById(id);
     }
@@ -44,9 +44,8 @@ public class EventController {
         eventService.delete(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public Event updateEvent(@RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id){
         return eventService.update(updateEventDto,id);
     }
-
 }

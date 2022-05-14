@@ -9,6 +9,7 @@ import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
+import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
@@ -52,7 +53,8 @@ public class EventService {
         Event event = modelMapper.map(newEvent, Event.class);
 //        Boolean isOverlap = validateOverlap(event);
 //        if(isOverlap) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
-        validateOverlap(event);
+        List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
+        validateOverlap(event, eventList);
         return modelMapper.map(repository.saveAndFlush(event), EventDto.class);
     }
 
@@ -66,20 +68,19 @@ public class EventService {
     public Event update(UpdateEventDto updateEventDto, Integer id) {
 //        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
         validateDatetimeFutureThrow(updateEventDto.getEventStartTime());
-//        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
-//                .orElseThrow(() -> new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND, "Event id " + id +
-//                        "Does Not Exist !!!"
-//                ));
-        Event event = repository.findById(id).orElseThrow(() -> new ResponseStatusException(
+        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
+                .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id " + id +
                         "Does Not Exist !!!"
                 ));
-
-
-        Event event2 = mapEvent2(new Event(), event, updateEventDto);
-        validateOverlap(event2);
-        return repository.saveAndFlush(event2);
+//        Event event = repository.findById(id).orElseThrow(() -> new ResponseStatusException(
+//                        HttpStatus.NOT_FOUND, "Event id " + id +
+//                        "Does Not Exist !!!"
+//                ));
+//        Event event2 = mapEvent2(new Event(), event, updateEventDto);
+        List<Event> eventList = repository.findAllByEventCategoryIsAndIdIsNot(event.getEventCategory(), event.getId());
+        validateOverlap(event, eventList);
+        return repository.saveAndFlush(event);
     }
 
     private Event mapEvent(Event existingEvent, UpdateEventDto updateEvent) {
@@ -117,8 +118,8 @@ public class EventService {
 //        newEvent.setEventDuration(eventcategory.getEventDuration());
 //        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
     }
-    public void validateOverlap(Event newEvent){
-        List<Event> eventList = repository.findAllByEventCategoryIs(newEvent.getEventCategory());
+    public void validateOverlap(Event newEvent, List<Event> eventList){
+//        List<Event> eventList = repository.findAllByEventCategoryIs(newEvent.getEventCategory());
         Instant newEventStart = newEvent.getEventStartTime();
         Instant newEventEND = newEvent.getEventStartTime().plus(newEvent.getEventDuration(), ChronoUnit.MINUTES);
 //        AtomicReference<Boolean> isOverLap = new AtomicReference<>(false);
@@ -139,25 +140,5 @@ public class EventService {
         });
 //        return isOverLap.get();
     }
-
-    //    public Event update(EventDto updateEventDto, Integer id) {
-//        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
-//        Event event = repository.findById(id).map(e -> mapEvent(e, updateEvent))
-//                .orElseGet(() ->
-//                {
-//                    updateEvent.setId(id);
-//                    return updateEvent;
-//                });
-//        return repository.saveAndFlush(event);
-//    }
-//    private Event mapEvent(Event existingEvent, Event updateEvent) {
-//        existingEvent.setBookingName(updateEvent.getBookingName());
-//        existingEvent.setBookingEmail(updateEvent.getBookingEmail());
-//        existingEvent.setEventStartTime(updateEvent.getEventStartTime());
-//        existingEvent.setEventDuration(updateEvent.getEventDuration());
-//        existingEvent.setEventNotes(updateEvent.getEventNotes());
-//        existingEvent.setEventCategory(updateEvent.getEventCategory());
-//        return existingEvent;
-//    }
 
 }
