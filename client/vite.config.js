@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   // base: 'http://intproj21.sit.kmutt.ac.th/us2/'
-  base: process.env.VITE_BASE_URL
+  base: '/us2/'
+  // base: process.env.VITE_BASE_URL
 })
 
