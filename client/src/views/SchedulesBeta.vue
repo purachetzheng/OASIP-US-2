@@ -28,7 +28,9 @@ const goBack = () => router.go(-1)
 dayjs.extend(localizedFormat)
 
 //set up
-onBeforeMount(async () => { await eventFetch.get() })
+onBeforeMount(async () => { 
+    await eventFetch.get() 
+})
 
 let mouseOn = ref(null)
 let detailModal = ref({ visible: false })
@@ -49,8 +51,9 @@ const updateEvent = async (id, event) => {
     eventFetch.put(id, event)
 }
 
-console.log('this is test');
-console.log(import.meta.env.VITE_BASE_URL);
+// console.log('this is test');
+// console.log(import.meta.env.VITE_BASE_URL);
+// console.log(import.meta.env.BASE_URL);
 </script>
 
 <template>
