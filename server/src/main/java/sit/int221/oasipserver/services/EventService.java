@@ -48,11 +48,12 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent) {
-        Event e = modelMapper.map(newEvent, Event.class);
-//        Boolean isOverlap = checkOverlap(e);
-        checkOverlap(e);
+        validateDatetimeFutureThrow(newEvent.getEventStartTime());
+        Event event = modelMapper.map(newEvent, Event.class);
+//        Boolean isOverlap = validateOverlap(event);
 //        if(isOverlap) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
-        return modelMapper.map(repository.saveAndFlush(e), EventDto.class);
+        validateOverlap(event);
+        return modelMapper.map(repository.saveAndFlush(event), EventDto.class);
     }
 
     public void delete(Integer id) {
@@ -64,11 +65,13 @@ public class EventService {
 
     public Event update(UpdateEventDto updateEventDto, Integer id) {
 //        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
+        validateDatetimeFutureThrow(updateEventDto.getEventStartTime());
         Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id " + id +
                         "Does Not Exist !!!"
                 ));
+        validateOverlap(event);
         return repository.saveAndFlush(event);
     }
 
@@ -78,7 +81,16 @@ public class EventService {
         return existingEvent;
     }
 
-    public void checkDuration() {
+    public Boolean validateDatetimeFuture(Instant eventStartTime){
+        return eventStartTime.isAfter(Instant.now());
+    }
+    public void validateDatetimeFutureThrow(Instant eventStartTime){
+        if(!eventStartTime.isAfter(Instant.now()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "eventStartTime is NOT in the future.");
+    }
+
+    public void validateDuration() {
 //        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
 //                .orElseThrow(() -> new ResponseStatusException(
 //                        HttpStatus.NOT_FOUND, "Event id " + newEvent.getEventCategoryId() + " Does Not Exist !!!"
@@ -86,7 +98,7 @@ public class EventService {
 //        newEvent.setEventDuration(eventcategory.getEventDuration());
 //        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
     }
-    public void checkOverlap(Event newEvent){
+    public void validateOverlap(Event newEvent){
         List<Event> eventList = repository.findAllByEventCategoryIs(newEvent.getEventCategory());
         Instant newEventStart = newEvent.getEventStartTime();
         Instant newEventEND = newEvent.getEventStartTime().plus(newEvent.getEventDuration(), ChronoUnit.MINUTES);
