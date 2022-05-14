@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
+import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
@@ -60,26 +61,22 @@ public class EventService {
                         id + " does not exist !!!"));
         repository.deleteById(id);
     }
-    public Event update(EventDto updateEventDto, Integer id) {
-        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
-        Event event = repository.findById(id).map(e -> mapEvent(e, updateEvent))
-                .orElseGet(() ->
-                {
-                    updateEvent.setId(id);
-                    return updateEvent;
-                });
+
+    public Event update(UpdateEventDto updateEventDto, Integer id) {
+//        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
+        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Event id " + id +
+                        "Does Not Exist !!!"
+                ));
         return repository.saveAndFlush(event);
     }
-    private Event mapEvent(Event existingEvent, Event updateEvent) {
-        existingEvent.setBookingName(updateEvent.getBookingName());
-        existingEvent.setBookingEmail(updateEvent.getBookingEmail());
+
+    private Event mapEvent(Event existingEvent, UpdateEventDto updateEvent) {
         existingEvent.setEventStartTime(updateEvent.getEventStartTime());
-        existingEvent.setEventDuration(updateEvent.getEventDuration());
         existingEvent.setEventNotes(updateEvent.getEventNotes());
-        existingEvent.setEventCategory(updateEvent.getEventCategory());
         return existingEvent;
     }
-
 
     public void checkDuration() {
 //        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
@@ -111,5 +108,25 @@ public class EventService {
         });
 //        return isOverLap.get();
     }
+
+    //    public Event update(EventDto updateEventDto, Integer id) {
+//        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
+//        Event event = repository.findById(id).map(e -> mapEvent(e, updateEvent))
+//                .orElseGet(() ->
+//                {
+//                    updateEvent.setId(id);
+//                    return updateEvent;
+//                });
+//        return repository.saveAndFlush(event);
+//    }
+//    private Event mapEvent(Event existingEvent, Event updateEvent) {
+//        existingEvent.setBookingName(updateEvent.getBookingName());
+//        existingEvent.setBookingEmail(updateEvent.getBookingEmail());
+//        existingEvent.setEventStartTime(updateEvent.getEventStartTime());
+//        existingEvent.setEventDuration(updateEvent.getEventDuration());
+//        existingEvent.setEventNotes(updateEvent.getEventNotes());
+//        existingEvent.setEventCategory(updateEvent.getEventCategory());
+//        return existingEvent;
+//    }
 
 }

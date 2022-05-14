@@ -14,10 +14,10 @@ import java.time.Instant;
 public class EventDto {
     private Integer id;
     private String bookingName;
-    private String bookingEmail;
+//    private String bookingEmail;
     private Integer eventDuration;
     private Instant eventStartTime;
-    private String eventNotes;
+//    private String eventNotes;
     private Integer eventCategoryId;
     private String eventCategoryName;
 //    private String eventCategoryEventCategoryDescription;
