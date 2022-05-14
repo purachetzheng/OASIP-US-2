@@ -18,6 +18,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class EventService {
@@ -50,6 +52,10 @@ public class EventService {
 
     public EventDto create(NewEventDto newEvent) {
         validateDatetimeFutureThrow(newEvent.getEventStartTime());
+        if(!validateEmail(newEvent.getBookingEmail()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookingEmail is invalid.");
+        if(validateInput(newEvent.getBookingName()) || newEvent.getBookingName() == null )
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the field that is empty/null.");
         Event event = modelMapper.map(newEvent, Event.class);
 //        Boolean isOverlap = validateOverlap(event);
 //        if(isOverlap) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
@@ -139,6 +145,22 @@ public class EventService {
             }
         });
 //        return isOverLap.get();
+    }
+
+    //https://stackoverflow.com/questions/8204680/java-regex-email
+    public boolean validateEmail(String email){
+        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+                Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = pattern.matcher(email);
+        return matcher.find();
+    }
+    public boolean validateInput(String input){
+        Pattern pattern = Pattern.compile("^\\s*$",
+                Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = pattern.matcher(input);
+        return matcher.find();
     }
 
 }
