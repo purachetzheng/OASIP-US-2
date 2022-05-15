@@ -3,6 +3,7 @@ package sit.int221.oasipserver.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import sit.int221.oasipserver.dtos.EventDetailDto;
@@ -52,6 +53,8 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent) {
+//        if(validateDatetimeFuture(newEvent.getEventStartTime()))
+//            throw new ResponseStatusException();
         validateDatetimeFutureThrow(newEvent.getEventStartTime());
         if(!validateEmail(newEvent.getBookingEmail()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookingEmail is invalid.");

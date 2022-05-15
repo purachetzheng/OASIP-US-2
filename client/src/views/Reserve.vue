@@ -53,8 +53,8 @@ const alertSuccess = ref(null)
  
 <template>
     <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <form action="#" class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg"
-            @submit="submit">
+        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg"
+            @submit.prevent="submit">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <!-- Catagory -->
             <div class="flex gap-4 sm:flex-col lg:flex-row">
@@ -67,7 +67,7 @@ const alertSuccess = ref(null)
                     </select>
                 </div>
                 <div class="flex flex-col gap-0.5 ">
-                    <div class="text-xs whitespace-nowrap">Dutation (minutes)</div>
+                    <div class="text-xs whitespace-nowrap">Duration (minutes)</div>
                     <!-- <input type="number" name="eventDuration" disabled class="form-1 w-12 font-medium text-center" 
                         v-model="selectedCatagory.eventDuration"> -->
                     <div class="form-1-off font-medium text-center whitespace-nowrap cursor-default">{{

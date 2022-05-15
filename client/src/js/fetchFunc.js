@@ -21,6 +21,9 @@ export const fetchData = {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newObj),
     })
+    console.log(res);
+    console.log(res.statusText);
+
     if (res.status === 201 || res.status === 200) {
       console.log(`created ${entity} successfully`)
       return await res.json()

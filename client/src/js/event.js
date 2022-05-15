@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { fetchData } from './fetchFunc'
+import { eventCategories} from './eventCategory'
 export const events = ref([])
 
 export const eventFetch = {
@@ -22,9 +23,12 @@ export const eventFetch = {
         const addedEvent = await fetchData.post('events', newEvent)
         const categoryId = addedEvent.eventCategoryId
         //EventCategoryName Null, Find EventCategoryName by EventCategoryId
-        addedEvent.EventCategoryName = eventCategories.find(
-            (e) => e.id === categoryId
-        ).eventDuration
+        console.log(addedEvent.EventCategoryName);
+        console.log(eventCategories.value);
+        console.log(categoryId);
+        console.log(eventCategories.value.find(e => e.id == categoryId));
+        console.log(eventCategories.value.find((e) => e.id == categoryId).eventCategoryName);
+        addedEvent.EventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
         addedEvent ? events.value.push(addedEvent) : ''
     },
 
