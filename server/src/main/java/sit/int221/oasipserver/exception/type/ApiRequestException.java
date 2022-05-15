@@ -1,4 +1,4 @@
-package sit.int221.oasipserver.exception;
+package sit.int221.oasipserver.exception.type;
 
 import org.springframework.http.HttpStatus;
 

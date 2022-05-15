@@ -10,6 +10,8 @@ import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
+import sit.int221.oasipserver.exception.type.ApiNotFoundException;
+import sit.int221.oasipserver.exception.type.ApiRequestException;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
@@ -36,59 +38,74 @@ public class EventService {
         return listMapper.mapList(eventList, EventDto.class, modelMapper);
     }
 
-    public List<Event> getAll2() {
-        return repository.findAll();
-    }
-
     public EventDetailDto getById(Integer id) {
-        Event event = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Event id " + id +
-                        "Does Not Exist !!!"
-                ));
+        Event event = repository.findById(id).orElseThrow(
+                () -> new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
+        );
         return modelMapper.map(event, EventDetailDto.class);
     }
 
     public EventDto create(NewEventDto newEvent) {
-//        if(!validateDatetimeFuture(newEvent.getEventStartTime()))
-//            throw new EventNotFoundException(4);
 
+        // validateInput(String email) - if email is valid return true.
+        if(newEvent.getBookingName() == null
+                || validateInput(newEvent.getBookingName())
+                || (newEvent.getEventNotes() != null
+                        && validateInput(newEvent.getEventNotes()))
+        )
+            throw new ApiRequestException("the field that is empty/null.");
 
-//        validateDatetimeFutureThrow(newEvent.getEventStartTime());
+        if(newEvent.getBookingName().length() > 100
+                || (newEvent.getEventNotes() != null && newEvent.getEventNotes().length() >500)
+        )   throw new ApiRequestException("the length exceeded the size.");
+
+        // validateDatetimeFuture(Instant date&time) - if time is future return true.
+        if(!validateDatetimeFuture(newEvent.getEventStartTime()))
+            throw new ApiRequestException("eventStartTime is NOT in the future.");
+
+        // validateEmail(String email) - if email is valid return true.
         if(!validateEmail(newEvent.getBookingEmail()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookingEmail is invalid.");
-        if(validateInput(newEvent.getBookingName()) || newEvent.getBookingName() == null )
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the field that is empty/null.");
+            throw new ApiRequestException("bookingEmail is invalid.");
+
         Event event = modelMapper.map(newEvent, Event.class);
-//        Boolean isOverlap = validateOverlap(event);
-//        if(isOverlap) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
+
+        // validate overlap
         List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
-        validateOverlap(event, eventList);
+        if(isDateTimeOverlap(event, eventList))
+            throw new ApiRequestException("the eventStartTime is overlapped.");
+
         return modelMapper.map(repository.saveAndFlush(event), EventDto.class);
     }
 
     public void delete(Integer id) {
         repository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        id + " does not exist !!!"));
+                new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
+        );
         repository.deleteById(id);
     }
 
     public Event update(UpdateEventDto updateEventDto, Integer id) {
-//        Event updateEvent = modelMapper.map(updateEventDto, Event.class);
-        validateDatetimeFutureThrow(updateEventDto.getEventStartTime());
-        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto))
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Event id " + id +
-                        "Does Not Exist !!!"
-                ));
-//        Event event = repository.findById(id).orElseThrow(() -> new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND, "Event id " + id +
-//                        "Does Not Exist !!!"
-//                ));
-//        Event event2 = mapEvent2(new Event(), event, updateEventDto);
+        // validateInput(String email) - if email is valid return true.
+
+        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
+            throw new ApiRequestException("the length exceeded the size.");
+
+        if(validateInput(updateEventDto.getEventNotes()))
+            throw new ApiRequestException("the field that is empty.");
+
+        // validateDatetimeFuture(Instant date&time) - if time is future return true.
+        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
+            throw new ApiRequestException("eventStartTime is NOT in the future.");
+
+        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto)).orElseThrow(
+                        () -> new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
+        );
+
+        // validate overlap
         List<Event> eventList = repository.findAllByEventCategoryIsAndIdIsNot(event.getEventCategory(), event.getId());
-        validateOverlap(event, eventList);
+        if(isDateTimeOverlap(event, eventList))
+            throw new ApiRequestException("the eventStartTime is overlapped.");
+
         return repository.saveAndFlush(event);
     }
 
@@ -98,25 +115,8 @@ public class EventService {
         return existingEvent;
     }
 
-    private Event mapEvent2(Event existingEvent, Event updateEvent, UpdateEventDto updateEventDto) {
-        existingEvent.setId(updateEvent.getId());
-        existingEvent.setBookingName(updateEvent.getBookingName());
-        existingEvent.setBookingEmail(updateEvent.getBookingEmail());
-        existingEvent.setEventStartTime(updateEventDto.getEventStartTime());
-        existingEvent.setEventDuration(updateEvent.getEventDuration());
-        existingEvent.setEventNotes(updateEventDto.getEventNotes());
-        existingEvent.setEventCategory(updateEvent.getEventCategory());
-
-        return existingEvent;
-    }
-
     public Boolean validateDatetimeFuture(Instant eventStartTime){
         return eventStartTime.isAfter(Instant.now());
-    }
-    public void validateDatetimeFutureThrow(Instant eventStartTime){
-        if(!eventStartTime.isAfter(Instant.now()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "eventStartTime is NOT in the future.");
     }
 
     public void validateDuration() {
@@ -128,10 +128,8 @@ public class EventService {
 //        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
     }
     public void validateOverlap(Event newEvent, List<Event> eventList){
-//        List<Event> eventList = repository.findAllByEventCategoryIs(newEvent.getEventCategory());
         Instant newEventStart = newEvent.getEventStartTime();
         Instant newEventEND = newEvent.getEventStartTime().plus(newEvent.getEventDuration(), ChronoUnit.MINUTES);
-//        AtomicReference<Boolean> isOverLap = new AtomicReference<>(false);
         eventList.forEach(e -> {
             Instant eachEventStart = e.getEventStartTime();
             Instant eachEventEnd = e.getEventStartTime().plus(e.getEventDuration(), ChronoUnit.MINUTES);
@@ -144,10 +142,28 @@ public class EventService {
 
             if (isStartBetween || isEndBetween){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
-//                isOverLap.set(true);
             }
         });
-//        return isOverLap.get();
+    }
+
+    public boolean isDateTimeOverlap(Event newEvent, List<Event> eventList){
+        ChronoUnit minutes = ChronoUnit.MINUTES;
+        Instant startTime = newEvent.getEventStartTime();
+        Instant newEventStart = startTime;
+        Instant newEventEnd = startTime.plus(newEvent.getEventDuration(), minutes);
+        for (Event e: eventList){
+            Instant eEventStart = e.getEventStartTime();
+            Instant eEventEnd = e.getEventStartTime().plus(e.getEventDuration(), minutes);
+
+            Boolean isStartBetween = (newEventStart.isAfter(eEventStart)
+                    || newEventStart.equals(eEventStart))
+                    && newEventStart.isBefore(eEventEnd);
+            Boolean isEndBetween = newEventEnd.isAfter(eEventStart)
+                    && newEventEnd.isBefore(eEventEnd);
+
+            if (isStartBetween || isEndBetween) return true;
+        }
+        return false;
     }
 
     //https://stackoverflow.com/questions/8204680/java-regex-email

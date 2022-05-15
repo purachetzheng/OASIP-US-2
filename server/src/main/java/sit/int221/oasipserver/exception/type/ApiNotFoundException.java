@@ -1,4 +1,4 @@
-package sit.int221.oasipserver.exception;
+package sit.int221.oasipserver.exception.type;
 
 public class ApiNotFoundException extends RuntimeException{
     public ApiNotFoundException(String message) {
