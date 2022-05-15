@@ -3,7 +3,6 @@ package sit.int221.oasipserver.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import sit.int221.oasipserver.dtos.EventDetailDto;
@@ -11,7 +10,6 @@ import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
-import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
@@ -19,7 +17,6 @@ import sit.int221.oasipserver.utils.ListMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,9 +50,11 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent) {
-//        if(validateDatetimeFuture(newEvent.getEventStartTime()))
-//            throw new ResponseStatusException();
-        validateDatetimeFutureThrow(newEvent.getEventStartTime());
+//        if(!validateDatetimeFuture(newEvent.getEventStartTime()))
+//            throw new EventNotFoundException(4);
+
+
+//        validateDatetimeFutureThrow(newEvent.getEventStartTime());
         if(!validateEmail(newEvent.getBookingEmail()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookingEmail is invalid.");
         if(validateInput(newEvent.getBookingName()) || newEvent.getBookingName() == null )

@@ -11,6 +11,8 @@ import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.entities.Eventcategory;
+import sit.int221.oasipserver.exception.ApiNotFoundException;
+import sit.int221.oasipserver.exception.ApiRequestException;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.services.EventService;
@@ -48,5 +50,11 @@ public class EventController {
     @PutMapping("/{id}")
     public Event updateEvent(@RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id){
         return eventService.update(updateEventDto,id);
+    }
+
+    @GetMapping("/test")
+    public List<Event> getTest(){
+//        throw new ApiRequestException("This is test exception");
+        throw new ApiNotFoundException("NF");
     }
 }
