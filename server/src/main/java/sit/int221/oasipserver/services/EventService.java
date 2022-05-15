@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import sit.int221.oasipserver.dtos.EventDetailDto;
 import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
@@ -41,13 +42,13 @@ public class EventService {
         return repository.findAll();
     }
 
-    public EventDto getById(Integer id) {
+    public EventDetailDto getById(Integer id) {
         Event event = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id " + id +
                         "Does Not Exist !!!"
                 ));
-        return modelMapper.map(event, EventDto.class);
+        return modelMapper.map(event, EventDetailDto.class);
     }
 
     public EventDto create(NewEventDto newEvent) {

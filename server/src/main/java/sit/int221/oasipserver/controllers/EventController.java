@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import sit.int221.oasipserver.dtos.EventDetailDto;
 import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
@@ -30,7 +31,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public EventDto getEventById(@PathVariable Integer id){
+    public EventDetailDto getEventById(@PathVariable Integer id){
         return eventService.getById(id);
     }
 
