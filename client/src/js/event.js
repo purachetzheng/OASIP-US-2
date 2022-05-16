@@ -21,6 +21,7 @@ export const eventFetch = {
     //POST
     async post(newEvent) {
         const addedEvent = await fetchData.post('events', newEvent)
+        if(!addedEvent) return false
         const categoryId = addedEvent.eventCategoryId
         //EventCategoryName Null, Find EventCategoryName by EventCategoryId
         console.log(addedEvent.EventCategoryName);
@@ -30,6 +31,7 @@ export const eventFetch = {
         console.log(eventCategories.value.find((e) => e.id == categoryId).eventCategoryName);
         addedEvent.EventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
         addedEvent ? events.value.push(addedEvent) : ''
+        return true
     },
 
     //REMOVE

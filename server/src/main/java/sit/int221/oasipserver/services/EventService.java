@@ -46,8 +46,10 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent) {
-
+        StringBuilder errorMessage =new StringBuilder("");
         // validateInput(String email) - if email is valid return true.
+        if(newEvent.getBookingName() == null || validateInput(newEvent.getBookingName()))
+            errorMessage.append("name not be empty/null; ");
         if(newEvent.getBookingName() == null
                 || validateInput(newEvent.getBookingName())
                 || (newEvent.getEventNotes() != null

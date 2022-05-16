@@ -33,3 +33,8 @@
         </div>
     </div> */}
 
+
+    var regex = "^\\s+$";
+    console.log(" ".match(regex));
+    console.log(regex.test(" "));
+    console.log(regex.test(" s"));
