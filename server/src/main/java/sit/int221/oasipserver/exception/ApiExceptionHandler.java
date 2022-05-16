@@ -53,39 +53,48 @@ public class ApiExceptionHandler {
         List<ErrorDetail> errorDetails = new ArrayList<>();
         String errorCode = e.getMessage();
         //Name Null or empty
-        if(errorCode.matches("(.*)name empty/null;(.*)"))
-            errorDetails.add(new ErrorDetail("name", "input not be empty/null."));
+        if(errorCode.matches("(.*)name empty;(.*)"))
+            errorDetails.add(new ErrorDetail("bookingName", "must not be empty"));
+        if(errorCode.matches("(.*)name null;(.*)"))
+            errorDetails.add(new ErrorDetail("bookingName", "must not be null"));
+        if(errorCode.matches("(.*)name notBlank;(.*)"))
+            errorDetails.add(new ErrorDetail("bookingName", "must not be blank"));
         //Name size
         if(errorCode.matches("(.*)name length;(.*)"))
-            errorDetails.add(new ErrorDetail("name", "the length exceeded the size."));
+            errorDetails.add(new ErrorDetail("bookingName", "size must be between 1 and 100"));
 
         //Email valid
         if(errorCode.matches("(.*)email invalid;(.*)"))
-            errorDetails.add(new ErrorDetail("email", "bookingEmail is invalid."));
+            errorDetails.add(new ErrorDetail("bookingEmail", "must be a well-formed email address"));
         //Email Null
         if(errorCode.matches("(.*)email null;(.*)"))
-            errorDetails.add(new ErrorDetail("email", "input not be null."));
+            errorDetails.add(new ErrorDetail("bookingEmail", "must not be null"));
+        if(errorCode.matches("(.*)email length;(.*)"))
+            errorDetails.add(new ErrorDetail("bookingEmail", "size must be between 1 and 100"));
 
         //Note not empty
         if(errorCode.matches("(.*)note empty;(.*)"))
-            errorDetails.add(new ErrorDetail("note", "input not be empty."));
+            errorDetails.add(new ErrorDetail("eventNotes", "must not be empty"));
+        if(errorCode.matches("(.*)note notBlank;(.*)"))
+            errorDetails.add(new ErrorDetail("eventNotes", "must not be empty"));
         //Note size
         if(errorCode.matches("(.*)note length;(.*)"))
-            errorDetails.add(new ErrorDetail("name", "the length exceeded the size."));
+            errorDetails.add(new ErrorDetail("eventNotes", "size must be between 0 and 500"));
 
         //eventCategory null
-        if(errorCode.matches("(.*)eventCategory null;(.*)"))
-            errorDetails.add(new ErrorDetail("eventCategory", "input not be null."));
+        if(errorCode.matches("(.*)eventCategoryId null;(.*)"))
+            errorDetails.add(new ErrorDetail("eventCategoryId", "must not be null"));
 
         //eventStartTime null
         if(errorCode.matches("(.*)eventStartTime null;(.*)"))
-            errorDetails.add(new ErrorDetail("eventStartTime", "input not be null."));
+            errorDetails.add(new ErrorDetail("eventStartTime", "must not be null"));
+
         //validateDatetimeFuture
         if(errorCode.matches("(.*)future;(.*)"))
-            errorDetails.add(new ErrorDetail("eventStartTime", "eventStartTime is NOT in the future."));
+            errorDetails.add(new ErrorDetail("eventStartTime", "must be a future date"));
         //overlap
         if(errorCode.matches("(.*)overlap;(.*)"))
-            errorDetails.add(new ErrorDetail("eventStartTime", "the eventStartTime is overlapped."));
+            errorDetails.add(new ErrorDetail("eventStartTime", "overlapped with other events"));
 
 
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;

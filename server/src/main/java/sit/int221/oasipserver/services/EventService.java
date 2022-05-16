@@ -10,6 +10,7 @@ import sit.int221.oasipserver.dtos.EventDto;
 import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
+import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.exception.type.ApiNotFoundException;
 import sit.int221.oasipserver.exception.type.ApiRequestException;
 import sit.int221.oasipserver.exception.type.ApiTestException;
@@ -49,26 +50,40 @@ public class EventService {
     public EventDto create(NewEventDto newEvent) {
         StringBuilder errorMessage =new StringBuilder();
         // validateInput(String email) - if email is valid return true.
-        if(newEvent.getBookingName() == null || validateInput(newEvent.getBookingName()))
-            errorMessage.append("name empty/null;");
-        if(newEvent.getBookingName().length() > 100)
-            errorMessage.append("name length;");
+        if(newEvent.getBookingName() == null)
+            errorMessage.append("name null;");
+        if(newEvent.getBookingName() != null){
+
+            if(newEvent.getBookingName().length() == 0)
+                errorMessage.append("name notBlank;");
+            if(newEvent.getBookingName() != null && validateInput(newEvent.getBookingName()))
+                errorMessage.append("name empty;");
+            if(newEvent.getBookingName().length() > 100)
+                errorMessage.append("name length;");
+        }
+
 
         // validateEmail(String email) - if email is valid return true.
-        if(!validateEmail(newEvent.getBookingEmail()))
-            errorMessage.append("email invalid;");
         if(newEvent.getBookingEmail() == null)
             errorMessage.append("email null;");
+        if(newEvent.getBookingEmail() != null){
+            if(!validateEmail(newEvent.getBookingEmail()))
+                errorMessage.append("email invalid;");
+            if(newEvent.getBookingEmail().length() > 100)
+                errorMessage.append("email length;");
+        }
+
 
         if(newEvent.getEventNotes() != null && validateInput(newEvent.getEventNotes()))
             errorMessage.append("note empty;");
         if(newEvent.getEventNotes() != null && newEvent.getEventNotes().length() >500)
             errorMessage.append("note length;");
 
-        if(newEvent.getEventCategoryId() == null)
-            errorMessage.append("eventCategory null;");
-        if(newEvent.getEventStartTime() == null)
+        if(newEvent.getEventStartTime() == null){
             errorMessage.append("eventStartTime null;");
+            throw new ApiTestException(errorMessage.toString());
+        }
+
 //
 //        if(newEvent.getBookingName() == null
 //                || validateInput(newEvent.getBookingName())
@@ -87,8 +102,16 @@ public class EventService {
             errorMessage.append("future;");
 //            throw new ApiRequestException("eventStartTime is NOT in the future.");
 
+        if(newEvent.getEventCategoryId() == null){
+            errorMessage.append("eventCategoryId null;");
+            throw new ApiTestException(errorMessage.toString());
+        }
 
-
+        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
+                .orElseThrow(()->new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Event id "+newEvent.getEventCategoryId()+ " Does Not Exist !!!"
+                ));
+        newEvent.setEventDuration(eventcategory.getEventDuration());
         Event event = modelMapper.map(newEvent, Event.class);
 
         // validate overlap
@@ -113,10 +136,8 @@ public class EventService {
             errorMessage.append("note empty;");
         if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
             errorMessage.append("note length;");
-        if(updateEventDto.getEventStartTime() == null)
-            errorMessage.append("eventStartTime null;");
-        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
-            errorMessage.append("future;");
+
+
         // validateInput(String email) - if email is valid return true.
 
 //        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
@@ -137,8 +158,14 @@ public class EventService {
         List<Event> eventList = repository.findAllByEventCategoryIsAndIdIsNot(event.getEventCategory(), event.getId());
 //        if(isDateTimeOverlap(event, eventList))
 //            throw new ApiRequestException("the eventStartTime is overlapped.");
-        if(isDateTimeOverlap(event, eventList))
-            errorMessage.append("overlap;");
+        if(updateEventDto.getEventStartTime() !=null){
+            if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
+                errorMessage.append("future;");
+
+            if(isDateTimeOverlap(event, eventList))
+                errorMessage.append("overlap;");
+        }
+
 
         if(errorMessage.length() > 0) throw new ApiTestException(errorMessage.toString());
 
@@ -146,8 +173,11 @@ public class EventService {
     }
 
     private Event mapEvent(Event existingEvent, UpdateEventDto updateEvent) {
-        existingEvent.setEventStartTime(updateEvent.getEventStartTime());
-        existingEvent.setEventNotes(updateEvent.getEventNotes());
+        if(updateEvent.getEventStartTime() != null)
+            existingEvent.setEventStartTime(updateEvent.getEventStartTime());
+
+        if(updateEvent.getEventNotes() != null)
+            existingEvent.setEventNotes(updateEvent.getEventNotes());
         return existingEvent;
     }
 
