@@ -8,6 +8,7 @@ import sit.int221.oasipserver.dtos.NewEventDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.exception.type.ApiNotFoundException;
+import sit.int221.oasipserver.exception.type.ApiTestException;
 import sit.int221.oasipserver.services.EventService;
 
 import java.util.List;
@@ -41,5 +42,8 @@ public class EventController {
     public Event updateEvent(@RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id){
         return eventService.update(updateEventDto,id);
     }
-
+    @GetMapping("/test")
+    public void test(){
+        throw new ApiTestException("overlap;note length;note empty;");
+    }
 }

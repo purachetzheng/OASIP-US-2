@@ -12,6 +12,7 @@ import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.exception.type.ApiNotFoundException;
 import sit.int221.oasipserver.exception.type.ApiRequestException;
+import sit.int221.oasipserver.exception.type.ApiTestException;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
@@ -46,36 +47,56 @@ public class EventService {
     }
 
     public EventDto create(NewEventDto newEvent) {
-        StringBuilder errorMessage =new StringBuilder("");
+        StringBuilder errorMessage =new StringBuilder();
         // validateInput(String email) - if email is valid return true.
         if(newEvent.getBookingName() == null || validateInput(newEvent.getBookingName()))
-            errorMessage.append("name not be empty/null; ");
-        if(newEvent.getBookingName() == null
-                || validateInput(newEvent.getBookingName())
-                || (newEvent.getEventNotes() != null
-                        && validateInput(newEvent.getEventNotes()))
-        )
-            throw new ApiRequestException("the field that is empty/null.");
-
-        if(newEvent.getBookingName().length() > 100
-                || (newEvent.getEventNotes() != null && newEvent.getEventNotes().length() >500)
-        )   throw new ApiRequestException("the length exceeded the size.");
-
-        // validateDatetimeFuture(Instant date&time) - if time is future return true.
-        if(!validateDatetimeFuture(newEvent.getEventStartTime()))
-            throw new ApiRequestException("eventStartTime is NOT in the future.");
+            errorMessage.append("name empty/null;");
+        if(newEvent.getBookingName().length() > 100)
+            errorMessage.append("name length;");
 
         // validateEmail(String email) - if email is valid return true.
         if(!validateEmail(newEvent.getBookingEmail()))
-            throw new ApiRequestException("bookingEmail is invalid.");
+            errorMessage.append("email invalid;");
+        if(newEvent.getBookingEmail() == null)
+            errorMessage.append("email null;");
+
+        if(newEvent.getEventNotes() != null && validateInput(newEvent.getEventNotes()))
+            errorMessage.append("note empty;");
+        if(newEvent.getEventNotes() != null && newEvent.getEventNotes().length() >500)
+            errorMessage.append("note length;");
+
+        if(newEvent.getEventCategoryId() == null)
+            errorMessage.append("eventCategory null;");
+        if(newEvent.getEventStartTime() == null)
+            errorMessage.append("eventStartTime null;");
+//
+//        if(newEvent.getBookingName() == null
+//                || validateInput(newEvent.getBookingName())
+//                || (newEvent.getEventNotes() != null
+//                        && validateInput(newEvent.getEventNotes()))
+//        )
+//            errorMessage.append("name empty/null;");
+//            throw new ApiRequestException("the field that is empty/null.");
+
+//        if(newEvent.getBookingName().length() > 100
+//                || (newEvent.getEventNotes() != null && newEvent.getEventNotes().length() >500)
+//        )   throw new ApiRequestException("the length exceeded the size.");
+
+        // validateDatetimeFuture(Instant date&time) - if time is future return true.
+        if(!validateDatetimeFuture(newEvent.getEventStartTime()))
+            errorMessage.append("future;");
+//            throw new ApiRequestException("eventStartTime is NOT in the future.");
+
+
 
         Event event = modelMapper.map(newEvent, Event.class);
 
         // validate overlap
         List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
         if(isDateTimeOverlap(event, eventList))
-            throw new ApiRequestException("the eventStartTime is overlapped.");
-
+            errorMessage.append("overlap;");
+//            throw new ApiRequestException("the eventStartTime is overlapped.");
+        if(errorMessage.length() > 0) throw new ApiTestException(errorMessage.toString());
         return modelMapper.map(repository.saveAndFlush(event), EventDto.class);
     }
 
