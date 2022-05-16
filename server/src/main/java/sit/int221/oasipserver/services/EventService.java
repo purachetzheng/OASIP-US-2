@@ -108,17 +108,26 @@ public class EventService {
     }
 
     public Event update(UpdateEventDto updateEventDto, Integer id) {
+        StringBuilder errorMessage =new StringBuilder();
+        if(updateEventDto.getEventNotes() != null && validateInput(updateEventDto.getEventNotes()))
+            errorMessage.append("note empty;");
+        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
+            errorMessage.append("note length;");
+        if(updateEventDto.getEventStartTime() == null)
+            errorMessage.append("eventStartTime null;");
+        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
+            errorMessage.append("future;");
         // validateInput(String email) - if email is valid return true.
 
-        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
-            throw new ApiRequestException("the length exceeded the size.");
-
-        if(validateInput(updateEventDto.getEventNotes()))
-            throw new ApiRequestException("the field that is empty.");
-
-        // validateDatetimeFuture(Instant date&time) - if time is future return true.
-        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
-            throw new ApiRequestException("eventStartTime is NOT in the future.");
+//        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
+//            throw new ApiRequestException("the length exceeded the size.");
+//
+//        if(validateInput(updateEventDto.getEventNotes()))
+//            throw new ApiRequestException("the field that is empty.");
+//
+//        // validateDatetimeFuture(Instant date&time) - if time is future return true.
+//        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
+//            throw new ApiRequestException("eventStartTime is NOT in the future.");
 
         Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto)).orElseThrow(
                         () -> new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
@@ -126,8 +135,12 @@ public class EventService {
 
         // validate overlap
         List<Event> eventList = repository.findAllByEventCategoryIsAndIdIsNot(event.getEventCategory(), event.getId());
+//        if(isDateTimeOverlap(event, eventList))
+//            throw new ApiRequestException("the eventStartTime is overlapped.");
         if(isDateTimeOverlap(event, eventList))
-            throw new ApiRequestException("the eventStartTime is overlapped.");
+            errorMessage.append("overlap;");
+
+        if(errorMessage.length() > 0) throw new ApiTestException(errorMessage.toString());
 
         return repository.saveAndFlush(event);
     }

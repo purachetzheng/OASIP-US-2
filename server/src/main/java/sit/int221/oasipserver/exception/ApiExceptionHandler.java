@@ -68,7 +68,7 @@ public class ApiExceptionHandler {
 
         //Note not empty
         if(errorCode.matches("(.*)note empty;(.*)"))
-            errorDetails.add(new ErrorDetail("note", "input not be empty/null."));
+            errorDetails.add(new ErrorDetail("note", "input not be empty."));
         //Note size
         if(errorCode.matches("(.*)note length;(.*)"))
             errorDetails.add(new ErrorDetail("name", "the length exceeded the size."));
