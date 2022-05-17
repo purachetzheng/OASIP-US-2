@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onBeforeMount, onMounted, } from 'vue'
+import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, } from 'vue'
 //date-time lib
 import dayjs from 'dayjs'
 
@@ -12,7 +12,8 @@ import IconArrowLeft from '../icons/IconArrowLeft.vue'
 import IconNoteFill from '../icons/Fill/IconNoteFill.vue'
 import IconEditFill from '../icons/Fill/IconEditFill.vue'
 import IconArrowBack from '../icons/IconArrowBack.vue'
-const emits =defineEmits(['emitUpdateEvent'])
+import ModalError from '../modal/ModalError.vue'
+const emits = defineEmits(['emitUpdateEvent'])
 const props = defineProps({
     // selectedId: {
     //     type: Number,
@@ -27,51 +28,83 @@ const props = defineProps({
         default: null
     }
 })
-// const event = ref({})
+
 onBeforeMount(async () => {
     // stage.value.editing = false
     // await eventFetch.getById(props.selectedId)
+
 })
+const dateNow = () => dayjs().format('YYYY-MM-DD')
 const stage = ref({
     editing: false,
 })
+
 let inputEvent = ref({
     time: null,
     date: null,
     note: null
 })
-const updateEvent = (e) => {
+const isTimePast = computed(
+    () => inputEvent.value.time && inputEvent.value.date && dayjs(inputEvent.value.date + inputEvent.value.time).isBefore(dayjs()))
 
+const updateEvent = async (e) => {
+    // if(!isTimePast.value){
+    //     console.log('no');
+    //     return
+
+    // }
     // ถ้าค่าเหมือนเดิมให้ใช้ของเก่า
-    const time = inputEvent.value.time == null 
-        ? dayjs(props.event.eventStartTime).format('HH:mm') 
+    const time = inputEvent.value.time == null
+        ? dayjs(props.event.eventStartTime).format('HH:mm')
         : inputEvent.value.time
 
-    const date = inputEvent.value.date == null 
-        ? dayjs(props.event.eventStartTime).format('YYYY-MM-DD') 
+    const date = inputEvent.value.date == null
+        ? dayjs(props.event.eventStartTime).format('YYYY-MM-DD')
         : inputEvent.value.date
 
     const note = inputEvent.value.note == null
         ? props.event.eventNotes
         : inputEvent.value.note
 
+
     const editEvent = {
-        eventStartTime: dayjs(date + time).toJSON(), 
+        eventStartTime: dayjs(date + time).toJSON(),
         eventNotes: note
     }
 
-    emits('emitUpdateEvent',props.event.id, editEvent)
-    stage.value.editing = false
+    // updateFetch(props.event.id, editEvent)
+    const res = await eventFetch.put(props.event.id, editEvent)
+    if (res.status == true) {
+        // props.event = res.event
+        console.log(res.event);
+        stage.value.editing = false
+        emits('emitUpdateEvent', res.event)
+    }
+    else {
+        const errorList = res.error.details
+        let mes = ''
+        for (const [key, value] of Object.entries(errorList)) {
+            mes += value.errorMessage +'\n'
+        }
+
+        console.log(mes);
+        modal.value.text = mes
+        modal.value.visible = true
+    }
+    // console.log(res);
+    // stage.value.editing = false
 }
 
 const closeDetail = () => {
     stage.value.editing = false
     props.detailModal.visible = false
 }
-
+const modal = ref({ visible: false, text: 'error' })
+// const updateModal
 </script>
  
 <template>
+
     <div :class="[
     detailModal.visible ? 'slide-event-detail-off' : 'slide-event-detail-on'
     , 'absolute top-15 right-0 w-160 h-full flex shadow-lg bg-gray-50'
@@ -117,22 +150,17 @@ const closeDetail = () => {
                         <IconCalendarFill class="w-4 h-4 text-rose-100" />
                     </div>
                     <!-- <div class="flex  font-semibold">Time</div> -->
-                    <span v-show="!stage.editing"
-                        class="text-lg text-gray-700 font-medium"
-                        >
+                    <span v-show="!stage.editing" class="text-lg text-gray-700 font-medium">
                         {{ dayjs(event.eventStartTime).format('LL') }}
                     </span>
-                    <div v-show="stage.editing" 
-                        class="flex">
-                        <input type="date" 
-                            class="bg-white text-gray-700 text-sm border border-gray-200 rounded-lg px-1.5 py-0.5 font-medium" 
-                            required  
-                            :value="dayjs(event.eventStartTime).format('YYYY-MM-DD')"
-                            @change="inputEvent.date = $event.target.value"
-                        >
+                    <div v-show="stage.editing" class="flex">
+                        <input type="date"
+                            class="bg-white text-gray-700 text-sm border border-gray-200 rounded-lg px-1.5 py-0.5 font-medium"
+                            required :value="dayjs(event.eventStartTime).format('YYYY-MM-DD')" :min="dateNow()"
+                            @change="inputEvent.date = $event.target.value">
                     </div>
                 </div>
-                
+
 
                 <!-- Time -->
                 <div class="flex items-center gap-4">
@@ -140,20 +168,17 @@ const closeDetail = () => {
                         <IconTimeFill class="w-4 h-4 text-blue-100" />
                     </div>
                     <!-- <div class="flex  font-semibold">Time</div> -->
-                    <span v-show="!stage.editing" 
-                        class="text-lg text-gray-700 font-medium">
+                    <span v-show="!stage.editing" class="text-lg text-gray-700 font-medium">
                         {{ dayjs(event.eventStartTime).format('LT') }}
                         - {{ dayjs(event.eventStartTime).add(event.eventDuration, 'm').format('LT') }}
                         ({{ event.eventDuration }} min)
                     </span>
-                    
-                    <div v-show="stage.editing" 
-                        class="flex">
-                        <input type="time" class="bg-white text-gray-700 text-sm border border-gray-200 rounded-lg px-1.5 py-0.5 font-medium"
-                            required 
-                            :value="dayjs(event.eventStartTime).format('HH:mm')"
-                            @change="inputEvent.time = $event.target.value"
-                        >
+
+                    <div v-show="stage.editing" class="flex">
+                        <input type="time"
+                            class="bg-white text-gray-700 text-sm border border-gray-200 rounded-lg px-1.5 py-0.5 font-medium"
+                            required :value="dayjs(event.eventStartTime).format('HH:mm')"
+                            @change="inputEvent.time = $event.target.value">
                     </div>
                 </div>
 
@@ -172,38 +197,30 @@ const closeDetail = () => {
                     <div class="p-1.5 rounded-full gap-2 bg-green-500">
                         <IconNoteFill class="w-4 h-4 text-green-100" />
                     </div>
-                    <span v-show="!stage.editing"
-                        class="text-base text-gray-700 font-medium"
+                    <span v-show="!stage.editing" class="text-base text-gray-700 font-medium"
                         v-text="event.eventNotes != null ? event.eventNotes : '-'">
                     </span>
-                    
+
                     <!-- <span v-show="event.eventNotes == null" class="text-base text-gray-700 font-medium">
                         -
                     </span> -->
-                    <textarea v-show="stage.editing"
-                        name="eventNotes" rows="8" placeholder="Note" maxlength="500"
+                    <textarea v-show="stage.editing" name="eventNotes" rows="8" placeholder="Note" maxlength="500"
                         class="w-full form-1 font-medium"
-                        @change="inputEvent.note = $event.target.value"
-                    >{{ event.eventNotes }}</textarea>
+                        @change="inputEvent.note = $event.target.value">{{ event.eventNotes }}</textarea>
                 </div>
                 <!-- button -->
-                <div v-show="stage.editing"
-                    class="flex gap-4 mt-4 justify-center">
-                    <button 
-                        class="disabled:opacity-75 btn-1 text-sm bg-blue-600 hover:bg-blue-700 text-blue-50"
-                        @click="updateEvent"
-                        
-                    >   Update
+                <div v-show="stage.editing" class="flex gap-4 mt-4 justify-center">
+                    <button class="disabled:opacity-75 btn-1 text-sm bg-blue-600 hover:bg-blue-700 text-blue-50"
+                        @click="updateEvent"> Update
                     </button>
-                    <button 
-                        class="btn-1 text-sm border-2 hover:border-red-500 hover:text-red-50 hover:bg-red-500"
-                        @click="stage.editing = false"
-                    >   Cancel
+                    <button class="btn-1 text-sm border-2 hover:border-red-500 hover:text-red-50 hover:bg-red-500"
+                        @click="stage.editing = false"> Cancel
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    <ModalError :visible="modal.visible" :text="modal.text" @close-modal="modal.visible = false" />
 </template>
  
 <style>

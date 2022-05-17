@@ -10,6 +10,8 @@ import ModalCreate from '../components/modal/ModalCreate.vue';
 
 const step = ref(0)
 const router = useRouter()
+    const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
+    const goBack = () => router.go(-1)
 onBeforeMount(async () => {
     // await middleFetch.getEventCategories()
     await eventCategoryFetch.get()
@@ -51,13 +53,10 @@ const submit = async () => {
 const timeNotFuture = () => {
 
 }
-const timeNow = () => dayjs().format('HH:mm')
+
 const dateNow = () => dayjs().format('YYYY-MM-DD')
 const datetimeNow = () => dayjs().format('YYYY-MM-DDTHH:mm')
-console.log(datetimeNow());
-const goTo = (pageName, param = null) => router.push({ name: pageName, params: param ? param : '' })
-const goBack = () => router.go(-1)
-const test = (e) => console.log(e.target.value);
+
 
 const isTimePast = computed(
     () => startDate.value && startTime.value && dayjs(startDate.value + startTime.value).isBefore(dayjs()))

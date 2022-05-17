@@ -45,10 +45,11 @@ const viewDetail = async(id) => {
 const refreshEvent = () => eventFetch.get()
 const removeEvent = async (id) => 
     confirm('Are you sure you want to cancel this event?') ? await eventFetch.remove(id) : ''
-const updateEvent = async (id, event) => {
-    console.log(id);
-    console.log(event);
-    eventFetch.put(id, event)
+const updateEvent =  (resEvent) => {
+    // selectedEvent.value = resEvent
+    selectedEvent.value.eventStartTime = resEvent.eventStartTime
+    selectedEvent.value.eventNotes = resEvent.eventNotes
+
 }
 
 // console.log('this is test');
