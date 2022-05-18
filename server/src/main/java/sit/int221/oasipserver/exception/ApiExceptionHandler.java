@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import sit.int221.oasipserver.exception.type.ApiNotFoundException;
 import sit.int221.oasipserver.exception.type.ApiRequestException;
 
 import java.time.ZoneId;
@@ -43,17 +44,25 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException e){
         // 1. Create payload containing exception details
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        List<ErrorDetail> errors = new ArrayList<>();
-        errors.add(new ErrorDetail("eventStartTime", e.getMessage()));
         ApiException apiException = new ApiException(
                 e.getMessage(),
-//                e,
                 badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")),
-                errors
+                ZonedDateTime.now(ZoneId.of("Z"))
         );
         // 2. Return response entity
         return new ResponseEntity<>(apiException, badRequest);
+    }
+    @ExceptionHandler(value = {ApiNotFoundException.class})
+    public ResponseEntity<Object> handleApiNotFoundException(ApiNotFoundException e){
+        // 1. Create payload containing exception details
+        var notFound = HttpStatus.NOT_FOUND;
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                notFound,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        // 2. Return response entity
+        return new ResponseEntity<>(apiException, notFound);
     }
 }
 //https://www.youtube.com/watch?v=PzK4ZXa2Tbc

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sit.int221.oasipserver.annotations.OverlapValidation;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,6 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@OverlapValidation(message = "s", hasCategoryId = true)
 public class UpdateEventDto {
     private Integer id;
     @NotNull(message = "must not be null")

@@ -4,16 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-import sit.int221.oasipserver.annotations.OverlapValidation;
-import sit.int221.oasipserver.entities.Eventcategory;
-import sit.int221.oasipserver.repo.EventRepository;
-import sit.int221.oasipserver.repo.EventcategoryRepository;
 
-import javax.validation.Constraint;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.Instant;
 
@@ -21,7 +12,6 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@OverlapValidation
 public class NewEventDto  {
 
     private Integer id;

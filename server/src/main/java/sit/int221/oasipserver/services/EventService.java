@@ -3,12 +3,15 @@ package sit.int221.oasipserver.services;
 import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.BindingResultUtils;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,26 +26,24 @@ import sit.int221.oasipserver.exception.type.ApiRequestException;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
+import sit.int221.oasipserver.utils.OverlapValidate;
 
-import javax.validation.Valid;
+import javax.validation.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class EventService {
-    @Autowired
-    private EventRepository repository;
-    @Autowired
-    private EventcategoryRepository eventcategoryRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private ListMapper listMapper;
-    @Autowired
-    public EventcategoryService eventcategoryService;
+    @Autowired private EventRepository repository;
+    @Autowired private EventcategoryRepository eventcategoryRepository;
+    @Autowired private ModelMapper modelMapper;
+    @Autowired private ListMapper listMapper;
+    @Autowired public EventcategoryService eventcategoryService;
+    @Autowired private OverlapValidate overlapValidate;
     public List<EventDto> getAll() {
         List<Event> eventList = repository.findAllByOrderByEventStartTimeDesc();
         return listMapper.mapList(eventList, EventDto.class, modelMapper);
@@ -56,16 +57,21 @@ public class EventService {
     }
 
 
-    public EventDto create(NewEventDto newEvent) {
+    public EventDto create( CreateEventDto newEvent, BindingResult result) throws MethodArgumentNotValidException{
+
         List<Event> eventList = repository.findAllByEventCategoryId(newEvent.getEventCategoryId());
 
         Integer eDutation = eventcategoryService.getById(newEvent.getEventCategoryId()).getEventDuration();
         newEvent.setEventDuration(eDutation);
         Event event = modelMapper.map(newEvent, Event.class);
 
-        if(isDateTimeOverlap(event, eventList))
-            throw new ApiRequestException("overlapped with other events");
+        if(overlapValidate.overlapCheck(event, eventList))
+            result.addError(new FieldError(
+                    "newEventDto","eventStartTime",
+                    "overlapped with other events"));
 
+        if (result.hasErrors())
+            throw new MethodArgumentNotValidException(null, result);
 
         return modelMapper.map(repository.saveAndFlush(event), EventDto.class);
     }
@@ -78,30 +84,25 @@ public class EventService {
         repository.deleteById(id);
     }
 
-    public Event update(UpdateEventDto updateEventDto, Integer id) {
+    public EventDetailDto update(UpdateEventDto updateEventDto, Integer id, BindingResult result)
+            throws MethodArgumentNotValidException{
 
-        // validateInput(String email) - if email is valid return true.
+        Event event = mapEvent(getById(id),updateEventDto);
 
-//        if(updateEventDto.getEventNotes() != null && updateEventDto.getEventNotes().length() >500)
-//            throw new ApiRequestException("the length exceeded the size.");
-//
-//        if(validateInput(updateEventDto.getEventNotes()))
-//            throw new ApiRequestException("the field that is empty.");
-//
-//        // validateDatetimeFuture(Instant date&time) - if time is future return true.
-//        if(!validateDatetimeFuture(updateEventDto.getEventStartTime()))
-//            throw new ApiRequestException("eventStartTime is NOT in the future.");
+//        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto)).orElseThrow(
+//                        () -> new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
+//        );
 
-        Event event = repository.findById(id).map(e -> mapEvent(e, updateEventDto)).orElseThrow(
-                        () -> new ApiNotFoundException("Event id " + id + " Does Not Exist !!!")
-        );
-
-        // validate overlap
         List<Event> eventList = repository.findAllByEventCategoryIsAndIdIsNot(event.getEventCategory(), event.getId());
-//        if(isDateTimeOverlap(event, eventList))
-//            throw new ApiRequestException("the eventStartTime is overlapped.");
+        if(overlapValidate.overlapCheck(event, eventList))
+            result.addError(new FieldError(
+                    "newEventDto","eventStartTime",
+                    "overlapped with other events"));
 
-        return repository.saveAndFlush(event);
+        if (result.hasErrors())
+            throw new MethodArgumentNotValidException(null, result);
+
+        return modelMapper.map(repository.saveAndFlush(event),EventDetailDto.class);
     }
 
     private Event mapEvent(Event existingEvent, UpdateEventDto updateEvent) {
@@ -111,72 +112,6 @@ public class EventService {
         if(updateEvent.getEventNotes() != null)
             existingEvent.setEventNotes(updateEvent.getEventNotes());
         return existingEvent;
-    }
-
-    public Boolean validateDatetimeFuture(Instant eventStartTime){
-        return eventStartTime.isAfter(Instant.now());
-    }
-
-    public void validateDuration() {
-//        Eventcategory eventcategory = eventcategoryRepository.findById(newEvent.getEventCategoryId())
-//                .orElseThrow(() -> new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND, "Event id " + newEvent.getEventCategoryId() + " Does Not Exist !!!"
-//                ));
-//        newEvent.setEventDuration(eventcategory.getEventDuration());
-//        newEvent.setEventCategoryName(eventcategory.getEventCategoryName());
-    }
-    public void validateOverlap(Event newEvent, List<Event> eventList){
-        Instant newEventStart = newEvent.getEventStartTime();
-        Instant newEventEND = newEvent.getEventStartTime().plus(newEvent.getEventDuration(), ChronoUnit.MINUTES);
-        eventList.forEach(e -> {
-            Instant eachEventStart = e.getEventStartTime();
-            Instant eachEventEnd = e.getEventStartTime().plus(e.getEventDuration(), ChronoUnit.MINUTES);
-            Boolean isStartBetween = (newEventStart.isAfter(eachEventStart)
-                    || newEventStart.equals(eachEventStart))
-                    && newEventStart.isBefore(eachEventEnd);
-            Boolean isEndBetween = newEventEND.isAfter(eachEventStart)
-                    && newEventEND.isBefore(eachEventEnd);
-
-            if (isStartBetween || isEndBetween){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the eventStartTime is overlapped.");
-            }
-        });
-    }
-
-    public boolean isDateTimeOverlap(Event newEvent, List<Event> eventList){
-        ChronoUnit minutes = ChronoUnit.MINUTES;
-        Instant startTime = newEvent.getEventStartTime();
-        Instant newEventStart = startTime;
-        Instant newEventEnd = startTime.plus(newEvent.getEventDuration(), minutes);
-        for (Event e: eventList){
-            Instant eEventStart = e.getEventStartTime();
-            Instant eEventEnd = e.getEventStartTime().plus(e.getEventDuration(), minutes);
-
-            Boolean isStartBetween = (newEventStart.isAfter(eEventStart)
-                    || newEventStart.equals(eEventStart))
-                    && newEventStart.isBefore(eEventEnd);
-            Boolean isEndBetween = newEventEnd.isAfter(eEventStart)
-                    && newEventEnd.isBefore(eEventEnd);
-
-            if (isStartBetween || isEndBetween) return true;
-        }
-        return false;
-    }
-
-    //https://stackoverflow.com/questions/8204680/java-regex-email
-    public boolean validateEmail(String email){
-        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = pattern.matcher(email);
-        return matcher.find();
-    }
-    public boolean validateInput(String input){
-        Pattern pattern = Pattern.compile("^\\s*$",
-                Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = pattern.matcher(input);
-        return matcher.find();
     }
 
 }

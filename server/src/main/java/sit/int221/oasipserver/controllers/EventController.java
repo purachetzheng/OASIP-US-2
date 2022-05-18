@@ -1,5 +1,6 @@
 package sit.int221.oasipserver.controllers;
 
+import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -7,14 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import sit.int221.oasipserver.dtos.EventDetailDto;
-import sit.int221.oasipserver.dtos.EventDto;
-import sit.int221.oasipserver.dtos.NewEventDto;
-import sit.int221.oasipserver.dtos.UpdateEventDto;
+import sit.int221.oasipserver.dtos.*;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.exception.ApiException;
 import sit.int221.oasipserver.exception.ErrorDetail;
@@ -44,9 +44,11 @@ public class EventController {
         return modelMapper.map(eventService.getById(id), EventDetailDto.class);
     }
 
+
     @PostMapping("")
-    public EventDto createEvent(@Valid @RequestBody NewEventDto newEvent){
-        return eventService.create(newEvent);
+    public EventDto createEvent(@Valid @RequestBody CreateEventDto newEvent, BindingResult result)
+            throws MethodArgumentNotValidException{
+        return eventService.create(newEvent, result);
     }
 
     @DeleteMapping("/{id}")
@@ -55,8 +57,9 @@ public class EventController {
     }
 
 
-    @PutMapping("/{id}")
-    public Event updateEvent( @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id){
-        return eventService.update(updateEventDto,id);
+    @PatchMapping("/{id}")
+    public EventDetailDto updateEvent( @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id,
+                              BindingResult result) throws MethodArgumentNotValidException{
+        return eventService.update(updateEventDto, id, result);
     }
 }
