@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Getter
@@ -13,6 +15,8 @@ import java.time.Instant;
 @AllArgsConstructor
 public class EventDto {
     private Integer id;
+    @Size(max = 100, message = "size must be between 1 and 100")
+    @NotBlank(message = "must not be blank")
     private String bookingName;
 //    private String bookingEmail;
     private Integer eventDuration;

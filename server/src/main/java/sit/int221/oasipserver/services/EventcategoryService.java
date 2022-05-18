@@ -25,13 +25,13 @@ public class EventcategoryService {
         return listMapper.mapList(eventcategoryList, EventcategoryDto.class, modelMapper);
     }
 
-    public EventcategoryDto getById (Integer id) {
+    public Eventcategory getById (Integer id) {
         Eventcategory eventcategory = repository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Event id "+ id+
                         "Does Not Exist !!!"
                 ));
-        return modelMapper.map(eventcategory, EventcategoryDto.class);
+        return eventcategory;
     }
 
     public Eventcategory create(EventcategoryDto newEventcategory){

@@ -7,24 +7,48 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import sit.int221.oasipserver.annotations.OverlapValidation;
 import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 
+import javax.validation.Constraint;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.time.Instant;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewEventDto {
+//@OverlapValidation
+public class NewEventDto  {
 
     private Integer id;
+
+    @Size(max = 100, message = "size must be between 1 and 100")
+    @NotBlank(message = "must not be blank")
+//    @NotNull(message = "bookingName must not be null")
     private String bookingName;
+
+    @Size(max = 100, message = "size must be between 1 and 100")
+    @Email(message = "must be a well-formed email address")
+    @NotBlank(message = "must not be blank")
+//    @NotNull(message = "bookingEmail must not be null")
     private String bookingEmail;
+
     private Integer eventDuration;
+
+
+    @NotNull(message = "must not be null")
+    @Future(message = "must be a future date")
     private Instant eventStartTime;
+    @Size(max = 500, message = "size must be between 0 and 500")
+
+//    @NotEmpty(message = "eventNotes must not be empty")
+    @Size(min = 0, max = 500, message = "size must be between 0 and 500")
     private String eventNotes;
+    @NotNull(message = "must not be null")
     private Integer eventCategoryId;
     private String eventCategoryName;
 

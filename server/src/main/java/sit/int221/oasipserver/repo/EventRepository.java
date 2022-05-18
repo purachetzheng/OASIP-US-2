@@ -9,5 +9,6 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Integer> {
     public List<Event> findAllByOrderByEventStartTimeDesc();
     public List<Event> findAllByEventCategoryIs(Eventcategory eventcategory);
+    public List<Event> findAllByEventCategoryId(Integer eventCategoryId);
     public List<Event> findAllByEventCategoryIsAndIdIsNot (Eventcategory eventcategory, Integer id);
 }
