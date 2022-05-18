@@ -59,6 +59,9 @@ public class EventService {
 
     public EventDto create( CreateEventDto newEvent, BindingResult result) throws MethodArgumentNotValidException{
 
+        if (result.hasErrors() && newEvent.getEventCategoryId() == null || newEvent.getEventStartTime() == null)
+            throw new MethodArgumentNotValidException(null, result);
+
         List<Event> eventList = repository.findAllByEventCategoryId(newEvent.getEventCategoryId());
 
         Integer eDutation = eventcategoryService.getById(newEvent.getEventCategoryId()).getEventDuration();

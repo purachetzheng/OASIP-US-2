@@ -64,5 +64,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         // 2. Return response entity
         return new ResponseEntity<>(apiException, notFound);
     }
+
 }
 //https://www.youtube.com/watch?v=PzK4ZXa2Tbc

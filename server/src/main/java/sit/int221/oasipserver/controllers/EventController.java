@@ -18,6 +18,7 @@ import sit.int221.oasipserver.dtos.*;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.exception.ApiException;
 import sit.int221.oasipserver.exception.ErrorDetail;
+import sit.int221.oasipserver.exception.type.ApiRequestException;
 import sit.int221.oasipserver.services.EventService;
 
 import javax.validation.Valid;
@@ -62,4 +63,6 @@ public class EventController {
                               BindingResult result) throws MethodArgumentNotValidException{
         return eventService.update(updateEventDto, id, result);
     }
+
+
 }
