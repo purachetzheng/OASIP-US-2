@@ -64,8 +64,8 @@ public class EventService {
 
         List<Event> eventList = repository.findAllByEventCategoryId(newEvent.getEventCategoryId());
 
-        Integer eDutation = eventcategoryService.getById(newEvent.getEventCategoryId()).getEventDuration();
-        newEvent.setEventDuration(eDutation);
+        Integer eDuration = eventcategoryService.getById(newEvent.getEventCategoryId()).getEventDuration();
+        newEvent.setEventDuration(eDuration);
         Event event = modelMapper.map(newEvent, Event.class);
 
         if(overlapValidate.overlapCheck(event, eventList))

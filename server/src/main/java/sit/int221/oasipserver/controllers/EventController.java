@@ -59,7 +59,7 @@ public class EventController {
 
 
     @PatchMapping("/{id}")
-    public EventDetailDto updateEvent( @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id,
+    public EventDetailDto updateEvent(@Valid @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id,
                               BindingResult result) throws MethodArgumentNotValidException{
         return eventService.update(updateEventDto, id, result);
     }
