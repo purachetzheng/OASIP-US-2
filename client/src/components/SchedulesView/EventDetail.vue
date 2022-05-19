@@ -73,7 +73,7 @@ const updateEvent = async (e) => {
     }
 
     // updateFetch(props.event.id, editEvent)
-    const res = await eventFetch.put(props.event.id, editEvent)
+    const res = await eventFetch.patch(props.event.id, editEvent)
     if (res.status == true) {
         // props.event = res.event
         console.log(res.event);

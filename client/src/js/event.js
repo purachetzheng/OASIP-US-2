@@ -62,13 +62,13 @@ export const eventFetch = {
     //         } 
     //         : event )
     // }
-    async put(id, editObj) {
+    async patch(id, editObj) {
         const res = await fetch(url + id, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(editObj),
         })
-        
+        console.log(res.json());
         if (res.status === 200) {
             // console.log(`edited ${entity} successfully`)
 

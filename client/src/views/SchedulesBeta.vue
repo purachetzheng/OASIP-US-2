@@ -37,9 +37,9 @@ let detailModal = ref({ visible: false })
 const selectedEvent = ref({})
 
 const viewDetail = async(id) => {
-    detailModal.value.visible = true
-    selectedEvent.value = await eventFetch.getById(id)
-    // goTo('EventDetail', { eventId: id })
+    // detailModal.value.visible = true
+    // selectedEvent.value = await eventFetch.getById(id)
+    goTo('EventDetail', { eventId: id })
 }
 
 const refreshEvent = () => eventFetch.get()
@@ -58,11 +58,11 @@ const updateEvent =  (resEvent) => {
 </script>
 
 <template>
-    <main class=" h-full w-screen overflow-y-auto p-2 ">
-        <div class="flex h-full justify-between ">
+    <main class=" h-full w-screen overflow-y-auto p-6">
+        <div class="flex h-full justify-between gap-6">
 
             <!-- Filter -->
-            <div class="p-4 flex flex-col w-1/4 gap-y-2 pr-2">
+            <div class="flex flex-col w-1/4 gap-y-2">
                 <div class="h-8">
                 </div>
                 <div class="h-1/3 rounded-lg flex flex-col">
@@ -78,7 +78,7 @@ const updateEvent =  (resEvent) => {
             </div>
 
             <!-- Layout - Event Schedules  -->
-            <div class="p-4 flex flex-col w-full gap-2 rounded-xl ">
+            <div class=" flex flex-col w-full gap-2 rounded-xl ">
                 <!-- header -->
                 <EventListHeader :eventAmount="events.length" @emitRefreshEvent="refreshEvent" />
                 
