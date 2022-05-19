@@ -3,7 +3,7 @@ import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, } from 'vue'
 //date-time lib
 import dayjs from 'dayjs'
 
-import { events, eventFetch } from '../../js/event'
+import { events } from '../../js/event'
 import IconPinFill from '../icons/IconPinFill.vue'
 import IconTimeFill from '../icons/IconTimeFill.vue'
 import IconCalendarFill from '../icons/IconCalendarFill.vue'
@@ -31,7 +31,7 @@ const props = defineProps({
 
 onBeforeMount(async () => {
     // stage.value.editing = false
-    // await eventFetch.getById(props.selectedId)
+    // await events.getById(props.selectedId)
 
 })
 const dateNow = () => dayjs().format('YYYY-MM-DD')
@@ -73,7 +73,7 @@ const updateEvent = async (e) => {
     }
 
     // updateFetch(props.event.id, editEvent)
-    const res = await eventFetch.patch(props.event.id, editEvent)
+    const res = await events.patch(props.event.id, editEvent)
     if (res.status == true) {
         // props.event = res.event
         console.log(res.event);

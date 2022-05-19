@@ -3,9 +3,10 @@ import { eventCategories } from './eventCategory'
 
 const url = import.meta.env.VITE_BASE_URL + 'events/'
 
-export const events = ref([])
+// export const events = ref([])
 
-export const eventFetch = {
+export const events = {
+    events: ref([]),
     //GET
     async get() {
         const res = await fetch(url)
@@ -13,11 +14,11 @@ export const eventFetch = {
             ? 'get events successfully'
             : 'error, cannot get events');
         if(res.status === 200) 
-            return events.value = await res.json()
+            return this.events.value = await res.json()
     },
 
     async getIfEmpty() {
-        const isEmpty = events.value.length === 0
+        const isEmpty = this.events.value.length === 0
         isEmpty ? this.get() : ''
     },
 
@@ -51,7 +52,7 @@ export const eventFetch = {
         const categoryId = addedEvent.eventCategoryId
         addedEvent.eventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
         
-        events.value.push(addedEvent)
+        this.events.value.push(addedEvent)
 
         return { posted: true, event:addedEvent }
     },
@@ -65,14 +66,14 @@ export const eventFetch = {
             : 'error, cannot delete event');
         if(res.status !== 200) return false
 
-        events.value = events.value.filter((event) => event.id !== id)
+        this.events.value = this.events.value.filter((event) => event.id !== id)
         return true
     },
 
     //UPDATE
     // async put(id, editObj){
     //     const modifyEvent = await fetchData.put(`events/${id}`, editObj)
-    //     events.value = events.value.map((event) => 
+    //     this.events.value = this.events.value.map((event) => 
     //         event.id === modifyEvent.id 
     //         ? { 
     //             ...event,
@@ -98,7 +99,7 @@ export const eventFetch = {
             const modifyEvent = await res.json()
 
             // console.log(modifyEvent);
-            events.value = events.value.map((event) =>
+            this.events.value = this.events.value.map((event) =>
                 event.id === modifyEvent.id
                     ? {
                         ...event,

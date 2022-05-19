@@ -34,7 +34,11 @@
     </div> */}
 
 
-    var regex = "^\\s+$";
-    console.log(" ".match(regex));
-    console.log(regex.test(" "));
-    console.log(regex.test(" s"));
+    // var regex = "^\\s+$";
+    // console.log(" ".match(regex));
+    // console.log(regex.test(" "));
+    // console.log(regex.test(" s"));
+
+    const test = false
+    console.log( test ? false : true && true);
+    console.log( true && false);

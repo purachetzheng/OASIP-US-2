@@ -7,7 +7,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 //router
 import { useRoute, useRouter } from 'vue-router';
 //js
-import { events, eventFetch } from '../js/event'
+import { events } from '../js/event'
 
 //icon
 import IconCalendarFill from '../components/icons/IconCalendarFill.vue';
@@ -34,7 +34,7 @@ const routerSigns = {
 
 const event = ref({})
 onBeforeMount(async () => {
-    event.value = await eventFetch.getById(eventId)
+    event.value = await events.getById(eventId)
     
     editing.setup()
     //first time left trick
@@ -57,7 +57,7 @@ const editing = reactive({
             eventStartTime: combineDT(this.event.date, this.event.time),
             eventNotes: this.event.note
         }
-        const res = await eventFetch.patch(eventId, obj)
+        const res = await events.patch(eventId, obj)
         event.value = res.event
         // console.log(res.event);
         this.cancel()

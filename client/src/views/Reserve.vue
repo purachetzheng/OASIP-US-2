@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { ref, onBeforeMount, computed } from 'vue';
 // import { events, eventCategories, middleFetch } from '../js/variable'
 import { eventCategories, eventCategoryFetch } from '../js/eventCategory'
-import { events, eventFetch } from '../js/event'
+import { events } from '../js/event'
 import { useRoute, useRouter } from 'vue-router'
 import IconCheckCircleFill from '../components/icons/IconCheckCircleFill.vue'
 import ModalCreate from '../components/modal/ModalCreate.vue';
@@ -35,7 +35,7 @@ const submit = async () => {
     if (isTimePast.value || isNameEmpty.value || isEmailInvalid.value || isNoteWhiteSpace.value) return;
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
     createEvent.value.eventDuration = selectedCatagory.value.eventDuration
-    const postStatus = await eventFetch.post(createEvent.value)
+    const postStatus = await events.post(createEvent.value)
     console.log(postStatus);
     // middleFetch.event.post(createEvent.value)
     // modal.value.visible = true
