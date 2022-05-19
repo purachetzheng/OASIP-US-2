@@ -64,7 +64,7 @@ export const eventFetch = {
     // }
     async patch(id, editObj) {
         const res = await fetch(url + id, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(editObj),
         })
