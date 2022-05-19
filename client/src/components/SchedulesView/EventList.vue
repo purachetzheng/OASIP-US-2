@@ -13,6 +13,11 @@ const props = defineProps({
         type: Array,
         default: []
     },
+    selectCategory:{
+        type: String,
+        default: null
+    },
+    
 })
 
 </script>

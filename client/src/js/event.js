@@ -1,14 +1,19 @@
 import { ref } from 'vue'
-import { fetchData } from './fetchFunc'
 import { eventCategories } from './eventCategory'
 
 const url = import.meta.env.VITE_BASE_URL + 'events/'
+
 export const events = ref([])
 
 export const eventFetch = {
     //GET
     async get() {
-        events.value = await fetchData.get('events')
+        const res = await fetch(url)
+        console.log(res.status === 200 
+            ? 'get events successfully'
+            : 'error, cannot get events');
+        if(res.status === 200) 
+            return events.value = await res.json()
     },
 
     async getIfEmpty() {
@@ -16,34 +21,52 @@ export const eventFetch = {
         isEmpty ? this.get() : ''
     },
 
-    getById(id) {
-        return fetchData.get('events/' + id)
+    async getById(id) {
+        const res = await fetch(url+id)
+        console.log(res.status === 200 
+            ? `get event id ${id} successfully`
+            : `error, cannot get event id ${id}`);
+        if(res.status === 200) 
+            return await res.json()
     },
 
     //POST
     async post(newEvent) {
-        const addedEvent = await fetchData.post('events', newEvent)
-        if (!addedEvent) return false
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newEvent)
+        })
+        
+        // console.log(await res.json().id);
+        console.log(res.status === 200 || res.status === 201 
+            ? 'created event successfully'
+            : 'error, cannot create event');
+
+        if(res.status !== 200 && res.status !== 201) 
+            return { posted: false, res: await res.json() }
+
+        const addedEvent = await res.json()
+        //find eventCategoryName
         const categoryId = addedEvent.eventCategoryId
-        //EventCategoryName Null, Find EventCategoryName by EventCategoryId
-        // console.log(addedEvent.EventCategoryName);
-        // console.log(eventCategories.value);
-        // console.log(categoryId);
-        // console.log(eventCategories.value.find(e => e.id == categoryId));
-        // console.log(eventCategories.value.find((e) => e.id == categoryId).eventCategoryName);
-        addedEvent.EventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
-        addedEvent ? events.value.push(addedEvent) : ''
-        return true
+        addedEvent.eventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
+        
+        events.value.push(addedEvent)
+
+        return { posted: true, event:addedEvent }
     },
 
     //REMOVE
     async remove(id) {
-        const isDeleted = await fetchData.remove(`events/${id}`)
+        const res = await fetch(url + id, { method: 'DELETE',})
 
-        if (isDeleted) {
-            events.value = events.value.filter((event) => event.id !== id)
-            console.log('deleted event successfully')
-        } else console.log('error, cannot delete event')
+        console.log(res.status === 200 
+            ? 'deleted event successfully'
+            : 'error, cannot delete event');
+        if(res.status !== 200) return false
+
+        events.value = events.value.filter((event) => event.id !== id)
+        return true
     },
 
     //UPDATE
@@ -68,7 +91,7 @@ export const eventFetch = {
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(editObj),
         })
-        console.log(res.json());
+        console.log(res);
         if (res.status === 200) {
             // console.log(`edited ${entity} successfully`)
 
@@ -91,4 +114,9 @@ export const eventFetch = {
     }
 
 
+}
+
+const afterGet = {
+    succeed:() => {},
+    Failed:() => {}
 }

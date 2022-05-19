@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onBeforeMount, onMounted, reactive, } from 'vue'
+import { ref, computed, onBeforeMount, onMounted, reactive, toRef, } from 'vue'
 
 //date-time lib
 import dayjs from 'dayjs'
@@ -35,21 +35,11 @@ const routerSigns = {
 const event = ref({})
 onBeforeMount(async () => {
     event.value = await eventFetch.getById(eventId)
+    
+    editing.setup()
     //first time left trick
     updateTimeleft()
-    //setup edit obj
-    editing.setup()
-    // editingEvent.value = {
-    //     date: dayjs(event.eventStartTime).format('YYYY-MM-DD'),
-    //     time: dayjs(event.eventStartTime).format('HH:mm'),
-    //     note: event.value.eventNotes
-    // }
 })
-
-// input form
-const inputDate = ref(null)
-const inputTime = ref(null)
-const inputNote = ref(null)
 
 const combineDT = (date, time) => dayjs(date + time).toJSON()
 const editing = reactive({
@@ -68,10 +58,13 @@ const editing = reactive({
             eventNotes: this.event.note
         }
         const res = await eventFetch.patch(eventId, obj)
-        console.log(res);
+        event.value = res.event
+        // console.log(res.event);
+        this.cancel()
     },
     cancel(){
         this.mode = false
+        this.setup()
     },
     setup(){
         this.event = {
@@ -82,18 +75,6 @@ const editing = reactive({
     }
     
 })
-
-
-const save = () => {
-    // console.log(inputDate.value.value);
-    // console.log(inputTime.value.value);
-    // console.log(combineDT());
-    // const obj = {
-    //     eventStartTime: dayjs(inputDate.value + time).toJSON(),
-
-    // }
-    // console.log(obj);
-}
 
 // Countdown
 const timeleft = reactive({ day: 0, hour: 0, minute: 0, second: 0 })
@@ -110,6 +91,7 @@ setInterval(updateTimeleft, 1000);
  
 <template>
     <main class="h-full w-screen overflow-y-auto">
+        <button @click="test">test</button>
         <div class="flex flex-col h-full w-full justify-center items-center">
             <div class="flex h-4/5 w-4/5 bg-white shadow-md ">
                 <div class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-y-scroll">
@@ -126,7 +108,7 @@ setInterval(updateTimeleft, 1000);
                         <!-- Date -->
                         <div class="flex gap-4 items-center">
                             <IconCalendar class="w-6 h-6" />
-                            <input ref="inputDate" v-if="editing.mode" type="date" name="" id=""
+                            <input v-if="editing.mode" type="date" name="" id=""
                                 class="text-lg font-medium w-fit bg-gray-200 rounded-md px-2"
                                 v-model="editing.event.date"
                             >
@@ -138,7 +120,7 @@ setInterval(updateTimeleft, 1000);
                         <!-- Time -->
                         <div class="flex gap-4 items-center">
                             <IconTime class="w-6 h-6" />
-                            <input ref="inputTime" v-if="editing.mode" type="time" name="" id=""
+                            <input v-if="editing.mode" type="time" name="" id=""
                                 class="text-lg font-medium w-fit bg-gray-200 rounded-md px-2"
                                 v-model="editing.event.time"
                             >
@@ -153,7 +135,7 @@ setInterval(updateTimeleft, 1000);
                     </div>
                     <!-- Note -->
                     <div class="flex h-full w-full bg-white my-6">
-                        <textarea ref="inputNote" v-if="editing.mode"
+                        <textarea v-if="editing.mode"
                             name="eventNotes"  placeholder="Note" maxlength="500"
                             class="w-full border p-1 text-md font-medium bg-gray-200"
                             @change="" v-model="editing.event.note"
@@ -266,13 +248,5 @@ setInterval(updateTimeleft, 1000);
 </template>
  
 <style>
-.custom-header {
-    font-size: 3.25rem
-        /* 36px */
-    ;
-    line-height: 3.25rem
-        /* 40px */
-    ;
-    font-weight: 700;
-}
+
 </style>

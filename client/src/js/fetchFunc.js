@@ -9,10 +9,8 @@ export const fetchData = {
     const res = await fetch(this.settings.baseUrl + entity)
     if (res.status === 200) {
       console.log(`get ${entity} successfully`)
-      return await res.json()
     } else {
       console.log(`error, cannot get ${entity}`)
-      return notFound
     }
   },
   async post(entity, newObj) {

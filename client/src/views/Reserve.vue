@@ -36,6 +36,7 @@ const submit = async () => {
     createEvent.value.eventStartTime = dayjs(startDate.value + startTime.value).toJSON()
     createEvent.value.eventDuration = selectedCatagory.value.eventDuration
     const postStatus = await eventFetch.post(createEvent.value)
+    console.log(postStatus);
     // middleFetch.event.post(createEvent.value)
     // modal.value.visible = true
     if (postStatus) {
