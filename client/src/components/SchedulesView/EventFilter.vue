@@ -2,7 +2,8 @@
 import { ref, computed, onBeforeMount, onMounted, nextTick, } from 'vue'
 import IconSearch from '../icons/IconSearch.vue'
 import { eventCategories, eventCategoryFetch } from '../../js/eventCategory'
-const emits = defineEmits(['emitSelectCategory', 'emitSelectDayStatus'])
+import IconCalendar from '../icons/IconCalendar.vue';
+const emits = defineEmits(['emitSelectCategory', 'emitSelectDayStatus', 'emitSelectDay'])
 const props = defineProps({
     first: {
         type: String,
@@ -10,6 +11,14 @@ const props = defineProps({
     },
 })
 const searchBox = ref(null)
+const datePicker = ref(null)
+// fix some area when click input date don't work
+const clickIconDatePicker = () => 
+    nextTick(() => {
+        datePicker.value.showPicker()
+        datePicker.value.focus()
+    })
+
 </script>
  
 <template>
@@ -23,8 +32,9 @@ const searchBox = ref(null)
                 <button @click="nextTick(() => searchBox.focus())" class="absolute flex inset-y-0 items-center pl-2">
                     <IconSearch class="w-5 h-5" />
                 </button>
-                <input ref="searchBox" class="p-2 pl-8 border-2 rounded-md w-full text-sm
-                                bg-white outline-none focus:ring-2 focus:border-blue-600" type="text"
+                <input ref="searchBox" type="text" 
+                    class="p-2 pl-8 border-2 rounded-md w-full text-sm
+                                bg-white outline-none focus:ring-2 focus:border-blue-600"
                     placeholder="Search">
             </div>
         </div>
@@ -68,6 +78,22 @@ const searchBox = ref(null)
             </div>
         </div>
 
+        <!-- Day -->
+        <div class="flex flex-col gap-2">
+
+            <div class="text-sm font-medium">
+                <span class="">Day</span>
+            </div>
+            <div class="relative" >
+                <button @click="clickIconDatePicker" class="absolute flex inset-y-0 items-center pl-2">
+                    <IconCalendar class="w-5 h-5" />
+                </button>
+                <input ref="datePicker" type="date" @change="$emit('emitSelectDay', $event.target.value)"
+                    class="p-2 pl-8 border-2 rounded-md w-full text-sm
+                                bg-white outline-none focus:ring-2 focus:border-blue-600">
+            </div>
+        </div>
+
 
         <!-- <div class="p-4 h-2/3 bg-green-200 rounded-lg">
                     div
@@ -75,5 +101,26 @@ const searchBox = ref(null)
     </div>
 </template>
  
-<style>
+<style scoped>
+.input-container input {
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    padding: .75rem;
+    position: relative;
+    width: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
 </style>

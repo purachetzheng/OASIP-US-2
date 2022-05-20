@@ -79,8 +79,8 @@ const alertSuccess = ref(null)
 </script>
  
 <template>
-    <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg"
+    <main class="h-screen w-screen screen-p-1 flex justify-center overflow-auto items-center">
+        <form class="flex flex-col gap-2 h-full w-1/2 overflow-auto p-8 bg-white rounded-xl shadow-lg"
             @submit.prevent="submit">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <!-- Catagory -->

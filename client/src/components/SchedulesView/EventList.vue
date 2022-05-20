@@ -24,7 +24,7 @@ const props = defineProps({
  
 <template>
     <div v-show="events.length !== 0" 
-        class="h-full overflow-y-auto auto-rows-min gap-x-2 gap-y-2 p-1
+        class="h-full overflow-auto auto-rows-min gap-x-2 gap-y-2 p-1
                 grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
 
         <!-- loop events -->

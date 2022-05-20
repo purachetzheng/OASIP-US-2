@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onBeforeMount, onMounted, reactive, toRef, } from 'vue'
-
 //date-time lib
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
@@ -8,7 +7,6 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useRoute, useRouter } from 'vue-router';
 //js
 import { events } from '../js/event'
-
 //icon
 import IconCalendarFill from '../components/icons/IconCalendarFill.vue';
 import IconCalendar from '../components/icons/IconCalendar.vue';
@@ -45,11 +43,7 @@ onBeforeMount( async() => {
 const combineDT = (date, time) => dayjs(date + time).toJSON()
 const editing = reactive({
     mode: false,
-    event: {
-        date: null,
-        time: null,
-        note: null
-    },
+    event: { date: null, time: null, note: null},
     toggle(){
         this.mode? this.cancel() : this.mode = true
     },
@@ -89,23 +83,13 @@ const updateTimeleft = () => {
     timeleft.second = eventDT.diff(nowDT, 'second') % 60
 }
 setInterval(updateTimeleft, 1000);
-
-const test = async() => await fetch(import.meta.env.BASE_URL)
-const testv = async() => await fetch(import.meta.env.VITE_BASE_URL)
-const testlog = () => {
-    console.log('BASE: ' + import.meta.env.BASE_URL);
-    console.log('VITE_BASE: ' + import.meta.env.VITE_BASE_URL);
-}
 </script>
  
 <template>
-    <main class="h-full w-screen overflow-y-auto">
-        <button @click="test">test</button>
-        <button @click="testv">test v</button>
-        <button @click="testlog">test log</button>
+    <main class="h-full w-screen overflow-auto">
         <div class="flex flex-col h-full w-full justify-center items-center">
             <div class="flex h-4/5 w-4/5 bg-white shadow-md ">
-                <div class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-y-scroll">
+                <div class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-auto">
                     <!-- Name -->
                     <div class="my-6">
                         <p class="text-3xl font-medium truncate">{{ event.bookingName }}</p>

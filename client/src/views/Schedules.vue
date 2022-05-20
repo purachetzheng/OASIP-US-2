@@ -63,7 +63,8 @@ const updateEvent = (resEvent) => {
 }
 const selectedTag = {
     category: 'all',
-    status: 'all'
+    status: 'all',
+    day: 'all'
 }
 const doSelect = () => {
     // console.log(selectedTag);
@@ -77,6 +78,9 @@ const doSelect = () => {
     else if(status == 'past')
         eventsList.value = eventsList.value.filter(event => !isTimeFuture(event.eventStartTime))
 
+    if(selectedTag.day === '') return
+    const day = dayjs(selectedTag.day)
+    eventsList.value = eventsList.value.filter(event =>  day.isSame(dayjs(event.eventStartTime),'day'))
 }
 const selectCategory = (category) =>{
     selectedTag.category = category
@@ -98,15 +102,23 @@ const selectDayStatus = (status) =>{
     // eventsList.value = eventsPool.filter(event => !isTimeFuture(event.eventStartTime))
 }
 const isTimeFuture = (time) =>dayjs(time).isAfter(dayjs()) 
-
+const selectDay = (day) =>{
+    selectedTag.day = day
+    doSelect(selectedTag.day)
+    // console.log(dayjs('2022-05-20').isSame('2022-05-20T18:17:00Z','D'));
+    // console.log(typeof(day));
+    // console.log(day == null);
+    // console.log(day == '');
+}
 </script>
 
 <template>
-    <main class=" h-full w-screen overflow-y-auto p-6">
+    <main class=" h-full w-screen overflow-auto p-6">
         <div class="flex h-full justify-between gap-6">
 
             <!-- Filter -->
-            <EventFilter @emitSelectCategory="selectCategory" @emitSelectDayStatus="selectDayStatus" />
+            <EventFilter @emitSelectCategory="selectCategory" @emitSelectDayStatus="selectDayStatus"
+                @emitSelectDay="selectDay" />
 
             <!-- Layout - Event Schedules  -->
             <div class=" flex flex-col w-full gap-2 rounded-xl ">
