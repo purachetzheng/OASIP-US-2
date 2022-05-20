@@ -23,6 +23,7 @@ export const events = {
     },
 
     async getById(id) {
+
         const res = await fetch(url+id)
         console.log(res.status === 200 
             ? `get event id ${id} successfully`

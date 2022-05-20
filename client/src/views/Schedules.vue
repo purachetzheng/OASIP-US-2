@@ -66,7 +66,7 @@ const selectedTag = {
     status: 'all'
 }
 const doSelect = () => {
-    console.log(selectedTag);
+    // console.log(selectedTag);
     eventsList.value = events.events.value
     const category = selectedTag.category
     eventsList.value = eventsList.value.filter(event => event.eventCategoryName == category || category === 'all')

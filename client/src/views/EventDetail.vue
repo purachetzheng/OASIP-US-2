@@ -88,11 +88,20 @@ const updateTimeleft = () => {
     timeleft.second = eventDT.diff(nowDT, 'second') % 60
 }
 setInterval(updateTimeleft, 1000);
+
+const test = async() => await fetch(import.meta.env.BASE_URL)
+const testv = async() => await fetch(import.meta.env.VITE_BASE_URL)
+const testlog = () => {
+    console.log('BASE: ' + import.meta.env.BASE_URL);
+    console.log('VITE_BASE: ' + import.meta.env.VITE_BASE_URL);
+}
 </script>
  
 <template>
     <main class="h-full w-screen overflow-y-auto">
         <button @click="test">test</button>
+        <button @click="testv">test v</button>
+        <button @click="testlog">test log</button>
         <div class="flex flex-col h-full w-full justify-center items-center">
             <div class="flex h-4/5 w-4/5 bg-white shadow-md ">
                 <div class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-y-scroll">
