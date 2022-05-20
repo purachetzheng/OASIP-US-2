@@ -35,7 +35,7 @@ const routerSigns = {
 const event = ref({})
 onBeforeMount(async () => {
     event.value = await events.getById(eventId)
-    
+    console.log(event.value);
     editing.setup()
     //first time left trick
     updateTimeleft()
@@ -53,6 +53,7 @@ const editing = reactive({
         this.mode? this.cancel() : this.mode = true
     },
     async save(){
+        console.log(this.event);
         const obj = {
             eventStartTime: combineDT(this.event.date, this.event.time),
             eventNotes: this.event.note
