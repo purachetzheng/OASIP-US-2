@@ -32,10 +32,11 @@ const routerSigns = {
     schedules: () => router.push({ name: 'Schedules' })
 }
 
-const event = ref({})
-onBeforeMount(async () => {
+const event = ref({
+    // eventStartTime: null
+})
+onBeforeMount( async() => {
     event.value = await events.getById(eventId)
-    console.log(event.value);
     editing.setup()
     //first time left trick
     updateTimeleft()
@@ -69,8 +70,8 @@ const editing = reactive({
     },
     setup(){
         this.event = {
-            date: dayjs(event.eventStartTime).format('YYYY-MM-DD'),
-            time: dayjs(event.eventStartTime).format('HH:mm'),
+            date: dayjs(event.value.eventStartTime).format('YYYY-MM-DD'),
+            time: dayjs(event.value.eventStartTime).format('HH:mm'),
             note: event.value.eventNotes
         }
     }

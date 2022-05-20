@@ -30,7 +30,7 @@ export const events = {
             ? `get event id ${id} successfully`
             : `error, cannot get event id ${id}`);
         if(res.status === 200) 
-            return await res.json()
+            return res.json()
     },
 
     //POST
