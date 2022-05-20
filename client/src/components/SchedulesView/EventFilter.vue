@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onBeforeMount, onMounted, nextTick, } from 'vue'
+import dayjs from 'dayjs'
 import IconSearch from '../icons/IconSearch.vue'
 import { eventCategories, eventCategoryFetch } from '../../js/eventCategory'
 import IconCalendar from '../icons/IconCalendar.vue';
@@ -47,7 +48,7 @@ const clickIconDatePicker = () =>
             <div class="">
                 <select name="" id="" 
                     @change="$emit('emitSelectCategory', $event.target.value)"
-                    class="appearance-none p-2 border-2 rounded-md w-full text-sm
+                    class="p-2 border-2 rounded-md w-full text-sm
                         bg-white outline-none focus:ring-2 focus:border-blue-600">
                     <option value="all" selected>All</option>
                     <option 
@@ -71,7 +72,7 @@ const clickIconDatePicker = () =>
                     @change="$emit('emitSelectDayStatus', $event.target.value)"
                     class="p-2 border-2 rounded-md w-full text-sm
                         bg-white outline-none focus:ring-2 focus:border-blue-600">
-                    <option value="all">All</option>
+                    <option value="all" selected>All</option>
                     <option value="upcoming">Upcoming</option>
                     <option value="past">Past</option>
                 </select>
@@ -88,7 +89,9 @@ const clickIconDatePicker = () =>
                 <button @click="clickIconDatePicker" class="absolute flex inset-y-0 items-center pl-2">
                     <IconCalendar class="w-5 h-5" />
                 </button>
-                <input ref="datePicker" type="date" @change="$emit('emitSelectDay', $event.target.value)"
+                <input ref="datePicker" type="date" 
+                    @change="$emit('emitSelectDay', $event.target.value)"
+                    
                     class="p-2 pl-8 border-2 rounded-md w-full text-sm
                                 bg-white outline-none focus:ring-2 focus:border-blue-600">
             </div>

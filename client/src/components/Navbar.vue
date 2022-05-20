@@ -39,7 +39,7 @@ const naviList = [
 </script>
  
 <template>
-    <header class="py-4 px-20 shadow-md bg-white dark:bg-gray-800">
+    <header class="py-4 px-20 dark:bg-gray-800">
         <div class="flex items-center justify-between h-full w-full">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-xl font-bold zoom-125-300 transition  text-gray-800 dark:text-gray-200">

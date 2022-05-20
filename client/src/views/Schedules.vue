@@ -64,7 +64,7 @@ const updateEvent = (resEvent) => {
 const selectedTag = {
     category: 'all',
     status: 'all',
-    day: 'all'
+    day: ''
 }
 const doSelect = () => {
     // console.log(selectedTag);
@@ -78,12 +78,12 @@ const doSelect = () => {
     else if(status == 'past')
         eventsList.value = eventsList.value.filter(event => !isTimeFuture(event.eventStartTime))
 
-    if(selectedTag.day === '') return
+    if(selectedTag.day === '') return;
     const day = dayjs(selectedTag.day)
-    eventsList.value = eventsList.value.filter(event =>  day.isSame(dayjs(event.eventStartTime),'day'))
+    eventsList.value = eventsList.value.filter(event => dayjs(event.eventStartTime).isSame(day,'day'))
 }
 const selectCategory = (category) =>{
-    selectedTag.category = category
+    selectedTag['category'] = category
     doSelect()
     // const eventsPool = events.events.value
     // if(category == 'all') 
@@ -104,7 +104,7 @@ const selectDayStatus = (status) =>{
 const isTimeFuture = (time) =>dayjs(time).isAfter(dayjs()) 
 const selectDay = (day) =>{
     selectedTag.day = day
-    doSelect(selectedTag.day)
+    doSelect()
     // console.log(dayjs('2022-05-20').isSame('2022-05-20T18:17:00Z','D'));
     // console.log(typeof(day));
     // console.log(day == null);

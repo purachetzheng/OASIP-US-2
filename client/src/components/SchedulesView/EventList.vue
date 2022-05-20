@@ -28,7 +28,7 @@ const props = defineProps({
                 grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
 
         <!-- loop events -->
-        <div class="flex flex-col shadow-lg p-4 bg-white rounded-md" v-for="(event, index) in events">
+        <div class="flex flex-col shadow-lg p-4 bg-white bg-opacity-75 rounded-md" v-for="(event, index) in events">
         
             <div class="flex text-lg font-bold h-14 overflow-hidden">
                 <!-- <p class="truncate">{{ event.bookingName }}</p> -->

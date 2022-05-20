@@ -138,7 +138,10 @@ setInterval(updateTimeleft, 1000);
                         <div v-else
                             class="">
                             <span class="text-md">{{ event.eventNotes }}</span>
+                            <span v-show="event.eventNotes == null || event.eventNotes.length == 0" 
+                                class="text-md font-medium text-gray-500">No Description</span>
                         </div>
+
                     </div>
                     <!-- Show when editing mode on -->
                     <div v-if="editing.mode"
