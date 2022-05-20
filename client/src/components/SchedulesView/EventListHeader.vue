@@ -15,7 +15,7 @@ const props = defineProps({
  
 <template>
     <div class="flex justify-between">
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1 dark:text-white">
             <!-- Refresh -->
             <button class="flex items-end p-1 rounded-full bg-blue-300 hover:bg-blue-600" @click="$emit('emitRefreshEvent')">
                 <IconRefresh class="w-5 h-5 text-blue-50 " />
@@ -29,7 +29,7 @@ const props = defineProps({
                 </span>
             </div>
         </div>
-        <div class="flex gap-4 pr-4">
+        <div class="flex gap-4 pr-4 dark:text-white">
             <button class="flex items-center gap-1.5">
                 <IconGrid class="w-4 h-4" />
                 <p class="text-sm font-medium">Grid</p>

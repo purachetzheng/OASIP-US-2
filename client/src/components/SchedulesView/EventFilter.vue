@@ -17,7 +17,7 @@ const searchBox = ref(null)
         <!-- Search -->
         <div class="flex flex-col gap-2">
             <div class="text-sm font-medium">
-                <h2 class="">Search</h2>
+                <h2 class="dark:text-white">Search</h2>
             </div>
             <div class="relative">
                 <button @click="nextTick(() => searchBox.focus())" class="absolute flex inset-y-0 items-center pl-2">
@@ -32,12 +32,12 @@ const searchBox = ref(null)
         <div class="flex flex-col gap-2">
 
             <div class="text-sm font-medium">
-                <span class="">Category</span>
+                <span class="dark:text-white">Category</span>
             </div>
             <div class="">
                 <select name="" id="" 
                     @change="$emit('emitSelectCategory', $event.target.value)"
-                    class="p-2 border-2 rounded-md w-full text-sm
+                    class="appearance-none p-2 border-2 rounded-md w-full text-sm
                         bg-white outline-none focus:ring-2 focus:border-blue-600">
                     <option value="all" selected>All</option>
                     <option 
@@ -54,7 +54,7 @@ const searchBox = ref(null)
         <div class="flex flex-col gap-2">
 
             <div class="text-sm font-medium">
-                <span class="">Status</span>
+                <span class="dark:text-white">Status</span>
             </div>
             <div class="">
                 <select name="" id="" 
