@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 import { eventCategories } from './eventCategory'
 
-const url = import.meta.env.VITE_BASE_URL + 'events/'
+// const url = import.meta.env.VITE_BASE_URL + 'events/'
+const url = import.meta.env.BASE_URL + 'api/events/'
 
 // export const events = ref([])
 
