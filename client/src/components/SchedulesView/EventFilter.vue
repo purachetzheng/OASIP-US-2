@@ -83,7 +83,7 @@ const clickIconDatePicker = () =>
         <div class="flex flex-col gap-2">
 
             <div class="text-sm font-medium">
-                <span class="">Day</span>
+                <span class="dark:text-white">Day</span>
             </div>
             <div class="relative" >
                 <button @click="clickIconDatePicker" class="absolute flex inset-y-0 items-center pl-2">

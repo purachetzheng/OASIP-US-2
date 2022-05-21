@@ -34,6 +34,16 @@ const naviList = [
         text: 'Reserve',
         icon: CarbonEventSchedule
     },
+    {
+        name: 'AboutUs',
+        text: 'About Us',
+        icon: CarbonEventSchedule
+    },
+    {
+        name: 'Category',
+        text: 'Category',
+        icon: CarbonEventSchedule
+    },
 ]
 
 </script>
