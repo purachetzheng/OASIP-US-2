@@ -39,20 +39,20 @@ const naviList = [
 </script>
  
 <template>
-    <header class="py-4 px-20 dark:bg-gray-800">
-        <div class="flex items-center justify-between h-full w-full">
+    <header class=" px-20 border-b shadow-sm">
+        <div class="flex items-center justify-between h-full w-full ">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-xl font-bold zoom-125-300 transition  text-gray-800 dark:text-gray-200">
                 OASIP
             </button>
             <!-- Navi -->
             <div class="">
-                <div class="flex space-x-8 text-sm font-medium">
+                <div class="flex gap-2 text-sm font-medium">
                     <button v-for="navi in naviList" :key="navi.name" @click="goTo(navi.name)"
                         :class="[$route.name === navi.name 
-                        ? 'text-blue-600 dark:text-blue-300' 
+                        ? 'text-blue-600 dark:text-blue-300 border-b-3 border-blue-600 dark:border-blue-300' 
                         : 'text-gray-500 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-300 zoom-110-300 transition ', 
-                        'inline-flex font-semibold']">
+                        'inline-flex font-semibold py-5 px-4']">
                         <!-- <CarbonHome class="w-5 h-5 mr-2" /> -->
                         {{ navi.text }}
                     </button>

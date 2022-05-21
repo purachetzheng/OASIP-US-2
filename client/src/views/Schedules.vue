@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
 import {  events } from '../js/event'
-import { eventCategories, eventCategoryFetch } from '../js/eventCategory'
+import { eventCategories } from '../js/eventCategory'
 
 //router
 import { useRoute, useRouter } from 'vue-router'
@@ -36,7 +36,7 @@ const updateEventList = () => eventsList.value = events.events.value
 //set up
 onBeforeMount(async () => {
     await events.get()
-    await eventCategoryFetch.getIfEmpty()
+
     updateEventList()
 })
 
@@ -113,7 +113,7 @@ const selectDay = (day) =>{
 </script>
 
 <template>
-    <main class=" h-full w-screen overflow-auto p-6">
+    <main class="h-full w-screen overflow-auto p-6">
         <div class="flex h-full justify-between gap-6">
 
             <!-- Filter -->

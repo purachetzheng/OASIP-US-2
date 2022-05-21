@@ -2,7 +2,7 @@
 import { ref, computed, onBeforeMount, onMounted, nextTick, } from 'vue'
 import dayjs from 'dayjs'
 import IconSearch from '../icons/IconSearch.vue'
-import { eventCategories, eventCategoryFetch } from '../../js/eventCategory'
+import { eventCategories } from '../../js/eventCategory'
 import IconCalendar from '../icons/IconCalendar.vue';
 const emits = defineEmits(['emitSelectCategory', 'emitSelectDayStatus', 'emitSelectDay'])
 const props = defineProps({
@@ -10,6 +10,11 @@ const props = defineProps({
         type: String,
         require: true,
     },
+})
+const categories = ref([])
+onBeforeMount(async () => {
+    await eventCategories.get()
+    categories.value = eventCategories.categories.value
 })
 const searchBox = ref(null)
 const datePicker = ref(null)
@@ -52,7 +57,7 @@ const clickIconDatePicker = () =>
                         bg-white outline-none focus:ring-2 focus:border-blue-600">
                     <option value="all" selected>All</option>
                     <option 
-                        v-for="category in eventCategories" :key="category.id"
+                        v-for="category in categories" :key="category.id"
                         :value="category.eventCategoryName"
                         >
                         {{ category.eventCategoryName }}

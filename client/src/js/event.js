@@ -52,7 +52,7 @@ export const events = {
         const addedEvent = await res.json()
         //find eventCategoryName
         const categoryId = addedEvent.eventCategoryId
-        addedEvent.eventCategoryName = eventCategories.value.find((e) => e.id == categoryId).eventCategoryName
+        addedEvent.eventCategoryName = eventCategories.categories.value.find((e) => e.id == categoryId).eventCategoryName
         
         this.events.value.push(addedEvent)
 
