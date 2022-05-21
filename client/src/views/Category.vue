@@ -1,14 +1,15 @@
 <script setup>
 import { ref, computed, onBeforeMount, onMounted, nextTick, reactive, } from 'vue'
 
+import { events } from '../js/event'
+import { eventCategories } from '../js/eventCategory'
 import CategoryHeader from '../components/CategoryView/CategoryHeader.vue';
 import CategoryList from '../components/CategoryView/CategoryList.vue';
 
 const categoryList = ref({});
 onBeforeMount(async () => {
     await events.get()
-    await eventCategoryFetch.getIfEmpty()
-    updateEventList()
+    await eventCategories.get()
 })
 
 </script>
