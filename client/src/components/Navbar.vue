@@ -34,6 +34,16 @@ const naviList = [
         text: 'Reserve',
         icon: CarbonEventSchedule
     },
+    {
+        name: 'Category',
+        text: 'Category',
+        icon: CarbonEventSchedule
+    },
+    {
+        name: 'AboutUs',
+        text: 'About Us',
+        icon: CarbonEventSchedule
+    },
 ]
 
 </script>
@@ -57,12 +67,12 @@ const naviList = [
                         {{ navi.text }}
                     </button>
                     <!-- <button @click="goTo('Home')"
-                        :class="[$route.name === 'Home' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:zoom-110', 'inline-flex font-semibold']">
+                        :class="[$route.name === 'Home' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:zoom-110', 'inline-flex font-semibold']">
                         <CarbonHome class="w-5 h-5 mr-2" />
                         <span>Home</span>
                     </button>
                     <button @click="goTo('Schedules')"
-                        :class="[$route.name === 'Schedules' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:text-gray-300 hover:zoom-110', 'inline-flex font-semibold']">
+                        :class="[$route.name === 'Schedules' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:zoom-110', 'inline-flex font-semibold']">
                         <CarbonEventSchedule class="w-5 h-5 mr-2" />
                         <span>Schedules</span>
                     </button> -->

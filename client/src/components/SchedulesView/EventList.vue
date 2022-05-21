@@ -49,10 +49,10 @@ const props = defineProps({
                 <span>{{ event.eventCategoryName }}</span>
             </div>
             <div class="flex pt-4 gap-2">
-                <button class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500" @click="$emit('emitViewDetail',event.id)">
+                <button class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500 transition" @click="$emit('emitViewDetail',event.id)">
                     Detail
                 </button>
-                <button class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400"
+                <button class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400 transition"
                     @click="$emit('emitRemoveEvent',event.id)" @mouseenter="mouseOn = 'Delete Event'" @mouseleave="mouseOn = null">
                     Cancel
                 </button>
