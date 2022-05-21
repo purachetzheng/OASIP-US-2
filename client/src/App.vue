@@ -28,20 +28,26 @@ import { darkMode } from './js/darkMode'
 /* .router-link-active {
     color: white;
 } */
-/* width */
-/* ::-webkit-scrollbar {
-  width: 10px;
-} */
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 10px;
+    
+}
 
+::-webkit-scrollbar-thumb {
+  
+border-radius: 10px;
+background-color: #3b82f6;
+    /* background-image: linear-gradient(rgb(37, 99, 235), rgb(168, 85, 247), rgb(216, 180, 254)) */
+}
+::-webkit-scrollbar-thumb:hover {
+background: #2563eb;
+}
 
-/* Handle */
-/* ::-webkit-scrollbar-thumb {
-  background: gray;
-  border-radius: 3px;
-} */
+::-webkit-scrollbar-track {
+  margin: 10px 0;
 
-/* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
-  background: #515151;
-} */
+  background-color: #dbdbdb;
+  border-radius: 10px;
+}
 </style>

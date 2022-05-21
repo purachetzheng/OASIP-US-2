@@ -55,7 +55,6 @@ const timeNotFuture = () => {
 
 }
 
-const dateNow = () => dayjs().format('YYYY-MM-DD')
 const datetimeNow = () => dayjs().format('YYYY-MM-DDTHH:mm')
 
 
@@ -79,8 +78,8 @@ const alertSuccess = ref(null)
 </script>
  
 <template>
-    <main class="h-screen w-screen screen-p-1 flex justify-center overflow-y-scroll items-center">
-        <form class="flex flex-col gap-2 h-full w-1/2 overflow-y-scroll p-8 bg-white rounded-xl shadow-lg"
+    <main class="h-screen w-screen screen-p-1 flex justify-center overflow-auto items-center">
+        <form class="flex flex-col gap-2 h-full w-1/2 overflow-auto p-8 bg-white rounded-xl shadow-lg"
             @submit.prevent="submit">
             <span class="text-h-1 text-black mb-2">Reserve</span>
             <!-- Catagory -->
@@ -106,7 +105,7 @@ const alertSuccess = ref(null)
             <div class="flex sm:gap-0.5 sm:flex-col lg:flex-row lg:gap-4">
                 <div class="lg:w-1/2 sm:w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Date</div>
-                    <input type="date" :min="dateNow()" required class="form-1 font-medium" v-model="startDate">
+                    <input type="date" :min="dayjs().format('YYYY-MM-DD')" required class="form-1 font-medium" v-model="startDate">
                 </div>
                 <div class="lg:w-1/2 sm:w-full flex flex-col gap-0.5">
                     <div class="text-xs">Select Time</div>
