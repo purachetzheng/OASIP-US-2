@@ -31,7 +31,7 @@ public class CreateEventDto{
     @NotNull(message = "must not be null")
     @Future(message = "must be a future date")
     private Instant eventStartTime;
-    @Size(max = 500, message = "size must be between 0 and 500")
+
 
 //    @NotEmpty(message = "eventNotes must not be empty")
     @Size(min = 0, max = 500, message = "size must be between 0 and 500")

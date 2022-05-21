@@ -7,6 +7,7 @@ import sit.int221.oasipserver.dtos.EventcategoryDto;
 import sit.int221.oasipserver.entities.Eventcategory;
 import sit.int221.oasipserver.services.EventcategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 @RestController
 @RequestMapping("/api/eventcategories")
@@ -32,4 +33,9 @@ public class EventcategoryController {
         eventcategoryService.delete(id);
     }
 
+    @PatchMapping("/{id}")
+    public EventcategoryDto updateEventcategory(@Valid @RequestBody EventcategoryDto eventcategoryDto,
+                                                @PathVariable Integer id){
+        return eventcategoryService.update(eventcategoryDto, id);
+    }
 }
