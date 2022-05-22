@@ -39,8 +39,7 @@ const clickIconDatePicker = () =>
                     <IconSearch class="w-5 h-5" />
                 </button>
                 <input ref="searchBox" type="text" 
-                    class="p-2 pl-8 border-2 rounded-md w-full text-sm
-                                bg-white outline-none focus:ring-2 focus:border-blue-600"
+                    class="form-input pl-8"
                     placeholder="Search">
             </div>
         </div>
@@ -53,8 +52,7 @@ const clickIconDatePicker = () =>
             <div class="">
                 <select name="" id="" 
                     @change="$emit('emitSelectCategory', $event.target.value)"
-                    class="p-2 border-2 rounded-md w-full text-sm
-                        bg-white outline-none focus:ring-2 focus:border-blue-600">
+                    class="form-input">
                     <option value="all" selected>All</option>
                     <option 
                         v-for="category in categories" :key="category.id"
@@ -73,10 +71,8 @@ const clickIconDatePicker = () =>
                 <span class="dark:text-white">Status</span>
             </div>
             <div class="">
-                <select name="" id="" 
-                    @change="$emit('emitSelectDayStatus', $event.target.value)"
-                    class="p-2 border-2 rounded-md w-full text-sm
-                        bg-white outline-none focus:ring-2 focus:border-blue-600">
+                <select name="" id="" class="form-input"
+                    @change="$emit('emitSelectDayStatus', $event.target.value)">
                     <option value="all" selected>All</option>
                     <option value="upcoming">Upcoming</option>
                     <option value="past">Past</option>
@@ -94,18 +90,10 @@ const clickIconDatePicker = () =>
                 <button @click="clickIconDatePicker" class="absolute flex inset-y-0 items-center pl-2">
                     <IconCalendar class="w-5 h-5" />
                 </button>
-                <input ref="datePicker" type="date" 
-                    @change="$emit('emitSelectDay', $event.target.value)"
-                    
-                    class="p-2 pl-8 border-2 rounded-md w-full text-sm
-                                bg-white outline-none focus:ring-2 focus:border-blue-600">
+                <input ref="datePicker" type="date" class="form-input pl-8"
+                    @change="$emit('emitSelectDay', $event.target.value)">
             </div>
         </div>
-
-
-        <!-- <div class="p-4 h-2/3 bg-green-200 rounded-lg">
-                    div
-                </div> -->
     </div>
 </template>
  

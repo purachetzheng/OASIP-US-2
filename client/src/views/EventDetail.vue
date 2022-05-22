@@ -18,6 +18,8 @@ import IconEditFill from '../components/icons/Fill/IconEditFill.vue';
 import IconClose from '../components/icons/IconClose.vue';
 import IconSave from '../components/icons/IconSave.vue';
 import IconArrowLeft from '../components/icons/IconArrowLeft.vue';
+import EventDetailComp from '../components/ViewEvent/EventDetail/EventDetailComp.vue';
+import EventTimeleft from '../components/ViewEvent/EventDetail/EventTimeleft.vue';
 
 dayjs.extend(localizedFormat)
 
@@ -36,8 +38,6 @@ const event = ref({
 onBeforeMount( async() => {
     event.value = await events.getById(eventId)
     editing.setup()
-    //first time left trick
-    updateTimeleft()
 })
 
 const combineDT = (date, time) => dayjs(date + time).toJSON()
@@ -47,11 +47,11 @@ const editing = reactive({
     toggle(){
         this.mode? this.cancel() : this.mode = true
     },
-    async save(){
-        console.log(this.event);
+    async save(editedEvent){
+        console.log(editedEvent);
         const obj = {
-            eventStartTime: combineDT(this.event.date, this.event.time),
-            eventNotes: this.event.note
+            eventStartTime: combineDT(editedEvent.date, editedEvent.time),
+            eventNotes: editedEvent.note
         }
         const res = await events.patch(eventId, obj)
         event.value = res.event
@@ -71,25 +71,15 @@ const editing = reactive({
     }
     
 })
-
-// Countdown
-const timeleft = reactive({ day: 0, hour: 0, minute: 0, second: 0 })
-const updateTimeleft = () => {
-    const eventDT = dayjs(event.value.eventStartTime)
-    const nowDT = dayjs()
-    timeleft.day = eventDT.diff(nowDT, 'day')
-    timeleft.hour = eventDT.diff(nowDT, 'hour') % 24
-    timeleft.minute = eventDT.diff(nowDT, 'minute') % 60
-    timeleft.second = eventDT.diff(nowDT, 'second') % 60
-}
-setInterval(updateTimeleft, 1000);
 </script>
  
 <template>
     <main class="h-full w-screen overflow-auto">
         <div class="flex flex-col h-full w-full justify-center items-center">
             <div class="flex h-4/5 w-4/5 bg-white shadow-md ">
-                <div class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-auto">
+                <!-- <EventDetailComp :event="event" :editingMode="editing.mode"
+                    @emitCancel="editing.cancel" @emitSave="editing.save" /> -->
+                <div v-if="true" class="flex flex-col h-full w-3/4 px-6 border-r-2 overflow-auto">
                     <!-- Name -->
                     <div class="my-6">
                         <p class="text-3xl font-medium truncate">{{ event.bookingName }}</p>
@@ -200,48 +190,11 @@ setInterval(updateTimeleft, 1000);
                         </div>
                     </div>
                     <!-- **** -->
-                    <div v-if="false" class="flex flex-col bg-white h-2/3 py-4 w-full gap-2 justify-center overflow-hidden">
-                        <span class="text-lg font-medium text-center">Time Left</span>
-                        <div class="flex gap-1 w-full justify-center overflow-x-scroll ">
-                            <!-- day -->
-                            <div class="flex flex-col items-center bg-blue-50 w-10 py-1.5">
-                                <div class="text-sm font-medium">Day</div>
-                                <span class="text-2xl font-medium">
-                                    {{ timeleft.day }}
-                                </span>
-                            </div>
 
-                            <div class="flex flex-col items-center bg-blue-50 w-10 py-1.5">
-                                <div class="text-sm font-medium">Hour</div>
-                                <span class="text-2xl font-medium">
-                                    {{ timeleft.hour }}
-                                </span>
-                            </div>
-
-                            <div class="flex flex-col items-center bg-blue-50 w-10 py-1.5">
-                                <div class="text-sm font-medium">Min</div>
-                                <span class="text-2xl font-medium">
-                                    {{ timeleft.minute }}
-                                </span>
-                            </div>
-
-                            <div class="flex flex-col items-center bg-blue-50 w-10 py-1.5">
-                                <div class="text-sm font-medium">Sec</div>
-                                <span class="text-2xl font-medium">
-                                    {{ timeleft.second }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <EventTimeleft :eventStartTime="event.eventStartTime" />
                 </div>
-
             </div>
-
         </div>
-
-
     </main>
 </template>
  
