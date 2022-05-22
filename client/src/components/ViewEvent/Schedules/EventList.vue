@@ -2,8 +2,8 @@
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //Icon
-import RiTimeFill from '../icons/RiTimeFill.vue'
-import RiMapPin2Fill from '../icons/RiMapPin2Fill.vue'
+import RiTimeFill from '../../icons/Fill/RiTimeFill.vue'
+import RiMapPin2Fill from '../../icons/Fill/RiMapPin2Fill.vue'
 //dayjs
 dayjs.extend(localizedFormat)
 

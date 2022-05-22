@@ -1,6 +1,7 @@
 <script setup>
-import Hourglass from '../icons/Hourglass.vue';
-import IconArrowLeft from '../icons/IconArrowLeft.vue';
+import IconHourglass from '../../icons/IconHourglass.vue';
+import IconArrowLeft from '../../icons/IconArrowLeft.vue';
+import IconCheck from '../../icons/IconCheck.vue';
 defineEmits(['emitRemoveEvent', 'emitViewDetail'])
 const props = defineProps({
         categories:{
@@ -19,6 +20,7 @@ const color = [
 </script>
  
 <template>
+
     <div :class="['h-full overflow-auto auto-rows-min p-1 mt-4', 
         'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1', 'gap-x-4 gap-y-4']">
         <div v-for="category in categories" :key="category.id"
@@ -37,7 +39,7 @@ const color = [
             </div>
             <div class="flex  justify-between ">
                 <div class="flex  items-center gap-1">
-                    <Hourglass class="w-5 h-5" />
+                    <IconHourglass class="w-5 h-5" />
                     <span class="text-sm font-medium">Duration: {{ category.eventDuration }} min</span>
                 </div>
                 <IconArrowLeft />

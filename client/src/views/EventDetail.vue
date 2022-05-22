@@ -8,12 +8,12 @@ import { useRoute, useRouter } from 'vue-router';
 //js
 import { events } from '../js/event'
 //icon
-import IconCalendarFill from '../components/icons/IconCalendarFill.vue';
+import IconCalendarFill from '../components/icons/Fill/IconCalendarFill.vue';
 import IconCalendar from '../components/icons/IconCalendar.vue';
 import IconTime from '../components/icons/IconTime.vue';
 import IconPin from '../components/icons/IconPin.vue';
 import IconEmail from '../components/icons/IconEmail.vue';
-import Hourglass from '../components/icons/Hourglass.vue';
+import IconHourglass from '../components/icons/IconHourglass.vue';
 import IconEditFill from '../components/icons/Fill/IconEditFill.vue';
 import IconClose from '../components/icons/IconClose.vue';
 import IconSave from '../components/icons/IconSave.vue';
@@ -195,7 +195,7 @@ setInterval(updateTimeleft, 1000);
                             <span class="text-lg font-medium">{{ event.eventCategoryName }}</span>
                         </div>
                         <div class="flex gap-2">
-                            <Hourglass class="w-6 h-6" />
+                            <IconHourglass class="w-6 h-6" />
                             <span class="text-md font-medium">{{ event.eventDuration }} minute</span>
                         </div>
                     </div>

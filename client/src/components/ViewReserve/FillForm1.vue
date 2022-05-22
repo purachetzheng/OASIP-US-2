@@ -1,7 +1,6 @@
 <script setup>
 import { ref, nextTick, reactive, onBeforeMount } from 'vue';
 import IconUser from "../icons/IconUser.vue";
-import InputTest from "./InputTest.vue";
 import IconEmail from '../icons/IconEmail.vue';
 import IconCalendar from '../icons/IconCalendar.vue';
 import dayjs from 'dayjs';

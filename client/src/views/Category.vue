@@ -3,8 +3,8 @@ import { ref, computed, onBeforeMount, onMounted, nextTick, reactive, } from 'vu
 import { useRoute, useRouter } from 'vue-router'
 import { events } from '../js/event'
 import { eventCategories } from '../js/eventCategory'
-import CategoryHeader from '../components/CategoryView/CategoryHeader.vue';
-import CategoryList from '../components/CategoryView/CategoryList.vue';
+import CategoryHeader from '../components/ViewCategory/CategoryList/CategoryHeader.vue';
+import CategoryList from '../components/ViewCategory/CategoryList/CategoryList.vue';
 
 const categoryList = ref([]);
 const updateList = () => categoryList.value = eventCategories.categories.value
@@ -18,7 +18,7 @@ const router = useRouter()
 
     
 const viewDetail = async (id) => {
-    router.push({ name: 'EventDetail', categoryId: id })
+    router.push({ name: 'EventDetail', categor: id })
 }
 </script>
 

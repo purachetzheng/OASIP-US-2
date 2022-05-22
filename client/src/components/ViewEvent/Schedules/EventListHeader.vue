@@ -1,8 +1,8 @@
 <script setup>
 //Icon
-import IconGrid from '../icons/IconGrid.vue'
-import IconList from '../icons/IconList.vue'
-import IconRefresh from '../icons/IconRefresh.vue'
+import IconGrid from '../../icons/IconGrid.vue'
+import IconList from '../../icons/IconList.vue'
+import IconRefresh from '../../icons/IconRefresh.vue'
 defineEmits(['emitRefreshEvent'])
 const props = defineProps({
     eventAmount: {

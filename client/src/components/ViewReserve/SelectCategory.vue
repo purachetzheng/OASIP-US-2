@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import IconSearch from '../icons/IconSearch.vue'
-import Hourglass from '../icons/Hourglass.vue'
+import IconHourglass from '../icons/IconHourglass.vue'
 
 const emits = defineEmits(['emitChooseCategory', 'emitNext'])
 const props = defineProps({
@@ -45,7 +45,7 @@ const choosed = ref(null)
                         'flex flex-col gap-2', 'p-4', 'border shadow-md rounded-lg', 'cursor-pointer']">
                     <span class="h-14 overflow-hidden text-lg font-semibold">{{ category.eventCategoryName }}</span>
                     <div class="flex gap-2">
-                        <Hourglass class="w-5 h-5"/>
+                        <IconHourglass class="w-5 h-5"/>
                         <span>{{ category.eventDuration }} minute</span>
                     </div>
                 </div>
