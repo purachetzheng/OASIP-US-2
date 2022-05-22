@@ -93,11 +93,12 @@ const creating = reactive({
                 :categories="categories"
                 @emitChooseCategory="creating.stageOne"
             />
+            <!-- #2 Fill Form -->
             <FillForm1 v-show="creating.stage === 2" :class="['h-full w-full']" 
                 :selectedCategory="parseInt(creating.choosedCategory)"
                 @emitBack="() => creating.stage--" @emitSubmitForm="creating.stageTwo"
             />
-
+            <!-- #3 Success -->
             <ResultReserve v-show="creating.stage === 3"
                 :class="['h-full w-full']"
                 @emitReset="routerSigns.refresh" />
