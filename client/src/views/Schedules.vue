@@ -4,7 +4,7 @@ import { ref, computed, onBeforeMount, onMounted, nextTick, reactive, } from 'vu
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //js
-import {  events } from '../js/event'
+import { events } from '../js/event'
 import { eventCategories } from '../js/eventCategory'
 
 //router
@@ -73,16 +73,16 @@ const doSelect = () => {
     eventsList.value = eventsList.value.filter(event => event.eventCategoryName == category || category === 'all')
 
     const status = selectedTag.status
-    if(status == 'upcoming')
+    if (status == 'upcoming')
         eventsList.value = eventsList.value.filter(event => isTimeFuture(event.eventStartTime))
-    else if(status == 'past')
+    else if (status == 'past')
         eventsList.value = eventsList.value.filter(event => !isTimeFuture(event.eventStartTime))
 
-    if(selectedTag.day === '') return;
+    if (selectedTag.day === '') return;
     const day = dayjs(selectedTag.day)
-    eventsList.value = eventsList.value.filter(event => dayjs(event.eventStartTime).isSame(day,'day'))
+    eventsList.value = eventsList.value.filter(event => dayjs(event.eventStartTime).isSame(day, 'day'))
 }
-const selectCategory = (category) =>{
+const selectCategory = (category) => {
     selectedTag['category'] = category
     doSelect()
     // const eventsPool = events.events.value
@@ -90,7 +90,7 @@ const selectCategory = (category) =>{
     //     return eventsList.value = eventsPool
     // eventsList.value = eventsPool.filter(event => event.eventCategoryName == category)
 }
-const selectDayStatus = (status) =>{
+const selectDayStatus = (status) => {
     selectedTag.status = status
     doSelect()
     // const eventsPool = events.events.value
@@ -101,8 +101,8 @@ const selectDayStatus = (status) =>{
 
     // eventsList.value = eventsPool.filter(event => !isTimeFuture(event.eventStartTime))
 }
-const isTimeFuture = (time) =>dayjs(time).isAfter(dayjs()) 
-const selectDay = (day) =>{
+const isTimeFuture = (time) => dayjs(time).isAfter(dayjs())
+const selectDay = (day) => {
     selectedTag.day = day
     doSelect()
     // console.log(dayjs('2022-05-20').isSame('2022-05-20T18:17:00Z','D'));
@@ -121,10 +121,9 @@ const selectDay = (day) =>{
                 @emitSelectDay="selectDay" />
 
             <!-- Layout - Event Schedules  -->
-            <div class=" flex flex-col w-full gap-2 rounded-xl ">
+            <div class="flex flex-col w-full gap-2 rounded-xl ">
                 <!-- header -->
                 <EventListHeader :eventAmount="eventsList.length" @emitRefreshEvent="refreshEvent" />
-
 
                 <div v-if="false" class="flex gap-4 bg-gray-100 p-1.5 rounded-lg">
                     <div class="flex w-1/3 items-center justify-center gap-2 py-2 rounded-lg bg-white">
