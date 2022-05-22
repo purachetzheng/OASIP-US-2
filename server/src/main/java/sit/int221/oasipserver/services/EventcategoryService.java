@@ -70,4 +70,10 @@ public class EventcategoryService {
         return eventcategory;
     }
 
+    public Integer getDurationById(Integer id){
+        return getById(id).getEventDuration();
+    }
+    public String getDurationNameById(Integer id){
+        return getById(id).getEventCategoryName();
+    }
 }
