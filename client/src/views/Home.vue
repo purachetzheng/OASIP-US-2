@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import CarbonUserAvatarFilledVue from '../components/icons/CarbonUserAvatarFilled.vue';
-import CarbonUserAvatarFilled from '../components/icons/CarbonUserAvatarFilled.vue';
+import CarbonUserAvatarFilledVue from '../components/icons/Fill/CarbonUserAvatarFilled.vue';
+import CarbonUserAvatarFilled from '../components/icons/Fill/CarbonUserAvatarFilled.vue';
 import { useRoute, useRouter } from 'vue-router'
 
 const teamMem = [

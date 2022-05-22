@@ -1,5 +1,5 @@
 <script setup>
-import CarbonUserAvatarFilled from '../components/icons/CarbonUserAvatarFilled.vue';
+import CarbonUserAvatarFilled from '../components/icons/Fill/CarbonUserAvatarFilled.vue';
 
 const teamMembers = [
     { student_id: '63130500083', name: 'Purachet Zheng' },

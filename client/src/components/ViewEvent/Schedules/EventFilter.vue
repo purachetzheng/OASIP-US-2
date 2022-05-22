@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed, onBeforeMount, onMounted, nextTick, } from 'vue'
 import dayjs from 'dayjs'
-import IconSearch from '../icons/IconSearch.vue'
-import { eventCategories } from '../../js/eventCategory'
-import IconCalendar from '../icons/IconCalendar.vue';
+import IconSearch from '../../icons/IconSearch.vue'
+import { eventCategories } from '../../../js/eventCategory'
+import IconCalendar from '../../icons/IconCalendar.vue';
 const emits = defineEmits(['emitSelectCategory', 'emitSelectDayStatus', 'emitSelectDay'])
 const props = defineProps({
     first: {

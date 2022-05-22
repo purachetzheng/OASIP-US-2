@@ -16,8 +16,12 @@
         @apply px-4 py-2 text-base font-medium rounded-md w-full  focus:outline-none focus:ring-2;
     }
 
-    .zoom-110-300 {
-        @apply hover:scale-110 duration-300;
+    .rose-yellow-1{
+        @apply bg-gradient-to-r from-blue-600 via-violet-500 to-purple-400
+    }
+
+    .zoom-110-300{
+        @apply hover:scale-110 duration-300
     }
     .zoom-110-500 {
         @apply hover:scale-110 duration-500;

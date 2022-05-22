@@ -12,11 +12,11 @@ import { useRoute, useRouter } from 'vue-router'
 
 //components
 import CursorTooltip from '../components/CursorTooltip.vue'
-import EventDetail from '../components/SchedulesView/EventDetail.vue'
-import EventList from '../components/SchedulesView/EventList.vue'
-import EventListHeader from '../components/SchedulesView/EventListHeader.vue'
+// import EventDetail from '../components/ViewEvent/Schedules/EventDetail.vue'
+import EventList from '../components/ViewEvent/Schedules/EventList.vue'
+import EventListHeader from '../components/ViewEvent/Schedules/EventListHeader.vue'
 import IconSearch from '../components/icons/IconSearch.vue'
-import EventFilter from '../components/SchedulesView/EventFilter.vue'
+import EventFilter from '../components/ViewEvent/Schedules/EventFilter.vue'
 
 //icons
 
@@ -153,7 +153,7 @@ const selectDay = (day) => {
             </div>
         </div>
 
-        <EventDetail :event="selectedEvent" :detailModal="detailModal" @emitUpdateEvent="updateEvent" />
+        <!-- <EventDetail :event="selectedEvent" :detailModal="detailModal" @emitUpdateEvent="updateEvent" /> -->
         <CursorTooltip :mouseOn="mouseOn" :minusY="0" />
     </main>
 </template>

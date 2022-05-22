@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import IconSearch from '../icons/IconSearch.vue'
-import Hourglass from '../icons/Hourglass.vue'
+import IconHourglass from '../icons/IconHourglass.vue'
 import IconCheck from '../icons/IconCheck.vue';
 
 const emits = defineEmits(['emitChooseCategory', 'emitNext', 'emitReset'])

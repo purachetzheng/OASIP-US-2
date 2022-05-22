@@ -5,13 +5,11 @@ import { ref, reactive, onBeforeMount, computed } from 'vue';
 import { eventCategories } from '../js/eventCategory'
 import { events } from '../js/event'
 import { useRoute, useRouter } from 'vue-router'
-import IconCheckCircleFill from '../components/icons/IconCheckCircleFill.vue'
-import ModalCreate from '../components/modal/ModalCreate.vue';
-import BaseModalSuccess from '../components/modal/BaseModalSuccess.vue';
-import SelectCategory from '../components/ReserveView/SelectCategory.vue';
-import DisplayStateBar from '../components/ReserveView/DisplayStateBar.vue';
-import FillForm1 from '../components/ReserveView/FillForm1.vue';
-import ResultReserve from '../components/ReserveView/ResultReserve.vue';
+
+import SelectCategory from '../components/ViewReserve/SelectCategory.vue';
+import DisplayStateBar from '../components/ViewReserve/DisplayStateBar.vue';
+import FillForm1 from '../components/ViewReserve/FillForm1.vue';
+import ResultReserve from '../components/ViewReserve/ResultReserve.vue';
 import BaseModalFailed from '../components/modal/BaseModalFailed.vue';
 
 const step = ref(0)
@@ -93,11 +91,12 @@ const creating = reactive({
                 :categories="categories"
                 @emitChooseCategory="creating.stageOne"
             />
+            <!-- #2 Fill Form -->
             <FillForm1 v-show="creating.stage === 2" :class="['h-full w-full']" 
                 :selectedCategory="parseInt(creating.choosedCategory)"
                 @emitBack="() => creating.stage--" @emitSubmitForm="creating.stageTwo"
             />
-
+            <!-- #3 Success -->
             <ResultReserve v-show="creating.stage === 3"
                 :class="['h-full w-full']"
                 @emitReset="routerSigns.refresh" />
