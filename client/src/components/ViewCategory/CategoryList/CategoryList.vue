@@ -2,6 +2,7 @@
 import IconHourglass from '../../icons/IconHourglass.vue';
 import IconArrowLeft from '../../icons/IconArrowLeft.vue';
 import IconCheck from '../../icons/IconCheck.vue';
+import CategoryBox from '../../icons/CategoryBox.vue'
 defineEmits(['emitRemoveEvent', 'emitViewDetail'])
 const props = defineProps({
         categories:{
@@ -9,7 +10,6 @@ const props = defineProps({
         require:true,
    },
 })
-
 
 const color = [
     'bg-radial-at-bl from-yellow-300 via-orange-500 to-rose-500',
@@ -27,10 +27,11 @@ const color = [
             @click="$emit('emitViewDetail', category.id)"
             :class="['h-52 justify-between', 'flex flex-col', 'px-12 py-8 border', 'hover:text-gray-50' , 
                 'rounded-lg shadow-md cursor-pointer ', 
-                'hover:rose-yellow-1',
+                'hover:rose-yellow-1', 'transition'
                 ]">
             <div class="flex flex-col gap-2">
-                <div class="">
+                <div class="flex items-center gap-1.5">
+                    <CategoryBox />
                     <p class="text-lg font-semibold truncate ">{{ category.eventCategoryName }} </p>
                 </div>
                 <div class="overflow-auto h-18">
