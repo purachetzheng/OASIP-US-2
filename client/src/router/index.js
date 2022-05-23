@@ -51,11 +51,7 @@ const routes = [
         name: 'CategoryDetail',
         component: CategoryDetail,
     },
-    {
-        path: '/test',
-        name: 'TestModal',
-        component: TestModal,
-    },
+
     {
         path: '/:catchNotMatchPath(.*)',
         name: 'NotFound',
