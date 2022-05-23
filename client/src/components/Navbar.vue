@@ -53,7 +53,7 @@ const naviList = [
         <div class="flex items-center justify-between h-full w-full ">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-xl font-bold zoom-125-300 transition  text-gray-800 dark:text-gray-200">
-                OASIP-US-2
+                OASIP-US2
             </button>
             <!-- Navi -->
             <div class="">
