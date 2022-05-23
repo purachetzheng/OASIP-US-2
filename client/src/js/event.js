@@ -72,22 +72,7 @@ export const events = {
         return true
     },
 
-    //UPDATE
-    // async put(id, editObj){
-    //     const modifyEvent = await fetchData.put(`events/${id}`, editObj)
-    //     this.events.value = this.events.value.map((event) => 
-    //         event.id === modifyEvent.id 
-    //         ? { 
-    //             ...event,
-    //             bookingName: modifyEvent.bookingName,
-    //             bookingEmail: modifyEvent.bookingEmail,
-    //             eventStartTime: modifyEvent.eventStartTime,
-    //             eventDuration: modifyEvent.eventDuration,
-    //             eventNotes: modifyEvent.eventNotes,
-    //             eventCategoryId: modifyEvent.eventCategoryId
-    //         } 
-    //         : event )
-    // }
+
     async patch(id, editObj) {
         const res = await fetch(url + id, {
             method: 'PATCH',

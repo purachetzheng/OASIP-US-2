@@ -18,8 +18,9 @@ import IconEditFill from '../components/icons/Fill/IconEditFill.vue';
 import IconClose from '../components/icons/IconClose.vue';
 import IconSave from '../components/icons/IconSave.vue';
 import IconArrowLeft from '../components/icons/IconArrowLeft.vue';
-import EventDetailComp from '../components/ViewEvent/EventDetail/EventDetailComp.vue';
+
 import EventTimeleft from '../components/ViewEvent/EventDetail/EventTimeleft.vue';
+import BaseModalFailed from '../components/modal/BaseModalFailed.vue';
 
 dayjs.extend(localizedFormat)
 
@@ -42,21 +43,37 @@ onBeforeMount( async() => {
 
 const combineDT = (date, time) => dayjs(date + time).toJSON()
 const editing = reactive({
+    modalFailed: {
+        visible: false,
+        titil: 'Update Failed',
+        desc: 'Event '
+    },
     mode: false,
     event: { date: null, time: null, note: null},
+    isTimeError: false,
+    checkTimeError(){
+        console.log('s');
+        if(this.event.date == null || this.event.time == null) return this.isTimeError = false
+        this.isTimeError = !checker.isFuture(this.event.date + this.event.time) 
+        console.log(this.isTimeError);
+    },
     toggle(){
         this.mode? this.cancel() : this.mode = true
     },
-    async save(editedEvent){
-        console.log(editedEvent);
+    async save(){
+        console.log(this.event); 
         const obj = {
-            eventStartTime: combineDT(editedEvent.date, editedEvent.time),
-            eventNotes: editedEvent.note
+            eventStartTime: combineDT(this.event.date, this.event.time),
+            eventNotes: this.event.note
         }
         const res = await events.patch(eventId, obj)
-        event.value = res.event
-        // console.log(res.event);
-        this.cancel()
+        if(res.status) this.cancel()
+
+        let message = ''
+        await res.error.details.forEach(d => message += `${d.field}: ${d.errorMessage}; `)
+
+        editing.modalFailed.desc = message
+        editing.modalFailed.visible = true
     },
     cancel(){
         this.mode = false
@@ -69,8 +86,11 @@ const editing = reactive({
             note: event.value.eventNotes
         }
     }
-    
 })
+const checker = {
+    isBlank: (string) => string.match(/^\s+$/),
+    isFuture: (datetime) => dayjs(datetime).isAfter(dayjs()),
+}
 </script>
  
 <template>
@@ -94,7 +114,8 @@ const editing = reactive({
                         <div class="flex gap-4 items-center">
                             <IconCalendar class="w-6 h-6" />
                             <input v-if="editing.mode" type="date" name="" id=""
-                                class="text-lg font-medium w-fit bg-gray-200 rounded-md px-2"
+                                @change="editing.checkTimeError()"
+                                :class="[editing.isTimeError ?'form-input-error':'form-input', ' w-fit py-0.5 text-base']"
                                 v-model="editing.event.date"
                             >
                             <span v-else
@@ -106,7 +127,8 @@ const editing = reactive({
                         <div class="flex gap-4 items-center">
                             <IconTime class="w-6 h-6" />
                             <input v-if="editing.mode" type="time" name="" id=""
-                                class="text-lg font-medium w-fit bg-gray-200 rounded-md px-2"
+                                @change="editing.checkTimeError()"
+                                :class="[editing.isTimeError ?'form-input-error':'form-input', 'w-fit py-0.5 text-base']"
                                 v-model="editing.event.time"
                             >
                             <span v-else
@@ -119,7 +141,7 @@ const editing = reactive({
 
                     </div>
                     <!-- Note -->
-                    <div class="flex h-full w-full bg-white my-6">
+                    <div class="flex h-full w-full bg-white mt-6 mb-2">
                         <textarea v-if="editing.mode"
                             name="eventNotes"  placeholder="Note" maxlength="500"
                             class="w-full border p-1 text-md font-medium bg-gray-200"
@@ -131,15 +153,19 @@ const editing = reactive({
                             <span v-show="event.eventNotes == null || event.eventNotes.length == 0" 
                                 class="text-md font-medium text-gray-500">No Description</span>
                         </div>
-
+                        
                     </div>
+                    <div v-show="editing.checkTimeError && editing.mode" class=" text-sm font-medium text-red-500">
+                            Time not be Past
+                        </div>
                     <!-- Show when editing mode on -->
                     <div v-if="editing.mode"
                         class="flex mb-6 gap-4">
                         <button type="button" 
                                 @click="editing.save"
+                                :disabled="editing.isTimeError"
                                 class="text-sm font-medium tracking-wide px-3 py-2 rounded-full bg-blue-500 text-gray-100
-                                    flex items-center gap-1">
+                                    flex items-center gap-1 disabled:bg-gray-300 disabled:text-slate-500">
                             <IconSave class="w-6 h-6" />
                             <span class="hidden md:block">Save</span>
                         </button>
@@ -152,6 +178,7 @@ const editing = reactive({
                             <span class="hidden md:block">Cancel</span>
                         </button>
                     </div>
+                    
                 </div>
 
                 <div class="flex flex-col h-full w-1/4 items-center">
@@ -195,6 +222,9 @@ const editing = reactive({
                 </div>
             </div>
         </div>
+        <BaseModalFailed :visible="editing.modalFailed.visible" :title="editing.modalFailed.titil" :toSchedules="false"
+            :desc="editing.modalFailed.desc"
+            @closeModal="() => editing.modalFailed.visible = false" />
     </main>
 </template>
  
