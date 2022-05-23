@@ -47,21 +47,10 @@ const choosed = ref(null)
         </div>
         <!-- button Success -->
         <div class="flex items-center px-4 py-3 gap-4">
-            <router-link :to="{name: 'Schedules'}">
-                <button
-                    :class="['btn-modal text-lg whitespace-nowrap', 
-                    'hover:bg-gradient-to-l from-green-400  to-green-500', 
-                    'text-green-500 hover:text-gray-100 hover:bg-blue-600 focus:ring-blue-300']">
-                    SCHEDULES
-                </button>
+            <router-link :to="{name: 'Schedules'}" class="btn-green-ghost">
+                SCHEDULES
             </router-link>
-            <button :class="['btn-modal text-lg shadow-sm', 
-                            `bg-gradient-to-l from-green-400  to-green-500 
-                            hover:bg-gradient-to-l hover:from-green-500  hover:to-green-500
-                            text-green-100 hover:bg-green-600 focus:ring-green-300`]"
-                @click="$emit('emitReset')">
-                CONTINUE
-            </button>
+            <button class="btn-green" @click="$emit('emitReset')">CONTINUE</button>
         </div>
 
     </div>

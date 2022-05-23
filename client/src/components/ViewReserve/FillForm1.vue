@@ -6,6 +6,7 @@ import IconCalendar from '../icons/IconCalendar.vue';
 import dayjs from 'dayjs';
 import IconTime from '../icons/IconTime.vue';
 import IconArrowLeft from '../icons/IconArrowLeft.vue';
+import VFormInput from '../Base/VFormInput.vue';
 
 const emits = defineEmits(['emitBack', 'emitSubmitForm'])
 const props = defineProps({
@@ -86,7 +87,7 @@ const inform = reactive({
             bookingEmail: this.email.value,
             eventStartTime: dayjs(this.datetime.date + this.datetime.time).toJSON()
         }
-        if(note) informObj.note = note
+        if(note) informObj.eventNotes = note
 
         console.log(informObj);
         emits('emitSubmitForm', informObj)
@@ -132,13 +133,12 @@ const checker = {
                         class="absolute inset-y-0 items-center left-3">
                         <IconUser class="w-5 h-5" />
                     </button>
+  
                     <input ref="inputName" type="text" maxlength="100" placeholder="Name"
                         @focusin="focusOn = 'name'" @focusout="focusOn = null"
                         @keyup="inform.name.checkError"
                         v-model="inform.name.value" 
-                        :class="['w-full rounded-md outline-none border-2', 'p-2 pl-10', 'text-md', 
-                                inform.name.isError() ? 'border-red-600 bg-red-50' : 'focus:border-blue-600 bg-gray-50',
-                                ]">
+                        :class="[inform.name.isError() ? 'form-input-error' : 'form-input', 'pl-10']">
                 </div>
                 <!-- desc -->
                 <p class="absolute top-0 right-0 text-sm font-medium text-red-500 pl-0.5">Required</p>
@@ -151,9 +151,7 @@ const checker = {
 
             <!-- Email -->
             <div class="relative flex flex-col gap-0.5 ">
-                <label for="name" :class="['text-sm font-medium text-gray-600 pl-0.5']"> 
-                    Email
-                </label>
+                <label for="name" :class="['text-sm font-medium text-gray-600 pl-0.5']">Email</label>
                 <div :class="['relative']">
                     <button @click="nextTick(() => inputEmail.focus())" 
                         class="absolute inset-y-0 items-center left-3">
@@ -163,8 +161,7 @@ const checker = {
                         @focusin="focusOn = 'email'" @focusout="focusOn = null"
                         @keyup="inform.email.checkError"
                         v-model="inform.email.value" 
-                        :class="['w-full rounded-md outline-none border-2', 'p-2 pl-10', 'text-md', 
-                                inform.email.isError() ? 'border-red-600 bg-red-50' : 'focus:border-blue-600 bg-gray-50']">
+                        :class="[inform.email.isError() ? 'form-input-error' : 'form-input', 'pl-10']">
                 </div>
                 <!-- desc -->
                 <p class="absolute top-0 right-0 text-sm font-medium text-red-500 pl-0.5">Required</p>
@@ -183,8 +180,7 @@ const checker = {
                 <textarea name="eventNotes" rows="5" placeholder="Note" maxlength="500"
                     @keyup="inform.note.checkError"
                     v-model="inform.note.value"
-                    :class="['p-2 border-2 outline-none rounded-md text-sm w-full', 
-                            inform.note.isError() ? 'border-red-600 bg-red-50' : 'focus:border-blue-600 bg-gray-50']">
+                    :class="[inform.note.isError() ? 'form-input-error' : 'form-input', 'text-sm']">
                 </textarea>
                 <!-- desc -->
                 <p class="absolute top-0 right-0 text-sm font-medium text-gray-600 pl-0.5">Optional</p>
@@ -209,24 +205,21 @@ const checker = {
                         class="absolute inset-y-0 items-center left-3">
                         <IconCalendar class="w-5 h-5" />
                     </button>
-                    <input ref="" type="date" maxlength="100" placeholder="Email" :min="dayjs().format('YYYY-MM-DD')"
-                        @focusin="focusOn = 'email'" @focusout="focusOn = null"
+                    <input type="date" 
+                        :min="dayjs().format('YYYY-MM-DD')"
                         @change="inform.datetime.checkError"
                         v-model="inform.datetime.date" 
-                        :class="['w-full rounded-md outline-none border-2', 'p-2 pl-10', 'text-md',
-                                inform.datetime.isError() ? 'border-red-600 bg-red-50' : 'focus:border-blue-600 bg-gray-50']">
+                        :class="[inform.datetime.isError() ? 'form-input-error' : 'form-input', 'pl-10']">
                 </div>
                 <div :class="['relative w-1/2']">
                     <button @click="nextTick(() => inputEmail.focus())" 
                         class="absolute inset-y-0 items-center left-3">
                         <IconTime class="w-5 h-5" />
                     </button>
-                    <input ref="" type="time" maxlength="100" placeholder="Email"
-                        @focusin="focusOn = 'email'" @focusout="focusOn = null"
+                    <input type="time"
                         @change="inform.datetime.checkError"
                         v-model="inform.datetime.time" 
-                        :class="['w-full rounded-md outline-none border-2', 'p-2 pl-10', 'text-md',
-                                inform.datetime.isError() ? 'border-red-600 bg-red-50' : 'focus:border-blue-600 bg-gray-50']">
+                        :class="[inform.datetime.isError() ? 'form-input-error' : 'form-input', 'pl-10']">
                 </div>
                 <div v-show="inform.datetime.isError()" class="absolute -bottom-5 text-sm font-medium text-red-500 pl-0.5">
                     Invalid note error: 
