@@ -4,6 +4,7 @@ import NotFound from '../views/NotFound.vue';
 import Schedules from '../views/Schedules.vue';
 import SchedulesOld from '../views/SchedulesOld.vue';
 import EventDetail from '../views/EventDetail.vue';
+import EventDetailN from '../views/EventDetailN.vue';
 import Reserve from '../views/Reserve.vue';
 import TestModal from '../views/TestModal.vue';
 import AboutUs from '../views/AboutUs.vue';
@@ -25,6 +26,11 @@ const routes = [
         path: '/schedules/:eventId',
         name: 'EventDetail',
         component: EventDetail,
+    },
+    {
+        path: '/schedulesN/:eventId',
+        name: 'EventDetailN',
+        component: EventDetailN,
     },
     {
         path: '/SchedulesOld',

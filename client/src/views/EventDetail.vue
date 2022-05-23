@@ -136,7 +136,6 @@ const checker = {
                                 {{ dayjs(event.eventStartTime).format('LT') }} -
                                 {{ dayjs(event.eventStartTime).add(event.eventDuration, 'm').format('LT') }}
                             </span>
-                            
                         </div>
 
                     </div>
