@@ -20,7 +20,6 @@ public class EventcategoryController {
     }
     @GetMapping("{id}")
     public EventcategoryDto getEventcategoryById(@PathVariable Integer id){
-
         return modelMapper.map(eventcategoryService.getById(id), EventcategoryDto.class);
     }
     @PostMapping("")

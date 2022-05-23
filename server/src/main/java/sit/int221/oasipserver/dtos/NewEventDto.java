@@ -18,24 +18,19 @@ public class NewEventDto  {
 
     @Size(max = 100, message = "size must be between 1 and 100")
     @NotBlank(message = "must not be blank")
-//    @NotNull(message = "bookingName must not be null")
     private String bookingName;
 
     @Size(max = 100, message = "size must be between 1 and 100")
     @Email(message = "must be a well-formed email address")
     @NotBlank(message = "must not be blank")
-//    @NotNull(message = "bookingEmail must not be null")
     private String bookingEmail;
-
     private Integer eventDuration;
-
 
     @NotNull(message = "must not be null")
     @Future(message = "must be a future date")
     private Instant eventStartTime;
     @Size(max = 500, message = "size must be between 0 and 500")
 
-//    @NotEmpty(message = "eventNotes must not be empty")
     @Size(min = 0, max = 500, message = "size must be between 0 and 500")
     private String eventNotes;
     @NotNull(message = "must not be null")

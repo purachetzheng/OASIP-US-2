@@ -55,7 +55,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ApiNotFoundException.class})
     public ResponseEntity<Object> handleApiNotFoundException(ApiNotFoundException e){
         // 1. Create payload containing exception details
-        var notFound = HttpStatus.NOT_FOUND;
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 notFound,

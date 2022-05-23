@@ -14,6 +14,5 @@ public class EventcategoryDto {
     private String eventCategoryName;
     private String eventCategoryDescription;
     private Integer eventDuration;
-//    private Set<Event> events = new LinkedHashSet<>();
 
 }

@@ -15,16 +15,9 @@ import java.time.Instant;
 @AllArgsConstructor
 public class EventDto {
     private Integer id;
-    @Size(max = 100, message = "size must be between 1 and 100")
-    @NotBlank(message = "must not be blank")
     private String bookingName;
-//    private String bookingEmail;
     private Integer eventDuration;
     private Instant eventStartTime;
-//    private String eventNotes;
     private Integer eventCategoryId;
     private String eventCategoryName;
-//    private String eventCategoryEventCategoryDescription;
-//    private List<Event> eventCategoryEvents;
-//    private Eventcategory eventCategory;
 }
