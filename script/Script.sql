@@ -56,3 +56,8 @@ INSERT INTO events values
 (1, 'Somchai Jaidee (OR-7)', 'somchai.jai@mail.kmutt.ac.th', 2, 30, '2022-05-23 6:30:00', null),
 (2, 'Somsri Rakdee (SJ-3)', 'somsri.rak@mail.kmutt.ac.th', 1, 30, '2022-04-27 2:30:00', 'ขอปรึกษาปัญหาเพื่อนไม่ช่วยงาน'),
 (3, 'สมเกียรติ ขยันเรียน กลุ่ม TT-4', 'somkiat.kay@kmutt.ac.th', 3, 15, '2022-01-01 9:30:00', null);
+
+-- Create USER for specific use
+CREATE USER 'OASIPBE'@'192.168.96.3' IDENTIFIED BY 'BEBE';
+GRANT ALL PRIVILEGES ON oasip.* TO 'OASIPBE'@'192.168.96.3';
+FLUSH PRIVILEGES;
