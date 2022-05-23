@@ -110,6 +110,11 @@ const selectDay = (day) => {
     // console.log(day == null);
     // console.log(day == '');
 }
+
+const changeLayout = (test) => {
+    console.log(test)
+}
+
 </script>
 
 <template>
@@ -121,9 +126,9 @@ const selectDay = (day) => {
                 @emitSelectDay="selectDay" />
 
             <!-- Layout - Event Schedules  -->
-            <div class="flex flex-col w-full gap-2 rounded-xl ">
+            <div class="flex flex-col w-full h-full gap-2">
                 <!-- header -->
-                <EventListHeader :eventAmount="eventsList.length" @emitRefreshEvent="refreshEvent" />
+                <EventListHeader :eventAmount="eventsList.length" @emitRefreshEvent="refreshEvent" @emitLayout="changeLayout" />
 
                 <div v-if="false" class="flex gap-4 bg-gray-100 p-1.5 rounded-lg">
                     <div class="flex w-1/3 items-center justify-center gap-2 py-2 rounded-lg bg-white">

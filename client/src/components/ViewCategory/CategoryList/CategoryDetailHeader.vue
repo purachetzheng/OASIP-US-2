@@ -2,7 +2,7 @@
 defineProps({
     categoryName: {
         type: String,
-        default: 0
+        default: ''
     }
 });
 </script>
@@ -12,7 +12,7 @@ defineProps({
         <div class="flex items-center gap-1 dark:text-white">
             <!-- Header Text -->
             <div class="flex items-baseline gap-2">
-                <span class="text-lg tracking-wide font-medium">{{ categoryName }}</span>
+                <span class="text-xl tracking-wide font-bold text-blue-500">{{ categoryName }}</span>
             </div>
         </div>
     </div>
