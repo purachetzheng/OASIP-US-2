@@ -29,7 +29,7 @@ const props = defineProps({
                 </span>
             </div>
         </div>
-        <div class="flex gap-4 pr-4 dark:text-white">
+        <div v-if="0" class="flex gap-4 pr-4 dark:text-white">
             <button class="flex items-center gap-1.5" @click="$emit('emitLayout', 'grid')">
                 <IconGrid class="w-4 h-4" />
                 <button class="text-sm font-medium">Grid</button>
