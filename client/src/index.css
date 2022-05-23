@@ -7,10 +7,10 @@
         @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
     }
     .btn-1 {
-        @apply mb-2 md:mb-0 px-4 py-2 text-sm shadow-sm font-medium tracking-wider  rounded-3xl hover:shadow-md;
+        @apply mb-2 md:mb-0 px-4 py-2 text-sm shadow-sm font-medium tracking-wider rounded-3xl hover:shadow-md;
     }
     .btn-2 {
-        @apply mb-2 md:mb-0 px-2.5 py-1.5 text-sm shadow-sm font-medium  rounded-md hover:shadow-md;
+        @apply mb-2 md:mb-0 px-2.5 py-1.5 text-sm shadow-sm font-medium rounded hover:shadow-md;
     }
     .btn-modal {
         @apply px-4 py-2 text-base font-medium rounded-md w-full  focus:outline-none focus:ring-2;
@@ -18,6 +18,10 @@
 
     .rose-yellow-1{
         @apply bg-gradient-to-r from-blue-600 via-violet-500 to-purple-400
+    }
+
+    .home-button {
+        @apply bg-gradient-to-r from-purple-500 to-blue-500
     }
 
     .zoom-110-300{

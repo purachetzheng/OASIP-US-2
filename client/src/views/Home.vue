@@ -13,20 +13,28 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
 <template>
     <div class="flex h-full">
         <div class="flex h-full w-full cursor-default">
-            <div class="flex flex-col h-full w-full justify-center items-center gap-6 bg-gradient-to-r
-    from-blue-500
-    to-purple-500">
-                <div class="flex flex-col text-3xl text-white" @mouseenter="mouseNow = 'logo'"
+            <div class="flex h-full w-full ">
+                <div class="flex justify-center items-center w-full">
+                    <img src="img/home.png" class="h-4/5" alt="">
+                </div>
+                <div class="flex flex-col justify-center items-start text-3xl text-blue-500 w-2/3" @mouseenter="mouseNow = 'logo'"
                     @mouseleave="mouseNow = null">
-                    <div class="font-semibold dark:text-gray-200">
-                        Reservation Web Application
+                    <div class="flex flex-col text-6xl font-semibold dark:text-gray-200">
+                        <span>
+                        Reservation 
+                        </span>                        
+                        <span>
+                            Web Application
+                        </span>
                     </div>
-                    <h2 class="font-thin dark:text-gray-200">OASIP-US2</h2>
-                    <div class="flex text-lg gap-2 mt-2">
+                    <div class="font-thin my-5 text-xl text-gray-500">
+                        Web application scheduling and managing your bookings.
+                    </div>
+                    <div class="flex text-2xl gap-5 mt-4">
                         <button @click="goTo('Schedules')"
-                            class="p-1 px-4 rounded bg-white hover:bg-gray-900 hover:text-white text-gray-900 transition">Schedules</button>
+                            class="p-3 px-10 rounded-full bg-blue-500 shadow-md hover:bg-gray-900 hover:text-white text-white transition">Schedules</button>
                         <button @click="goTo('Reserve')"
-                            class="p-1 px-4 rounded bg-white hover:bg-gray-900 hover:text-white text-gray-900 transition">Reserve</button>
+                            class="p-3 px-10 rounded-full bg-blue-500 shadow-md hover:bg-gray-900 hover:text-white text-white transition">Reserve</button>
                     </div>
                 </div>
             </div>

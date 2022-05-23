@@ -16,10 +16,10 @@ onBeforeMount(async () => {
 })
 const router = useRouter()
 
-    
 const viewDetail = async (id) => {
-    router.push({ name: 'EventDetail', categor: id })
+    router.push({ name: 'CategoryDetail', categoryId: id })
 }
+
 </script>
 
 <template>
@@ -28,8 +28,7 @@ const viewDetail = async (id) => {
         <CategoryHeader :categoryAmount="categoryList.length" />
         <div v-show="!categoryList.length" class="text-center my-10 text-xl">No Scheduled Events</div>
 
-        <CategoryList :categories="categoryList" 
-            @emit-view-detail="viewDetail"/>
+        <CategoryList :categories="categoryList" @emit-view-detail="viewDetail"/>
     </div>
   </main>
 </template>

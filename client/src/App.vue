@@ -4,7 +4,6 @@ import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
 import { darkMode } from './js/darkMode'
 
-
 </script>
 
 <template>
@@ -12,16 +11,17 @@ import { darkMode } from './js/darkMode'
     <div class="flex h-screen dark:bg-neutral-900 w-screen fixed ">
       <div class="flex flex-col flex-1 w-full ">
         <Navbar />
-        <div class="bg-neutral-100 dark:bg-neutral-900 h-full w-full">
-        <router-view v-slot="{ Component }">
+        <div class="bg-gray-100 dark:bg-neutral-900 h-full w-full">
+        <RouterView v-slot="{ Component }">
           <suspense>
-
-            <template #fallback>Loading...</template>
+            <template #fallback>
+              Loading...
+            </template>
             <template #default>
               <component :is="Component" />
             </template>
           </suspense>
-        </router-view>
+        </RouterView>
         </div>
       </div>
     </div>

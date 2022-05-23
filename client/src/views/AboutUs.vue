@@ -9,17 +9,15 @@ const teamMembers = [
 </script>
  
 <template>
-    <div class="flex h-full justify-center items-center bg-gradient-to-r
-    from-blue-500
-    to-purple-500">
-        <div class="flex h-full w-full cursor-default text-white">
+    <div class="flex h-full justify-center items-center">
+        <div class="flex h-full w-full cursor-default text-blue-500">
             <div class="flex flex-col justify-center items-center h-full w-full dark:text-gray-200 text-lg">
                 <div>
-                    <span class="text-3xl font-bold ">
+                    <span class="text-3xl font-bold">
                         INT221 Information Technology Integrated Project
                     </span>
                 </div>
-                <div class="mt-4 space-y-3">
+                <div class="mt-2 space-y-3">
                     <span class="font-normal text-2xl w-full flex justify-center">
                         Group Project - Fail Fast, Fail Cheap, Fail Forever
                     </span>

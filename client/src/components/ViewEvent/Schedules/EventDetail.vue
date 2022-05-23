@@ -100,6 +100,7 @@ const closeDetail = () => {
     stage.value.editing = false
     props.detailModal.visible = false
 }
+
 const modal = ref({ visible: false, text: 'error' })
 // const updateModal
 </script>
