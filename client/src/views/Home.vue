@@ -11,24 +11,22 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
 </script>
  
 <template>
-    <div class="flex h-full justify-center items-center ">
+    <div class="flex h-full">
         <div class="flex h-full w-full cursor-default">
             <div class="flex flex-col h-full w-full justify-center items-center gap-6">
-                <div class="flex flex-col text-3xl zoom-110-500" 
-                    @mouseenter="mouseNow = 'logo'" @mouseleave="mouseNow = null">
+                <div class="flex flex-col text-3xl" @mouseenter="mouseNow = 'logo'"
+                    @mouseleave="mouseNow = null">
                     <h2 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">OASIP-US2</h2>
                     <div class="font-thin dark:text-gray-200">
-                    Reservation Web Application
+                        Reservation Web Application
                     </div>
-                    
+                    <div class="flex text-lg gap-2 mt-2">
+                        <button @click="goTo('Schedules')"
+                            class="p-1 px-4 rounded bg-cyan-600 hover:bg-cyan-700 text-white transition">Schedules</button>
+                        <button @click="goTo('Reserve')"
+                            class="p-1 px-4 rounded bg-cyan-600 hover:bg-cyan-700 text-white transition">Reserve</button>
+                    </div>
                 </div>
-                <div class="flex gap-10">
-                    <button @click="goTo('Schedules')"
-                    class="btn-1 bg-cyan-600 hover:bg-cyan-700 text-white">Schedules</button>
-                    <button @click="goTo('Reserve')"
-                    class="btn-1 bg-cyan-600 hover:bg-cyan-700 text-white">Reserve</button>
-                </div>
-                
             </div>
         </div>
     </div>
