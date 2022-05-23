@@ -9,9 +9,10 @@ import { darkMode } from './js/darkMode'
 
 <template>
   <div :class="[darkMode.mode.value === 'dark'?'dark' : '']">
-    <div class=" flex h-screen bg-gray-50 dark:bg-neutral-900 w-screen fixed ">
+    <div class="flex h-screen dark:bg-neutral-900 w-screen fixed ">
       <div class="flex flex-col flex-1 w-full ">
-        <Navbar class="" />
+        <Navbar />
+        <div class="bg-neutral-100 dark:bg-neutral-900 h-full w-full">
         <router-view v-slot="{ Component }">
           <suspense>
 
@@ -21,6 +22,7 @@ import { darkMode } from './js/darkMode'
             </template>
           </suspense>
         </router-view>
+        </div>
       </div>
     </div>
   </div>
