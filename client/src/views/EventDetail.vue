@@ -116,14 +116,15 @@ const editing = reactive({
 })
 
 const removeEvent = async () => {
-    confirm('Are you sure you want to cancel this event?') ? await events.remove(eventId) : ''
+    if(!confirm('Are you sure you want to cancel this event?')) return
+    await events.remove(eventId)
     router.push({name: 'Schedules'})
 }
 </script>
  
 <template>
     <main class="h-full w-screen overflow-auto flex flex-col px-28 py-8 gap-6">
-        <EventDetailHeader :bookingName="event.bookingName" @emitEdit="editing.on()" @emitCancel="removeEvent" />
+        <EventDetailHeader :bookingName="event.bookingName" @emitBack="routerSigns.goBack" @emitEdit="editing.on()" @emitCancel="removeEvent" />
         <div class="flex h-full w-full overflow-auto">
             <div class="flex flex-col h-full w-2/5 overflow-auto gap-10 py-4">
                 <!-- <div class="flex h-40"></div> -->

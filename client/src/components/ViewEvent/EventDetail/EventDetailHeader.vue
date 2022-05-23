@@ -4,7 +4,7 @@ import IconArrowLeftNoLine from '../../icons/IconArrowLeftNoLine.vue';
 import IconEditFill from '../../icons/Fill/IconEditFill.vue';
 import IconArrowLeft from '../../icons/IconArrowLeft.vue';
 import IconClose from '../../icons/IconClose.vue';
-defineEmits(['emitEdit', 'emitCancel'])
+defineEmits(['emitEdit', 'emitCancel', 'emitBack'])
 const props = defineProps({
     bookingName: {
         type: String,
@@ -18,7 +18,8 @@ const props = defineProps({
         <!-- header -->
         <div class="flex justify-between">
             <div class="flex">
-                <button class="border-2 border-transparent hover:border-blue-600 text-gray-800 hover:text-white px-3 py-1.5 rounded text-1xl font-medium hover:bg-blue-600 transition duration-300">
+                <button class="border-2 border-transparent hover:border-blue-600 text-gray-800 hover:text-white px-3 py-1.5 rounded text-1xl font-medium hover:bg-blue-600 transition duration-300"
+                    @click="$emit('emitBack')">
                     <div class="flex gap-1">
                         <IconArrowLeft class="w-6 h-6 -ml-1" />
                         <span>Back</span>
