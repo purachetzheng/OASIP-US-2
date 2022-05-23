@@ -9,7 +9,7 @@ defineEmits(['emitEdit', 'emitCancel', 'emitBack'])
 const props = defineProps({
     bookingName: {
         type: String,
-        require: true,
+        default: 'name'
     },
 })
 let cusorOnName = ref(false)
