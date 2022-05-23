@@ -10,7 +10,9 @@ const prop = defineProps({
 </script>
  
 <template>
-    <input type="text">
+    <div>
+        
+    </div>
 </template>
  
 <style>

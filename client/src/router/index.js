@@ -5,9 +5,9 @@ import Schedules from '../views/Schedules.vue';
 import SchedulesOld from '../views/SchedulesOld.vue';
 import EventDetail from '../views/EventDetail.vue';
 import Reserve from '../views/Reserve.vue';
-import TestModal from '../views/TestModal.vue';
 import AboutUs from '../views/AboutUs.vue';
 import Category from '../views/Category.vue';
+import CategoryDetail from '../views/CategoryDetail.vue';
 
 const history = createWebHistory('/us2/');
 const routes = [
@@ -47,10 +47,11 @@ const routes = [
         component: Category,
     },
     {
-        path: '/test',
-        name: 'TestModal',
-        component: TestModal,
+        path: '/category/:categoryId',
+        name: 'CategoryDetail',
+        component: CategoryDetail,
     },
+
     {
         path: '/:catchNotMatchPath(.*)',
         name: 'NotFound',

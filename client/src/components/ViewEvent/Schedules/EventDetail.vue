@@ -3,16 +3,17 @@ import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, } from 'vue'
 //date-time lib
 import dayjs from 'dayjs'
 
-import { events } from '../../js/event'
-import IconPinFill from '../icons/IconPinFill.vue'
-import IconTimeFill from '../icons/IconTimeFill.vue'
-import IconCalendarFill from '../icons/IconCalendarFill.vue'
-import IconEmailFill from '../icons/Fill/IconEmailFill.vue'
-import IconArrowLeft from '../icons/IconArrowLeft.vue'
-import IconNoteFill from '../icons/Fill/IconNoteFill.vue'
-import IconEditFill from '../icons/Fill/IconEditFill.vue'
-import IconArrowBack from '../icons/IconArrowBack.vue'
-import ModalError from '../modal/ModalError.vue'
+import { events } from '../../../js/event'
+import IconPinFill from '../../icons/Fill/IconPinFill.vue'
+import IconTimeFill from '../../icons/Fill/IconTimeFill.vue'
+
+import IconEmailFill from '../../icons/Fill/IconEmailFill.vue'
+import IconArrowLeft from '../../icons/IconArrowLeft.vue'
+import IconNoteFill from '../../icons/Fill/IconNoteFill.vue'
+import IconEditFill from '../../icons/Fill/IconEditFill.vue'
+import IconArrowBack from '../../icons/IconArrowBack.vue'
+import ModalError from '../../modal/ModalError.vue'
+import IconCalendarFill from '../../icons/Fill/IconCalendarFill.vue'
 const emits = defineEmits(['emitUpdateEvent'])
 const props = defineProps({
     // selectedId: {
@@ -99,6 +100,7 @@ const closeDetail = () => {
     stage.value.editing = false
     props.detailModal.visible = false
 }
+
 const modal = ref({ visible: false, text: 'error' })
 // const updateModal
 </script>

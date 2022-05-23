@@ -3,74 +3,108 @@
 @tailwind utilities;
 
 @layer components {
-
     .btn-primary {
         @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
     }
-    .btn-1{
-        @apply mb-2 md:mb-0 px-4 py-2 text-sm shadow-sm font-medium tracking-wider  rounded-3xl hover:shadow-md
+    .btn-1 {
+        @apply mb-2 md:mb-0 px-4 py-2 text-sm shadow-sm font-medium tracking-wider rounded-3xl hover:shadow-md;
     }
-    .btn-2{
-        @apply mb-2 md:mb-0 px-2.5 py-1.5 text-sm shadow-sm font-medium  rounded-md hover:shadow-md
+    .btn-2 {
+        @apply mb-2 md:mb-0 px-2.5 py-1.5 text-sm shadow-sm font-medium rounded hover:shadow-md;
     }
-    .btn-modal{
-        @apply px-4 py-2 text-base font-medium rounded-md w-full  focus:outline-none focus:ring-2
+    .btn-modal {
+        @apply px-4 py-2 text-base font-medium rounded-md w-full  focus:outline-none focus:ring-2;
     }
 
-    
+    .rose-yellow-1{
+        @apply bg-gradient-to-r from-blue-600 via-violet-500 to-purple-400
+    }
+
+    .home-button {
+        @apply bg-gradient-to-r from-purple-500 to-blue-500
+    }
 
     .zoom-110-300{
         @apply hover:scale-110 duration-300
     }
-    .zoom-110-500{
-        @apply hover:scale-110 duration-500
+    .zoom-110-500 {
+        @apply hover:scale-110 duration-500;
     }
-    .zoom-125-300{
-        @apply hover:scale-125 duration-300
+    .zoom-125-300 {
+        @apply hover:scale-125 duration-300;
     }
-    .zoom-125-500{
-        @apply hover:scale-125 duration-500
-    }
-
-    .slide-event-detail-on{
-        @apply duration-500 ease-in-out translate-x-full
-    }
-    .slide-event-detail-off{
-        @apply duration-500 ease-in-out translate-x-0
+    .zoom-125-500 {
+        @apply hover:scale-125 duration-500;
     }
 
-    .text-h-1{
-        @apply text-2xl font-semibold 
+    .slide-event-detail-on {
+        @apply duration-500 ease-in-out translate-x-full;
     }
-    .text-h-3{
-        @apply text-lg font-semibold 
-    }
-
-
-
-    .screen-p-1{
-        @apply sm:px-6 sm:py-4 md:px-12 md:py-8 lg:px-20 lg:py-12 
+    .slide-event-detail-off {
+        @apply duration-500 ease-in-out translate-x-0;
     }
 
-    .bg-nav-2{ 
-        @apply bg-cyan-600
+    .text-h-1 {
+        @apply text-2xl font-semibold;
     }
-    .bg-nav{ 
-        @apply bg-neutral-800
-    }
-
-    .form-1{
-        @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-lg p-2
-    }
-    .form-1-off{
-        @apply bg-gray-100 text-gray-700 text-sm border border-gray-200 rounded-lg p-2
-    }
-    .form-2{
-        @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-md p-1
+    .text-h-3 {
+        @apply text-lg font-semibold;
     }
 
+    .screen-p-1 {
+        @apply sm:px-6 sm:py-4 md:px-12 md:py-8 lg:px-20 lg:py-12;
+    }
 
-    .flex-col-g0.5{
-        @apply flex flex-col gap-0.5
+    .bg-nav-2 {
+        @apply bg-cyan-600;
+    }
+    .bg-nav {
+        @apply bg-neutral-800;
+    }
+
+    .form-1 {
+        @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-lg p-2;
+    }
+    .form-1-off {
+        @apply bg-gray-100 text-gray-700 text-sm border border-gray-200 rounded-lg p-2;
+    }
+    .form-2 {
+        @apply bg-white text-gray-700 text-sm border border-gray-200 rounded-md p-1;
+    }
+
+    .flex-col-g0.5 {
+        @apply flex flex-col gap-0.5;
+    }
+
+    .form-input{
+        @apply w-full rounded-md outline-none border-2 p-2 text-base focus:border-blue-600 bg-gray-50
+    }
+
+    .form-input-error{
+        @apply w-full rounded-md outline-none border-2 p-2 text-base border-red-600 bg-red-50
+    }
+
+    .form-textarea{
+        @apply p-2 border-2 outline-none rounded-md text-sm w-full focus:border-blue-600 bg-gray-50
+    }
+
+    .form-textarea-error{
+        @apply p-2 border-2 outline-none rounded-md text-sm w-full border-red-600 bg-red-50
+    }
+    
+    .btn-base{
+        @apply px-4 py-2 text-base font-medium rounded-md focus:outline-none focus:ring-2 shadow-md
+    }
+    .bg-grad-green-1{
+        @apply bg-gradient-to-l from-green-400  to-green-500
+    }
+    .bg-grad-green-1-h{
+        @apply bg-gradient-to-l from-green-400  to-green-600
+    }
+    .btn-green{
+        @apply btn-base text-lg bg-grad-green-1 hover:bg-grad-green-1-h text-green-100 focus:ring-green-500
+    }
+    .btn-green-ghost{
+        @apply btn-base text-lg hover:bg-grad-green-1 text-green-500 hover:text-gray-100 focus:ring-green-500
     }
 }

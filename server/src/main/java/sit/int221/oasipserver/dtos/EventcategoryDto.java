@@ -21,6 +21,5 @@ public class EventcategoryDto {
     private String eventCategoryDescription;
     @Range(min = 1, max = 480, message = "duration must be between 1 and 480")
     private Integer eventDuration;
-//    private Set<Event> events = new LinkedHashSet<>();
 
 }

@@ -53,7 +53,7 @@ const naviList = [
         <div class="flex items-center justify-between h-full w-full ">
             <!-- Logo -->
             <button @click="goTo('Home')" class="text-xl font-bold zoom-125-300 transition  text-gray-800 dark:text-gray-200">
-                OASIP
+                OASIP-US2
             </button>
             <!-- Navi -->
             <div class="">
@@ -66,16 +66,6 @@ const naviList = [
                         <!-- <CarbonHome class="w-5 h-5 mr-2" /> -->
                         {{ navi.text }}
                     </button>
-                    <!-- <button @click="goTo('Home')"
-                        :class="[$route.name === 'Home' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:zoom-110', 'inline-flex font-semibold']">
-                        <CarbonHome class="w-5 h-5 mr-2" />
-                        <span>Home</span>
-                    </button>
-                    <button @click="goTo('Schedules')"
-                        :class="[$route.name === 'Schedules' ? 'text-cyan-600' : 'text-gray-100 hover:text-gray-900 hover:zoom-110', 'inline-flex font-semibold']">
-                        <CarbonEventSchedule class="w-5 h-5 mr-2" />
-                        <span>Schedules</span>
-                    </button> -->
                 </div>
             </div>
             <!-- Menu -->

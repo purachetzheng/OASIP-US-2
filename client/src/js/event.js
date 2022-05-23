@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { ref } from 'vue'
 import { eventCategories } from './eventCategory'
 
@@ -72,22 +73,7 @@ export const events = {
         return true
     },
 
-    //UPDATE
-    // async put(id, editObj){
-    //     const modifyEvent = await fetchData.put(`events/${id}`, editObj)
-    //     this.events.value = this.events.value.map((event) => 
-    //         event.id === modifyEvent.id 
-    //         ? { 
-    //             ...event,
-    //             bookingName: modifyEvent.bookingName,
-    //             bookingEmail: modifyEvent.bookingEmail,
-    //             eventStartTime: modifyEvent.eventStartTime,
-    //             eventDuration: modifyEvent.eventDuration,
-    //             eventNotes: modifyEvent.eventNotes,
-    //             eventCategoryId: modifyEvent.eventCategoryId
-    //         } 
-    //         : event )
-    // }
+
     async patch(id, editObj) {
         const res = await fetch(url + id, {
             method: 'PATCH',
@@ -114,12 +100,23 @@ export const events = {
             // console.log(`error, cannot edit ${entity}`)
             return {status: false, error: error}
         }
+    },
+     checkOverlap(time, duration, categoryId, excludeId =0){
+        const startTime = dayjs(time)
+        const endTime = dayjs(time).add(duration, 'm')
+        const eventList = this.events.value.filter(e => e.eventCategoryId == categoryId && e.id != excludeId)
+ 
+        console.log(eventList);
+        console.log(categoryId);
+        return eventList.some(e => {
+            const eStart = dayjs(e.eventStartTime)
+            const eEnd = dayjs(e.eventStartTime).add(e.eventDuration, 'm')
+            const isStartBetween = (startTime.isAfter(eStart) || startTime.isSame(eStart))
+                                    && startTime.isBefore(eEnd)
+            const isEndBetween = endTime.isAfter(eStart)
+                    && endTime.isBefore(eEnd);
+                    console.log(isStartBetween || isEndBetween);
+            return isStartBetween || isEndBetween
+        })
     }
-
-
-}
-
-const afterGet = {
-    succeed:() => {},
-    Failed:() => {}
 }

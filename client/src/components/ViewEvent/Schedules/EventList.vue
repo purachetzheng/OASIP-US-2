@@ -2,12 +2,12 @@
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //Icon
-import RiTimeFill from '../icons/RiTimeFill.vue'
-import RiMapPin2Fill from '../icons/RiMapPin2Fill.vue'
+import RiTimeFill from '../../icons/Fill/RiTimeFill.vue'
+import RiMapPin2Fill from '../../icons/Fill/RiMapPin2Fill.vue'
 //dayjs
 dayjs.extend(localizedFormat)
 
-defineEmits(['emitRemoveEvent', 'emitViewDetail'])
+defineEmits([ 'emitViewDetail'])
 const props = defineProps({
     events: {
         type: Array,
@@ -28,7 +28,9 @@ const props = defineProps({
                 grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
 
         <!-- loop events -->
-        <div class="flex flex-col shadow-lg p-4 bg-white bg-opacity-75 rounded-md" v-for="(event, index) in events">
+        <div class="flex flex-col shadow-lg p-4 bg-white bg-opacity-75 rounded-md hover:bg-gray-100 cursor-pointer" 
+            v-for="(event, index) in events"
+            @click="$emit('emitViewDetail',event.id)">
         
             <div class="flex text-lg font-bold h-14 overflow-hidden">
                 <!-- <p class="truncate">{{ event.bookingName }}</p> -->
@@ -47,15 +49,6 @@ const props = defineProps({
                 <RiMapPin2Fill />
                 <!-- <div class="w-3.5 h-3.5 bg-green-400 rounded-full"></div> -->
                 <span>{{ event.eventCategoryName }}</span>
-            </div>
-            <div class="flex pt-4 gap-2">
-                <button class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500 transition" @click="$emit('emitViewDetail',event.id)">
-                    Detail
-                </button>
-                <button class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400 transition"
-                    @click="$emit('emitRemoveEvent',event.id)" @mouseenter="mouseOn = 'Delete Event'" @mouseleave="mouseOn = null">
-                    Cancel
-                </button>
             </div>
         </div>
 

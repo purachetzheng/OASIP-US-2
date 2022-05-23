@@ -1,9 +1,9 @@
 <script setup>
 //Icon
-import IconGrid from '../icons/IconGrid.vue'
-import IconList from '../icons/IconList.vue'
-import IconRefresh from '../icons/IconRefresh.vue'
-defineEmits(['emitRefreshEvent'])
+import IconGrid from '../../icons/IconGrid.vue'
+import IconList from '../../icons/IconList.vue'
+import IconRefresh from '../../icons/IconRefresh.vue'
+defineEmits(['emitRefreshEvent', 'emitLayout'])
 const props = defineProps({
     eventAmount: {
         type: Number,
@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
  
 <template>
-    <div class="flex justify-between">
+    <div class="flex justify-between h-ful">
         <div class="flex items-center gap-1 dark:text-white">
             <!-- Refresh -->
             <button class="flex items-end p-1 rounded-full bg-blue-300 hover:bg-blue-600" @click="$emit('emitRefreshEvent')">
@@ -30,13 +30,13 @@ const props = defineProps({
             </div>
         </div>
         <div class="flex gap-4 pr-4 dark:text-white">
-            <button class="flex items-center gap-1.5">
+            <button class="flex items-center gap-1.5" @click="$emit('emitLayout', 'grid')">
                 <IconGrid class="w-4 h-4" />
-                <p class="text-sm font-medium">Grid</p>
+                <button class="text-sm font-medium">Grid</button>
             </button>
-            <button class="flex items-center gap-1.5">
+            <button class="flex items-center gap-1.5" @click="$emit('emitLayout', 'list')">
                 <IconList class="w-5 h-5" />
-                <p class="text-sm font-medium">List</p>
+                <button class="text-sm font-medium">List</button>
             </button>
         </div>
     </div>
