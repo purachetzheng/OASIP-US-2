@@ -56,6 +56,7 @@ const editing = reactive({
     mode: false,
     on() {
         this.updateValue()
+        events.get()
         this.mode = true
     },
     off() { this.mode = false },
@@ -71,7 +72,8 @@ const editing = reactive({
             //if some of 2 null return
             if (!this.date || !this.time) return
             !checker.isFuture(this.date + this.time) ? this.errors.push('Date&Time must be a future date') : ''
-            console.log(editing.datetime.isError());
+            events.checkOverlap(this.date + this.time, event.value.eventDuration, event.value.eventCategoryId, event.value.id) 
+                ? this.errors.push('Time is Overlaped') : ''
             // inform.checkFormComplete()
         }
     },
@@ -101,7 +103,11 @@ const editing = reactive({
         }
         const res = await events.patch(eventId, obj)
         console.log(res);
-        if (res.status) return this.cancel()
+        if (res.status) {
+            event.value = res.event
+            alert('Edit complete')
+            return this.cancel()
+        }
 
         let message = ''
         await res.error.details.forEach(d => message += `${d.field}: ${d.errorMessage}; `)
@@ -118,6 +124,7 @@ const editing = reactive({
 const removeEvent = async () => {
     if(!confirm('Are you sure you want to cancel this event?')) return
     await events.remove(eventId)
+    alert('Remove complete')
     router.push({name: 'Schedules'})
 }
 </script>
@@ -139,6 +146,7 @@ const removeEvent = async () => {
                     <div class="flex gap-2 items-center">
                         <IconCalendar class="w-6 h-6" />
                         <input v-if="editing.mode" type="date" v-model="editing.datetime.date"
+                            :min="dayjs().format('YYYY-MM-DD')"
                             :class="[editing.datetime.isError() ? 'form-input-error' : 'form-input']"
                             @change="editing.datetime.checkError">
                         <span v-else class="text-base font-medium">

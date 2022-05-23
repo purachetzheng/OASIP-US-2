@@ -26,6 +26,7 @@ const categories = ref([])
 onBeforeMount(async () => {
     // await middleFetch.getEventCategories()
     await eventCategories.get()
+    await events.get()
     categories.value = eventCategories.categories.value
 })
 const createEvent = ref({
@@ -82,7 +83,7 @@ const creating = reactive({
 </script>
  
 <template>
-    <main :class="['h-full w-screen overflow-auto', 'p-6', 
+    <main :class="['h-full w-screen ', 'p-6', 
             'flex flex-col justify-between items-center']">
         <!-- main -->
         <div class="h-full w-full">
@@ -93,7 +94,7 @@ const creating = reactive({
             />
             <!-- #2 Fill Form -->
             <FillForm1 v-show="creating.stage === 2" :class="['h-full w-full']" 
-                :selectedCategory="parseInt(creating.choosedCategory)"
+                :selectedCategory="categories.find(e => e.id ==creating.choosedCategory)"
                 @emitBack="() => creating.stage--" @emitSubmitForm="creating.stageTwo"
             />
             <!-- #3 Success -->

@@ -40,33 +40,19 @@ onBeforeMount(async () => {
 })
 
 let mouseOn = ref(null)
-let detailModal = ref({ visible: false })
-const selectedEvent = ref({})
 
 const viewDetail = async (id) => {
-    // detailModal.value.visible = true
-    // selectedEvent.value = await events.getById(id)
     goTo('EventDetail', { eventId: id })
 }
 
 const refreshEvent = () => events.get()
-const removeEvent = async (id) => {
-    confirm('Are you sure you want to cancel this event?') ? await events.remove(id) : ''
-    updateEventList()
-}
-const updateEvent = (resEvent) => {
-    // selectedEvent.value = resEvent
-    selectedEvent.value.eventStartTime = resEvent.eventStartTime
-    selectedEvent.value.eventNotes = resEvent.eventNotes
-    updateEventList()
-}
+
 const selectedTag = {
     category: 'all',
     status: 'all',
     day: ''
 }
 const doSelect = () => {
-    // console.log(selectedTag);
     eventsList.value = events.events.value
     const category = selectedTag.category
     eventsList.value = eventsList.value.filter(event => event.eventCategoryName == category || category === 'all')
@@ -84,32 +70,16 @@ const doSelect = () => {
 const selectCategory = (category) => {
     selectedTag['category'] = category
     doSelect()
-    // const eventsPool = events.events.value
-    // if(category == 'all') 
-    //     return eventsList.value = eventsPool
-    // eventsList.value = eventsPool.filter(event => event.eventCategoryName == category)
 }
 const selectDayStatus = (status) => {
     selectedTag.status = status
     doSelect()
-    // const eventsPool = events.events.value
-    // if(status == 'all') 
-    //     return eventsList.value = eventsPool
-    // if(status == 'upcoming')
-    //     return eventsList.value = eventsPool.filter(event => isTimeFuture(event.eventStartTime))
-
-    // eventsList.value = eventsPool.filter(event => !isTimeFuture(event.eventStartTime))
 }
 const isTimeFuture = (time) => dayjs(time).isAfter(dayjs())
 const selectDay = (day) => {
     selectedTag.day = day
     doSelect()
-    // console.log(dayjs('2022-05-20').isSame('2022-05-20T18:17:00Z','D'));
-    // console.log(typeof(day));
-    // console.log(day == null);
-    // console.log(day == '');
 }
-
 const changeLayout = (test) => {
     console.log(test)
 }
@@ -153,12 +123,12 @@ const changeLayout = (test) => {
                 </div>
 
                 <!-- events list -->
-                <EventList :events="eventsList" @emitRemoveEvent="removeEvent" @emitViewDetail="viewDetail" />
+                <EventList :events="eventsList" @emitViewDetail="viewDetail" />
             </div>
         </div>
 
         <!-- <EventDetail :event="selectedEvent" :detailModal="detailModal" @emitUpdateEvent="updateEvent" /> -->
-        <CursorTooltip :mouseOn="mouseOn" :minusY="0" />
+        <!-- <CursorTooltip :mouseOn="mouseOn" :minusY="0" /> -->
     </main>
 </template>
 
