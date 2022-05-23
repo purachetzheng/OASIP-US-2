@@ -29,8 +29,9 @@ const clickIconDatePicker = () =>
  
 <template>
     <div class="flex flex-col w-1/4 gap-y-2 pt-9">
+        <span class="text-xl font-medium">Filter</span>
         <!-- Search -->
-        <div class="flex flex-col gap-2">
+        <div v-if="0" class="flex flex-col gap-2">
             <div class="text-sm font-medium">
                 <h2 class="dark:text-white">Search</h2>
             </div>

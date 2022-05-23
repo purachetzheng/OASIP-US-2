@@ -21,7 +21,7 @@ const choosed = ref(null)
                 <h1 :class="['text-4xl', 'text-center', 'font-semibold']">Select Clinic</h1>
             </div>
             <!-- Search -->
-            <div class="flex">
+            <div v-if="0" class="flex">
                 <div :class="['relative mt-6 w-160']">
                     <button @click="" class="absolute inset-y-0 items-center left-3">
                         <IconSearch class="w-5 h-5" />
