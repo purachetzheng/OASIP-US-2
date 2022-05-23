@@ -58,6 +58,6 @@ INSERT INTO events values
 (3, 'สมเกียรติ ขยันเรียน กลุ่ม TT-4', 'somkiat.kay@kmutt.ac.th', 3, 15, '2022-01-01 9:30:00', null);
 
 -- Create USER for specific use
-CREATE USER 'OASIPBE'@'192.168.96.3' IDENTIFIED BY 'BEBE';
-GRANT ALL PRIVILEGES ON oasip.* TO 'OASIPBE'@'192.168.96.3';
+CREATE USER 'OASIPBE'@'backapp' IDENTIFIED BY 'BEBE';
+GRANT ALL PRIVILEGES ON oasip.* TO 'OASIPBE'@'backapp';
 FLUSH PRIVILEGES;
