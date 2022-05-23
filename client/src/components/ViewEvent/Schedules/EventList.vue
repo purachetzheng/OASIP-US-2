@@ -29,11 +29,11 @@ const props = defineProps({
  
 <template>
     <div v-show="events.length !== 0" 
-        class="h-full overflow-auto auto-rows-min gap-x-2 gap-y-2 p-1
+        class="h-full overflow-auto auto-rows-min gap-x-2 gap-y-2 p-1 mb-12
                 grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
 
         <!-- loop events -->
-        <div class="flex flex-col shadow-lg p-4 bg-white bg-opacity-75 rounded-md hover:bg-gray-100 cursor-pointer" 
+        <div class="flex flex-col shadow-lg p-4  bg-white bg-opacity-75 rounded-md hover:bg-gray-100 cursor-pointer" 
             v-for="(event, index) in events" @mouseleave="mouseOn = null" 
             @mouseenter="event.bookingName.length >60 ? mouseOn = event.bookingName: ''"
             @click="$emit('emitViewDetail',event.id)">
