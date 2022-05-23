@@ -52,7 +52,7 @@ const props = defineProps({
                 <button class="btn-2 text-gray-50 bg-blue-400 hover:bg-blue-500 transition" @click="$emit('emitViewDetail',event.id)">
                     Detail
                 </button>
-                <button class="btn-2 text-gray-700 bg-gray-50 hover:text-gray-50 hover:bg-red-400 transition"
+                <button class="btn-2 text-gray-700 bg-gray-200 hover:text-gray-50 hover:bg-red-400 transition"
                     @click="$emit('emitRemoveEvent',event.id)" @mouseenter="mouseOn = 'Delete Event'" @mouseleave="mouseOn = null">
                     Cancel
                 </button>
