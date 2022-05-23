@@ -25,9 +25,9 @@ setInterval(updateTimeleft, 500);
 </script>
  
 <template>
-    <div class="flex flex-col py-4 w-full gap-2 justify-center overflow-hidden">
-        <span class="text-lg font-medium text-center">Time Left</span>
-        <div class="flex gap-1 w-full justify-center overflow-auto ">
+    <div class="flex flex-col w-full gap-2 px-4 justify-center overflow-hidden">
+        <span class="text-lg font-medium">Time Left</span>
+        <div class="flex gap-1 w-full overflow-auto ">
             <!-- day -->
             <div class="flex flex-col items-center bg-blue-50 w-10 py-1.5">
                 <div class="text-sm font-medium">Day</div>

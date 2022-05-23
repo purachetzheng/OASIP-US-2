@@ -12,10 +12,9 @@ import { useRoute, useRouter } from 'vue-router'
 
 //components
 import CursorTooltip from '../components/CursorTooltip.vue'
-// import EventDetail from '../components/ViewEvent/Schedules/EventDetail.vue'
+
 import EventList from '../components/ViewEvent/Schedules/EventList.vue'
 import EventListHeader from '../components/ViewEvent/Schedules/EventListHeader.vue'
-import IconSearch from '../components/icons/IconSearch.vue'
 import EventFilter from '../components/ViewEvent/Schedules/EventFilter.vue'
 
 //icons
