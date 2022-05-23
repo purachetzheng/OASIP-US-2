@@ -4,6 +4,7 @@ import IconArrowLeftNoLine from '../../icons/IconArrowLeftNoLine.vue';
 import IconEditFill from '../../icons/Fill/IconEditFill.vue';
 import IconArrowLeft from '../../icons/IconArrowLeft.vue';
 import IconClose from '../../icons/IconClose.vue';
+import CursorTooltip from '../../CursorTooltip.vue';
 defineEmits(['emitEdit', 'emitCancel', 'emitBack'])
 const props = defineProps({
     bookingName: {
@@ -11,6 +12,7 @@ const props = defineProps({
         require: true,
     },
 })
+let cusorOnName = ref(false)
 </script>
  
 <template>
@@ -44,10 +46,12 @@ const props = defineProps({
             </div>
         </div>
 
-        <div class="flex h-18 items-center">
+        <div class="flex h-18 items-center"
+            @mouseleave="cusorOnName=null" @mouseenter="cusorOnName = true">
             <p class="text-3xl truncate">{{ bookingName }}</p>
         </div>
     </div>
+    <CursorTooltip v-show="bookingName.length >80 && cusorOnName" :mouseOn="bookingName" />
 </template>
  
 <style>

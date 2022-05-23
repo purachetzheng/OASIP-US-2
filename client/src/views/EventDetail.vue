@@ -146,7 +146,7 @@ const removeEvent = async () => {
                     <div class="flex gap-2 items-center">
                         <IconCalendar class="w-6 h-6" />
                         <input v-if="editing.mode" type="date" v-model="editing.datetime.date"
-                            :min="dayjs().format('YYYY-MM-DD')"
+                            :min="dayjs().format('YYYY-MM-DD')" :max="dayjs().add('3', 'M').format('YYYY-MM-DD')"
                             :class="[editing.datetime.isError() ? 'form-input-error' : 'form-input']"
                             @change="editing.datetime.checkError">
                         <span v-else class="text-base font-medium">

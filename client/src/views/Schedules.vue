@@ -57,15 +57,21 @@ const doSelect = () => {
     const category = selectedTag.category
     eventsList.value = eventsList.value.filter(event => event.eventCategoryName == category || category === 'all')
 
+    //Status
     const status = selectedTag.status
-    if (status == 'upcoming')
+    if (status == 'upcoming'){
         eventsList.value = eventsList.value.filter(event => isTimeFuture(event.eventStartTime))
+        //ascending order on event time
+        eventsList.value.sort((a, b) => a.eventDuration - b.eventDuration)
+    }
     else if (status == 'past')
         eventsList.value = eventsList.value.filter(event => !isTimeFuture(event.eventStartTime))
-
+    //Day
     if (selectedTag.day === '') return;
     const day = dayjs(selectedTag.day)
     eventsList.value = eventsList.value.filter(event => dayjs(event.eventStartTime).isSame(day, 'day'))
+    //ascending order on event time
+    eventsList.value.sort((a, b) => a.eventDuration - b.eventDuration)
 }
 const selectCategory = (category) => {
     selectedTag['category'] = category
@@ -75,7 +81,6 @@ const selectDayStatus = (status) => {
     selectedTag.status = status
     doSelect()
 }
-const isTimeFuture = (time) => dayjs(time).isAfter(dayjs())
 const selectDay = (day) => {
     selectedTag.day = day
     doSelect()
@@ -83,6 +88,7 @@ const selectDay = (day) => {
 const changeLayout = (test) => {
     console.log(test)
 }
+const isTimeFuture = (time) => dayjs(time).isAfter(dayjs())
 
 </script>
 
@@ -119,7 +125,9 @@ const changeLayout = (test) => {
 
                 <!-- no event -->
                 <div v-show="eventsList.length === 0">
-                    No Scheduled Events
+                    <p v-show="selectedTag.status == 'all'">No Scheduled Events</p>
+                    <p v-show="selectedTag.status == 'upcoming'">No On-Going or Upcoming Events</p>
+                    <p v-show="selectedTag.status == 'past'">No Past Events</p>
                 </div>
 
                 <!-- events list -->

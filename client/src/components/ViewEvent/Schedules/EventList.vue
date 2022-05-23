@@ -1,11 +1,16 @@
 <script setup>
+import { ref } from 'vue'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 //Icon
 import RiTimeFill from '../../icons/Fill/RiTimeFill.vue'
 import RiMapPin2Fill from '../../icons/Fill/RiMapPin2Fill.vue'
+import CursorTooltip from '../../CursorTooltip.vue'
+
+let mouseOn = ref(null)
 //dayjs
 dayjs.extend(localizedFormat)
+
 
 defineEmits([ 'emitViewDetail'])
 const props = defineProps({
@@ -29,7 +34,8 @@ const props = defineProps({
 
         <!-- loop events -->
         <div class="flex flex-col shadow-lg p-4 bg-white bg-opacity-75 rounded-md hover:bg-gray-100 cursor-pointer" 
-            v-for="(event, index) in events"
+            v-for="(event, index) in events" @mouseleave="mouseOn = null" 
+            @mouseenter="event.bookingName.length >60 ? mouseOn = event.bookingName: ''"
             @click="$emit('emitViewDetail',event.id)">
         
             <div class="flex text-lg font-bold h-14 overflow-hidden">
@@ -53,6 +59,7 @@ const props = defineProps({
         </div>
 
     </div>
+    <CursorTooltip :mouseOn="mouseOn" />
 </template>
  
 <style>

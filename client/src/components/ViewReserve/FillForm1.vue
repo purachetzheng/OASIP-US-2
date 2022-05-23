@@ -213,7 +213,7 @@ const checker = {
                         <IconCalendar class="w-5 h-5" />
                     </button>
                     <input type="date" 
-                        :min="dayjs().format('YYYY-MM-DD')"
+                        :min="dayjs().format('YYYY-MM-DD')" :max="dayjs().add('3', 'M').format('YYYY-MM-DD')"
                         @change="inform.datetime.checkError"
                         v-model="inform.datetime.date" 
                         :class="[inform.datetime.isError() ? 'form-input-error' : 'form-input', 'pl-10']">
