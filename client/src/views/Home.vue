@@ -4,11 +4,6 @@ import CarbonUserAvatarFilledVue from '../components/icons/Fill/CarbonUserAvatar
 import CarbonUserAvatarFilled from '../components/icons/Fill/CarbonUserAvatarFilled.vue';
 import { useRoute, useRouter } from 'vue-router'
 
-const teamMem = [
-    {id:'63130500083', name:'Purachet Zheng'},
-    {id:'63130500094', name:'Phumin Chumphu'},
-    {id:'63130500097', name:'Yuttasart Prajaksuwan'},
-]
 const mouseNow = ref(null)
 
 const router = useRouter()
@@ -34,26 +29,6 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
                     class="btn-1 bg-cyan-600 hover:bg-cyan-700 text-white">Reserve</button>
                 </div>
                 
-            </div>
-            <div class="flex justify-center items-center h-full w-full dark:text-gray-200 text-lg">
-                <div>
-                    <span class="font-bold text-2xl">
-                        Team Member
-                    </span>
-                    <div class="flex flex-col gap-2 font-thin text-xl mt-3">
-                        <div class="flex items-center gap-2 zoom-125-300 duration-300" v-for="mem in teamMem" :key="mem.id">
-                            <CarbonUserAvatarFilled class="h-10 w-10" />
-                            <div class="flex flex-col">
-                                <span>
-                                    {{mem.name}}
-                                </span>
-                                <span class="text-[1rem]">
-                                    {{mem.id}}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
