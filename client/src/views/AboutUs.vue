@@ -11,8 +11,7 @@ const teamMembers = [
 <template>
     <div class="flex h-full justify-center items-center bg-gradient-to-r
     from-blue-500
-    via-purple-500
-    to-blue-500 background-animate">
+    to-purple-500">
         <div class="flex h-full w-full cursor-default text-white">
             <div class="flex flex-col justify-center items-center h-full w-full dark:text-gray-200 text-lg">
                 <div>
@@ -45,21 +44,5 @@ const teamMembers = [
 </template>
  
 <style>
-  .background-animate {
-    background-size: 400%;
 
-    -webkit-animation: AnimationName 3s ease infinite;
-    -moz-animation: AnimationName 3s ease infinite;
-    animation: AnimationName 3s ease infinite;
-  }
-
-  @keyframes AnimationName {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
 </style>
