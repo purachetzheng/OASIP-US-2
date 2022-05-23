@@ -55,15 +55,15 @@ values (1,'Project Management Clinic', 'ตารางนัดหมายน�
 INSERT INTO events values
 (1, 'Somchai Jaidee (OR-7)', 'somchai.jai@mail.kmutt.ac.th', 2, 30, '2022-05-23 6:30:00', null),
 (2, 'Somsri Rakdee (SJ-3)', 'somsri.rak@mail.kmutt.ac.th', 1, 30, '2022-04-27 2:30:00', 'ขอปรึกษาปัญหาเพื่อนไม่ช่วยงาน'),
-(3, 'สมเกียรติ ขยันเรียน กลุ่ม TT-4', 'somkiat.kay@kmutt.ac.th', 3, 15, '2022-05-23 9:30:00', null);
-(4, 'INFRA-26-11:15', 'INFRA-26-11:15@kmutt.ac.th', 2, 20, '2022-05-26 4:15:00', null);
-(5, 'INFRA-26-09:20', 'INFRA-26-09:20@kmutt.ac.th', 2, 30, '2022-05-26 2:20:00', null);
-(6, 'INFRA-26-10:40', 'INFRA-26-10:40@kmutt.ac.th', 2, 20, '2022-05-26 3:40:00', null);
-(7, 'INFRA-26-12:00', 'INFRA-26-12:00@kmutt.ac.th', 2, 30, '2022-05-26 5:00:00', null);
-(8, 'DB-26-10:20', 'DB-26-10:20@kmutt.ac.th', 3, 15, '2022-05-26 3:20:00', null);
-(9, 'INFRA-27-10:20', 'INFRA-27-10:20@kmutt.ac.th', 2, 20, '2022-05-27 3:20:00', null);
-(10, 'INFRA-26-10:00', 'INFRA-26-10:00@kmutt.ac.th', 2, 20, '2022-05-26 3:00:00', null);
-(11, 'INFRA-26-11:45', 'INFRA-26-11:45@kmutt.ac.th', 2, 10, '2022-05-26 4:45:00', null);
+(3, 'สมเกียรติ ขยันเรียน กลุ่ม TT-4', 'somkiat.kay@kmutt.ac.th', 3, 15, '2022-05-23 9:30:00', null),
+(4, 'INFRA-26-11:15', 'INFRA-26-11:15@kmutt.ac.th', 2, 20, '2022-05-26 4:15:00', null),
+(5, 'INFRA-26-09:20', 'INFRA-26-09:20@kmutt.ac.th', 2, 30, '2022-05-26 2:20:00', null),
+(6, 'INFRA-26-10:40', 'INFRA-26-10:40@kmutt.ac.th', 2, 20, '2022-05-26 3:40:00', null),
+(7, 'INFRA-26-12:00', 'INFRA-26-12:00@kmutt.ac.th', 2, 30, '2022-05-26 5:00:00', null),
+(8, 'DB-26-10:20', 'DB-26-10:20@kmutt.ac.th', 3, 15, '2022-05-26 3:20:00', null),
+(9, 'INFRA-27-10:20', 'INFRA-27-10:20@kmutt.ac.th', 2, 20, '2022-05-27 3:20:00', null),
+(10, 'INFRA-26-10:00', 'INFRA-26-10:00@kmutt.ac.th', 2, 20, '2022-05-26 3:00:00', null),
+(11, 'INFRA-26-11:45', 'INFRA-26-11:45@kmutt.ac.th', 2, 10, '2022-05-26 4:45:00', null)
 -- Create USER for specific use
 CREATE USER 'OASIPBE'@'%' IDENTIFIED BY 'BEBE';
 GRANT ALL PRIVILEGES ON oasip.* TO 'OASIPBE'@'%';
