@@ -19,10 +19,6 @@ export const events = {
             return this.events.value = await res.json()
     },
 
-    async getIfEmpty() {
-        const isEmpty = this.events.value.length === 0
-        isEmpty ? this.get() : ''
-    },
 
     async getById(id) {
 
@@ -82,11 +78,8 @@ export const events = {
         })
         console.log(res);
         if (res.status === 200) {
-            // console.log(`edited ${entity} successfully`)
-
             const modifyEvent = await res.json()
 
-            // console.log(modifyEvent);
             this.events.value = this.events.value.map((event) =>
                 event.id === modifyEvent.id
                     ? {

@@ -65,7 +65,6 @@ const editing = reactive({
         date: null,
         errors: [],
         isError() { return this.errors.length !== 0 },
-        // isError: () => inform.datetime.errors.length !== 0,
         checkError() {
             console.log(this.errors);
             this.errors = []
@@ -81,7 +80,6 @@ const editing = reactive({
         note: null,
         errors: [],
         isError() { return this.errors.length !== 0 },
-        // isError: () => inform.datetime.errors.length !== 0,
         checkError() {
 
 
