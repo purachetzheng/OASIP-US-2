@@ -97,8 +97,10 @@ const editing = reactive({
     async save() {
         const obj = {
             eventStartTime: combineDT(this.datetime.date, this.datetime.time),
-            eventNotes: this.note.note.trim()
+            // eventNotes: this.note.note.trim()
         }
+        if(this.note.note != null) obj.eventNotes = this.note.note.trim()
+        
         const res = await events.patch(eventId, obj)
         console.log(res);
         if (res.status) {
