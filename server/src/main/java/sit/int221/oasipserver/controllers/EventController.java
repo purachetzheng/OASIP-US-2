@@ -9,6 +9,7 @@ import sit.int221.oasipserver.dtos.*;
 import sit.int221.oasipserver.services.EventService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public EventDetailDto getEventById(@PathVariable Integer id){
+    public EventDetailDto getEventById( @PathVariable Integer id){
         return modelMapper.map(eventService.getById(id), EventDetailDto.class);
     }
 

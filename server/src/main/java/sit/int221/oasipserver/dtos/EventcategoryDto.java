@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class EventcategoryDto {
     private String id;
+    @NotBlank(message = "must not be blank")
     @Size(max = 100, min = 1, message = "size must be between 1 and 100")
     private String eventCategoryName;
     @Size(max = 500, message = "size must be between 1 and 100")
