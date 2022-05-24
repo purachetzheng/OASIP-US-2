@@ -86,11 +86,11 @@ const inform = reactive({
     send(){
         const note = this.note.value
         const informObj = {
-            bookingName: this.name.value,
-            bookingEmail: this.email.value,
+            bookingName: this.name.value.trim(),
+            bookingEmail: this.email.value.trim(),
             eventStartTime: dayjs(this.datetime.date + this.datetime.time).toJSON()
         }
-        if(note) informObj.eventNotes = note
+        if(note) informObj.eventNotes = note.trim()
 
         console.log(informObj);
         emits('emitSubmitForm', informObj)
