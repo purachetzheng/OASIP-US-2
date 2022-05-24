@@ -13,9 +13,9 @@ const goTo = (pageName, param = null) => router.push({ name: pageName, params: p
 <template>
     <div class="flex h-full">
         <div class="flex h-full w-full cursor-default">
-            <div class="flex h-full w-full ">
+            <div class="flex h-full w-full">
                 <div class="flex justify-center items-center w-full">
-                    <img src="img/home.png" class="h-4/5" alt="">
+                    <img src="/img/home.png" class="h-4/5" alt="">
                 </div>
                 <div class="flex flex-col justify-center items-start text-3xl text-blue-500 w-2/3" @mouseenter="mouseNow = 'logo'"
                     @mouseleave="mouseNow = null">
