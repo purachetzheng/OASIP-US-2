@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class EventcategoryDto {
     private String id;
-    @NotBlank(message = "must not be blank")
     @Size(max = 100, min = 1, message = "size must be between 1 and 100")
     private String eventCategoryName;
     @Size(max = 500, message = "size must be between 1 and 100")
