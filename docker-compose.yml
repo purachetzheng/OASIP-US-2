@@ -38,8 +38,6 @@ services:
                 build: ./client
                 depends_on:
                         - backapp
-                ports:
-                        - 3000:3000
         reverse:
                 image: nginx:1.21.6-alpine
                 container_name: reverse
