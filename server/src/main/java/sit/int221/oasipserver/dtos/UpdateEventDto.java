@@ -15,7 +15,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateEventDto {
-    private Integer id;
+
     @Future(message = "must be a future date")
     private Instant eventStartTime;
 

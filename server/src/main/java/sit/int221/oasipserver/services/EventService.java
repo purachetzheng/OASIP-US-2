@@ -15,6 +15,7 @@ import sit.int221.oasipserver.repo.EventRepository;
 import sit.int221.oasipserver.utils.ListMapper;
 import sit.int221.oasipserver.utils.OverlapValidate;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -54,7 +55,12 @@ public class EventService {
         newEvent.setEventCategoryName(category.getEventCategoryName());
 
         Event event = modelMapper.map(newEvent, Event.class);
-        List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
+//        List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
+        ChronoUnit minutes = ChronoUnit.MINUTES;
+        Integer duration = event.getEventDuration();
+        List<Event> eventList = repository.findAllByEventCategoryIsAndEventStartTimeBetween
+                (event.getEventCategory(), event.getEventStartTime().minus(duration, minutes),
+                        event.getEventStartTime().plus(duration, minutes));
         if(overlapValidate.overlapCheck(event, eventList))
             result.addError(overlapErrorObj);
 
@@ -68,8 +74,14 @@ public class EventService {
         Event event = mapEvent(getById(id),updateEventDto);
 
         Eventcategory eventcategory = event.getEventCategory();
+        ChronoUnit minutes = ChronoUnit.MINUTES;
+        Integer duration = event.getEventDuration();
+//        List<Event> eventList = repository.
+//                findAllByEventCategoryIsAndIdIsNot(eventcategory, id);
         List<Event> eventList = repository.
-                findAllByEventCategoryIsAndIdIsNot(eventcategory, id);
+                findAllByEventCategoryIsAndIdIsNotAndEventStartTimeBetween(eventcategory, id,
+                        event.getEventStartTime().minus(duration, minutes),
+                        event.getEventStartTime().plus(duration, minutes));
 
         if(overlapValidate.overlapCheck(event, eventList))
             result.addError(overlapErrorObj);
