@@ -59,8 +59,9 @@ public class EventService {
         ChronoUnit minutes = ChronoUnit.MINUTES;
         Integer duration = event.getEventDuration();
         List<Event> eventList = repository.findAllByEventCategoryIsAndEventStartTimeBetween
-                (event.getEventCategory(), event.getEventStartTime().minus(duration, minutes),
-                        event.getEventStartTime().plus(duration, minutes));
+                (event.getEventCategory(), event.getEventStartTime().minus(480, minutes),
+                        event.getEventStartTime().plus(480, minutes));
+
         if(overlapValidate.overlapCheck(event, eventList))
             result.addError(overlapErrorObj);
 
@@ -80,10 +81,10 @@ public class EventService {
 //                findAllByEventCategoryIsAndIdIsNot(eventcategory, id);
         List<Event> eventList = repository.
                 findAllByEventCategoryIsAndIdIsNotAndEventStartTimeBetween(eventcategory, id,
-                        event.getEventStartTime().minus(duration, minutes),
-                        event.getEventStartTime().plus(duration, minutes));
+                        event.getEventStartTime().minus(480, minutes),
+                        event.getEventStartTime().plus(480, minutes));
 
-        if(overlapValidate.overlapCheck(event, eventList))
+
             result.addError(overlapErrorObj);
 
         if (result.hasErrors()) throw new MethodArgumentNotValidException(null, result);

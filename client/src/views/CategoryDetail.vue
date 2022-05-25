@@ -45,7 +45,7 @@ const editing = reactive({
         const desc = this.category.eventCategoryDescription
         if(desc != null) obj.eventCategoryDescription = desc
         console.log(obj);
-        const res = await eventCategories.patch(categoryId, obj)
+        const res = await eventCategories.put(categoryId, obj)
         console.log(res);
         if (res.status) {
             category.value = res.category

@@ -28,9 +28,9 @@ export const eventCategories = {
         this.categories.value = this.categories.value.filter((event) => event.id !== id);
         return true;
     },
-    async patch(id, editObj) {
+    async put(id, editObj) {
         const res = await fetch(url + id, {
-            method: 'PATCH',
+            method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(editObj),
         });

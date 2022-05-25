@@ -58,15 +58,9 @@ public class EventcategoryService {
     }
 
     private Eventcategory mapEventcategory(Eventcategory eventcategory, EventcategoryDto eventcategoryDto) {
-        if (eventcategoryDto.getEventCategoryName() != null)
-            eventcategory.setEventCategoryName(eventcategoryDto.getEventCategoryName());
-
-        if (eventcategoryDto.getEventCategoryDescription() != null)
-            eventcategory.setEventCategoryDescription(eventcategoryDto.getEventCategoryDescription());
-
-        if (eventcategoryDto.getEventDuration() != null)
-            eventcategory.setEventDuration(eventcategoryDto.getEventDuration());
-
+        eventcategory.setEventCategoryName(eventcategoryDto.getEventCategoryName());
+        eventcategory.setEventCategoryDescription(eventcategoryDto.getEventCategoryDescription());
+        eventcategory.setEventDuration(eventcategoryDto.getEventDuration());
         return eventcategory;
     }
 
