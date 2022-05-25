@@ -27,7 +27,6 @@ public class EventController {
         return modelMapper.map(eventService.getById(id), EventDetailDto.class);
     }
 
-
     @PostMapping("")
     public EventDto createEvent(@Valid @RequestBody CreateEventDto newEvent, BindingResult result)
             throws MethodArgumentNotValidException{
