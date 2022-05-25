@@ -32,7 +32,7 @@ public class EventcategoryController {
         eventcategoryService.delete(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public EventcategoryDto updateEventcategory(@Valid @RequestBody EventcategoryDto eventcategoryDto,
                                                 @PathVariable Integer id){
         return eventcategoryService.update(eventcategoryDto, id);

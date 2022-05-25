@@ -39,7 +39,7 @@ public class EventController {
         eventService.delete(id);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public EventDetailDto updateEvent(@Valid @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id,
                               BindingResult result) throws MethodArgumentNotValidException{
         return eventService.update(updateEventDto, id, result);
