@@ -14,6 +14,7 @@ import sit.int221.oasipserver.dtos.EventcategoryDto;
 import sit.int221.oasipserver.dtos.UpdateEventDto;
 import sit.int221.oasipserver.entities.Event;
 import sit.int221.oasipserver.entities.Eventcategory;
+import sit.int221.oasipserver.exception.type.ApiNotFoundException;
 import sit.int221.oasipserver.repo.EventcategoryRepository;
 import sit.int221.oasipserver.utils.ListMapper;
 
@@ -32,11 +33,8 @@ public class EventcategoryService {
     }
 
     public Eventcategory getById (Integer id) {
-        Eventcategory eventcategory = repository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Event id "+ id+
-                        "Does Not Exist !!!"
-                ));
+        Eventcategory eventcategory = repository.findById(id).orElseThrow
+                (() -> new ApiNotFoundException("Category id " + id + " Does Not Exist !!!"));
         return eventcategory;
     }
 

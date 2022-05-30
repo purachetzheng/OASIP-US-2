@@ -19,10 +19,12 @@ public class EventcategoryController {
     public List<EventcategoryDto> getAllEventcategories(){
         return eventcategoryService.getAll();
     }
+
     @GetMapping("{id}")
     public EventcategoryDto getEventcategoryById(@PathVariable Integer id){
         return modelMapper.map(eventcategoryService.getById(id), EventcategoryDto.class);
     }
+
     @PostMapping("")
     public Eventcategory createEventcategory(@RequestBody EventcategoryDto newEventcategory){
         return eventcategoryService.create(newEventcategory);
@@ -33,8 +35,9 @@ public class EventcategoryController {
     }
 
     @PutMapping("/{id}")
-    public EventcategoryDto updateEventcategory(@Valid @RequestBody EventcategoryDto eventcategoryDto,
-                                                @PathVariable Integer id){
+    public EventcategoryDto updateEventcategory(
+            @Valid @RequestBody EventcategoryDto eventcategoryDto,
+            @PathVariable Integer id){
         return eventcategoryService.update(eventcategoryDto, id);
     }
 }

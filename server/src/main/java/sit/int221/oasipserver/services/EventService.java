@@ -42,7 +42,8 @@ public class EventService {
         repository.delete(getById(id));
     }
 
-    public EventDto create( CreateEventDto newEvent, BindingResult result) throws MethodArgumentNotValidException{
+    public EventDto create( CreateEventDto newEvent, BindingResult result)
+            throws MethodArgumentNotValidException{
 
         if (result.hasErrors()
                 && newEvent.getEventCategoryId() == null
@@ -55,12 +56,12 @@ public class EventService {
         newEvent.setEventCategoryName(category.getEventCategoryName());
 
         Event event = modelMapper.map(newEvent, Event.class);
-//        List<Event> eventList = repository.findAllByEventCategoryIs(event.getEventCategory());
         ChronoUnit minutes = ChronoUnit.MINUTES;
         Integer duration = event.getEventDuration();
+
         List<Event> eventList = repository.findAllByEventCategoryIsAndEventStartTimeBetween
                 (event.getEventCategory(), event.getEventStartTime().minus(480, minutes),
-                        event.getEventStartTime().plus(480+event.getEventDuration(), minutes));
+                        event.getEventStartTime().plus((480+ duration) , minutes));
 
         if(overlapValidate.overlapCheck(event, eventList))
             result.addError(overlapErrorObj);
@@ -77,12 +78,12 @@ public class EventService {
         Eventcategory eventcategory = event.getEventCategory();
         ChronoUnit minutes = ChronoUnit.MINUTES;
         Integer duration = event.getEventDuration();
-//        List<Event> eventList = repository.
+        //        List<Event> eventList = repository.
 //                findAllByEventCategoryIsAndIdIsNot(eventcategory, id);
         List<Event> eventList = repository.
                 findAllByEventCategoryIsAndIdIsNotAndEventStartTimeBetween(eventcategory, id,
                         event.getEventStartTime().minus(480, minutes),
-                        event.getEventStartTime().plus(480+event.getEventDuration(), minutes));
+                        event.getEventStartTime().plus((480+ duration), minutes));
 
         if(overlapValidate.overlapCheck(event, eventList))
             result.addError(overlapErrorObj);

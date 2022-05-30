@@ -29,7 +29,9 @@ public class EventController {
     }
 
     @PostMapping("")
-    public EventDto createEvent(@Valid @RequestBody CreateEventDto newEvent, BindingResult result)
+    public EventDto createEvent(
+            @Valid @RequestBody CreateEventDto newEvent,
+            BindingResult result)
             throws MethodArgumentNotValidException{
         return eventService.create(newEvent, result);
     }
@@ -40,8 +42,11 @@ public class EventController {
     }
 
     @PatchMapping("/{id}")
-    public EventDetailDto updateEvent(@Valid @RequestBody UpdateEventDto updateEventDto, @PathVariable Integer id,
-                              BindingResult result) throws MethodArgumentNotValidException{
+    public EventDetailDto updateEvent(
+            @Valid @RequestBody UpdateEventDto updateEventDto,
+            @PathVariable Integer id,
+            BindingResult result)
+            throws MethodArgumentNotValidException{
         return eventService.update(updateEventDto, id, result);
     }
 
