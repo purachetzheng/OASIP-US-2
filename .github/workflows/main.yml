@@ -27,6 +27,7 @@ jobs:
       - uses: purachetzheng/OASIP-US-2@main
         name: Test
         with:
+          compose-file: "./docker-compose.yml"
           ssh_host: example.com
           ssh_private_key: $SSH_PRIVATE_KEY
           ssh_user: $spadmin
