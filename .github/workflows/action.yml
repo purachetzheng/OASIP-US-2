@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: wshihadeh/docker-deployment-action@v1
+    - uses: purachetzheng/OASIP-US-2@v1
       name: Test
       with:
         remote_docker_host: spadmin@ip21us2.sit.kmutt.ac.th
