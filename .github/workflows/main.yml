@@ -32,3 +32,4 @@ jobs:
           ssh_private_key: $SSH_PRIVATE_KEY
           ssh_user: $spadmin
           docker_compose_filename: ./docker-compose.yml
+      - run: docker-compose up -d
