@@ -1,0 +1,51 @@
+version: "3.3"
+services:
+        dbsql:
+                container_name: dbsql
+                image: mysql:8
+                env_file: ./.env
+                environment:
+                        - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+                        - MYSQL_DATABASE=$MYSQLDB_DATABASE
+                        - MYSQL_USER=$MYSQLDB_USER
+                        - MYSQL_PASSWORD=$MYSQLUSER_PASSWORD
+                ports:
+                        - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+                volumes:
+                        - ./db:/var/lib/mysql
+                        - ./script/:/docker-entrypoint-initdb.d
+        backapp:
+                container_name: backapp
+                depends_on:
+                        - dbsql
+                build: ./server
+                restart: on-failure
+                env_file: ./.env
+                environment:
+                        SPRING_APPLICATION_JSON: '{
+                                "spring.datasource.url" : "jdbc:mysql://dbsql:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
+                                "spring.datasource.username" : "$MYSQLDB_USER",
+                                "spring.datasource.password" : "$MYSQLUSER_PASSWORD",
+                                "spring.jpa.hibernate.ddl-auto" : "update",
+                                "spring.jpa.hibernate.naming.physical-strategy" : "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
+                        }'
+                volumes:
+                        - .m2:/root/.m2
+                stdin_open: true
+                tty: true
+        frontapp:
+                container_name: frontapp
+                build: ./client
+                depends_on:
+                        - backapp
+        reverse:
+                image: nginx:1.21.6-alpine
+                container_name: reverse
+                depends_on:
+                        - frontapp
+                ports:
+                        - 80:80
+                volumes:
+                        - ./nginx.conf:/etc/nginx/nginx.conf
+volumes:
+  db:
